@@ -1,0 +1,26 @@
+{
+  "keyword": "CTR prediction e-commerce 1",
+  "timestamp": "2026-03-30T14:08:25.727206",
+  "count": 1,
+  "papers": [
+    {
+      "title": "A Review of Click-Through Rate Prediction Using Deep Learning",
+      "authors": "A Shuaa, A Bandar",
+      "year": 2025,
+      "venue": "search.proquest.com",
+      "abstract": "… internet, online advertising is used in e-commerce advertising and as a means of distribution… that involve only one data type (eg, texts or images), data in CTR prediction are multivariate …",
+      "url": "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404",
+      "citations": 3,
+      "source": "SerpAPI",
+      "relevance_score": 95,
+      "summary": "综述深度学习在CTR预测中的应用，强调电商广告场景下多变量数据特点。",
+      "chinese_explanation": "该文是一篇关于点击率（CTR）预测的综述，研究问题聚焦于在互联网尤其是电商广告分发中，如何利用深度学习进行CTR预测。摘要指出，与仅涉及单一数据类型（如文本或图像）的任务不同，CTR预测数据具有多变量特征。基于题目与摘要可知，论文核心内容是围绕深度学习方法在CTR预测中的使用进行回顾与分析。其主要贡献应在于对相关研究进行综述，并突出CTR任务的数据复杂性及应用背景。由于当前提供的摘要信息有限，具体实验设置、量化结果及详细模型比较在现有材料中未体现。",
+      "applications": "1. 电商广告投放中的点击率预测与排序；2. 互联网广告分发与展示优化；3. 基于多变量用户与内容信息的广告推荐场景。",
+      "suggestions": "值得阅读，尤其适合关注CTR prediction、电子商务广告和深度学习综述的读者。若读者希望了解关键词“CTR prediction”“e-commerce”相关的研究背景与问题特征，这篇论文具有入门和梳理价值。结合点在于：CTR预测是电商广告分发的关键问题，而论文强调其多变量数据属性。由于当前摘要信息较少，建议阅读全文以补充具体方法分类、实验比较与结论；可能的改进方向是进一步明确不同数据类型与深度学习方法之间的对应关系及效果差异。",
+      "score": 48,
+      "score_details": "引用3(新/少); 非顶会; 1年内; 完整度15/15; 高度相关",
+      "level": "D",
+      "level_desc": "参考"
+    }
+  ]
+}

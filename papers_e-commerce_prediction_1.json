@@ -1,0 +1,26 @@
+{
+  "keyword": "e-commerce prediction 1",
+  "timestamp": "2026-03-30T14:24:03.841123",
+  "count": 1,
+  "papers": [
+    {
+      "title": "Machine learning for enabling strategic insights to future-proof E-Commerce",
+      "authors": "CS Kodete, V Pasupuleti, B Thuraka",
+      "year": 2024,
+      "venue": "ieeexplore.ieee.org",
+      "abstract": "… As classified in figure 1, predictive … precise predictions and actionable insights for e-commerce practitioners. It demonstrates the potential of machine learning to transform ecommerce …",
+      "url": "https://ieeexplore.ieee.org/abstract/document/10722255/",
+      "citations": 18,
+      "source": "SerpAPI",
+      "relevance_score": 94,
+      "summary": "论文探讨用机器学习提升电商预测能力，为从业者提供更精准预测与可执行洞察。",
+      "chinese_explanation": "从题目与摘要可见，论文关注如何利用机器学习为电子商务提供“面向未来”的战略洞察，核心问题是提升电商场景中的预测能力。摘要提到“predictive”并指出可为电商实践者提供更精确的预测和可执行洞察，说明研究重点在预测类应用及其业务价值。论文主要贡献应在于展示机器学习对电商转型的潜力，并尝试将相关任务进行分类（摘要提到figure 1中的分类）。但基于当前提供信息，无法进一步确认具体模型、数据集、实验设计与量化结果；可以确定的是，论文强调机器学习在电商预测与决策支持中的应用前景。",
+      "applications": "1. 电商经营预测：用于支持销售趋势、需求变化等预测相关场景。2. 运营决策支持：将预测结果转化为电商从业者可执行的业务洞察。3. 战略规划：帮助企业通过机器学习获得更具前瞻性的电商发展判断。",
+      "suggestions": "值得阅读，尤其适合关注e-commerce prediction、机器学习在商业决策中应用的读者。若你是电商从业者、管理研究者或对预测任务感兴趣的学习者，这篇论文的主题具有参考价值。它与关键词的结合点非常直接，即围绕“电子商务预测”展开。由于当前摘要信息有限，建议阅读正文时重点关注：论文对预测任务的分类方式、所采用的机器学习方法、‘actionable insights’如何落地，以及实验或案例如何支撑其结论。可能的改进方向是进一步明确方法细节、评估指标与实证结果。}",
+      "score": 50,
+      "score_details": "引用18(较少); 非顶会; 2年内; 完整度15/15; 高度相关",
+      "level": "C",
+      "level_desc": "一般"
+    }
+  ]
+}

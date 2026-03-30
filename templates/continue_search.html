@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}继续搜索 - 论文搜索系统{% endblock %}
+
+{% block content %}
+<div class="continue-search-page">
+    <div class="page-header">
+        <h2>🔍 继续搜索更多论文</h2>
+        <p>输入关键词搜索更多论文，结果会自动更新到汇总表中。支持中文关键词自动翻译</p>
+    </div>
+
+    {% if error %}
+    <div class="alert alert-error">
+        <span class="alert-icon">⚠️</span>
+        {{ error }}
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert alert-success">
+        <span class="alert-icon">✅</span>
+        {{ message }}
+        <a href="{{ url_for('search', keyword=original_keyword) }}" class="alert-link">查看结果 →</a>
+    </div>
+
+    <!-- 搜索结果列表 -->
+    {% if search_results %}
+    <div class="search-results-list">
+        <h4>📋 搜索结果详情</h4>
+        <div class="original-keyword">
+            <span class="label">原关键词:</span>
+            <span class="value">{{ original_keyword }}</span>
+        </div>
+
+        <div class="keywords-translated">
+            <div class="label">翻译关键词:</div>
+            {% for kw in translated_keywords %}
+            <div class="keyword-item">{{ kw }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="results-cards">
+            {% for result in search_results %}
+            <div class="result-card {% if result.error %}error{% endif %}">
+                <div class="result-header">
+                    <span class="result-keyword">{{ result.keyword }}</span>
+                    {% if result.error %}
+                    <span class="result-status error">❌ {{ result.error }}</span>
+                    {% else %}
+                    <span class="result-status success">✅ 完成</span>
+                    {% endif %}
+                </div>
+                {% if result.filename %}
+                <div class="result-actions">
+                    <a href="{{ url_for('search', keyword=result.keyword) }}" class="btn btn-small">查看结果</a>
+                    <a href="{{ url_for('timeline_view', keyword=result.keyword) }}" class="btn btn-small btn-outline">时间线</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <!-- 中文关键词翻译提示 -->
+    <div class="translation-hint">
+        <h4>💡 中文关键词自动翻译示例</h4>
+        <div class="hint-examples">
+            <div class="hint-item">
+                <span class="hint-cn">电商点击率</span>
+                <span class="hint-arrow">→</span>
+                <span class="hint-en">e-commerce click-through rate CTR prediction</span>
+            </div>
+            <div class="hint-item">
+                <span class="hint-cn">推荐系统</span>
+                <span class="hint-arrow">→</span>
+                <span class="hint-en">recommender system recommendation algorithm</span>
+            </div>
+            <div class="hint-item">
+                <span class="hint-cn">注意力机制</span>
+                <span class="hint-arrow">→</span>
+                <span class="hint-en">attention mechanism self-attention</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-form-container">
+        <form action="{{ url_for('continue_search') }}" method="POST" class="continue-search-form" id="searchForm">
+            <div class="form-group">
+                <label for="keyword">搜索关键词 (支持中文)</label>
+                <div class="input-with-preview">
+                    <input type="text" id="keyword" name="keyword" placeholder="例如: 电商点击率, 推荐系统, 注意力机制"
+                           required class="form-input" oninput="previewTranslation()">
+                    <div id="translationPreview" class="translation-preview" style="display: none;">
+                        <span class="preview-label">将搜索:</span>
+                        <span id="translatedKeywords" class="preview-keywords"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="more_results">搜索数量</label>
+                <select id="more_results" name="more_results" class="form-select">
+                    <option value="5">5 篇</option>
+                    <option value="10" selected>10 篇</option>
+                    <option value="20">20 篇</option>
+                    <option value="30">30 篇</option>
+                    <option value="50">50 篇</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="existing_file">追加到已有结果 (可选)</label>
+                <select id="existing_file" name="existing_file" class="form-select">
+                    <option value="">新建文件</option>
+                    {% for file in files %}
+                    <option value="{{ file.filename }}">
+                        {{ file.data.keyword }} ({{ file.data.papers|length }}篇)
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-large" id="searchBtn">
+                    开始搜索
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 搜索进度显示 -->
+    <div id="progressPanel" class="progress-panel" style="display: none;">
+        <h4>搜索进度</h4>
+        <div class="progress-bar-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div id="progressStatus" class="progress-status">准备中...</div>
+        <div id="progressDetails" class="progress-details"></div>
+    </div>
+
+    <div class="quick-search-section">
+        <h3>快速搜索建议</h3>
+        <div class="quick-tags">
+            <a href="#" onclick="setKeyword('电商点击率')" class="quick-tag">电商点击率</a>
+            <a href="#" onclick="setKeyword('推荐系统')" class="quick-tag">推荐系统</a>
+            <a href="#" onclick="setKeyword('transformer attention')" class="quick-tag">transformer attention</a>
+            <a href="#" onclick="setKeyword('large language model')" class="quick-tag">large language model</a>
+            <a href="#" onclick="setKeyword('计算机视觉')" class="quick-tag">计算机视觉</a>
+            <a href="#" onclick="setKeyword('自然语言处理')" class="quick-tag">自然语言处理</a>
+            <a href="#" onclick="setKeyword('强化学习')" class="quick-tag">强化学习</a>
+            <a href="#" onclick="setKeyword('知识图谱')" class="quick-tag">知识图谱</a>
+        </div>
+    </div>
+
+    <div class="recent-searches">
+        <h3>最近搜索记录</h3>
+        <div class="search-history">
+            {% for file in files[:5] %}
+            <div class="history-item">
+                <span class="history-keyword">{{ file.data.keyword }}</span>
+                <span class="history-stats">{{ file.data.papers|length }} 篇 · {{ file.data.date }}</span>
+                <div class="history-actions">
+                    <a href="{{ url_for('timeline_view', keyword=file.data.keyword) }}" class="btn btn-small">时间线</a>
+                    <a href="{{ url_for('search', keyword=file.data.keyword) }}" class="btn btn-small btn-outline">查看</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+const keywordTranslations = {
+    '电商': 'e-commerce',
+    '电子商务': 'e-commerce',
+    '点击率': 'click-through rate CTR',
+    '转化率': 'conversion rate',
+    '用户行为': 'user behavior',
+    '推荐系统': 'recommender system recommendation',
+    '推荐算法': 'recommendation algorithm',
+    '商品推荐': 'product recommendation',
+    '销量预测': 'sales prediction forecasting',
+    '用户画像': 'user profiling',
+    '个性化推荐': 'personalized recommendation',
+    '协同过滤': 'collaborative filtering',
+    '深度学习': 'deep learning',
+    '神经网络': 'neural network',
+    '注意力机制': 'attention mechanism',
+    '自然语言处理': 'natural language processing NLP',
+    '计算机视觉': 'computer vision',
+    '强化学习': 'reinforcement learning',
+    '知识图谱': 'knowledge graph',
+    '图神经网络': 'graph neural network GNN',
+    '推荐': 'recommendation'
+};
+
+function translateKeyword(cnKeyword) {
+    let translated = [];
+    for (let cn in keywordTranslations) {
+        if (cnKeyword.includes(cn)) {
+            translated.push(keywordTranslations[cn]);
+        }
+    }
+    if (translated.length === 0) {
+        return [cnKeyword]; // 没有匹配则返回原文
+    }
+    return [...new Set(translated)];
+}
+
+function previewTranslation() {
+    const input = document.getElementById('keyword').value.trim();
+    const preview = document.getElementById('translationPreview');
+    const keywordsSpan = document.getElementById('translatedKeywords');
+
+    if (!input) {
+        preview.style.display = 'none';
+        return;
+    }
+
+    const translated = translateKeyword(input);
+    keywordsSpan.textContent = translated.join(', ');
+    preview.style.display = 'block';
+}
+
+function setKeyword(kw) {
+    document.getElementById('keyword').value = kw;
+    previewTranslation();
+    return false;
+}
+
+// 表单提交时显示进度
+document.getElementById('searchForm').addEventListener('submit', function() {
+    document.getElementById('progressPanel').style.display = 'block';
+    document.getElementById('searchBtn').disabled = true;
+
+    // 模拟进度更新
+    let progress = 0;
+    const statusMessages = [
+        '正在翻译关键词...',
+        '正在搜索 SerpAPI...',
+        '正在搜索 OpenAlex...',
+        '正在搜索 CrossRef...',
+        '正在分析论文...',
+        '正在生成报告...'
+    ];
+
+    const interval = setInterval(() => {
+        progress += 15;
+        if (progress > 100) progress = 90;
+
+        document.getElementById('progressBar').style.width = progress + '%';
+
+        const statusIndex = Math.floor(progress / 20);
+        if (statusIndex < statusMessages.length) {
+            document.getElementById('progressStatus').textContent = statusMessages[statusIndex];
+        }
+    }, 500);
+
+    // 页面加载完成后会自动刷新
+});
+</script>
+{% endblock %}

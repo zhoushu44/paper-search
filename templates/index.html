@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+
+{% block title %}首页 - 论文搜索系统{% endblock %}
+
+{% block content %}
+<div class="welcome-section">
+    <h2>论文搜索系统</h2>
+    <p>输入中文关键词创建项目，自动翻译并搜索相关论文</p>
+
+    <!-- 新建项目 - 分2行居中 -->
+    <div class="create-project-box-centered">
+        <form id="createForm">
+            <div class="input-row">
+                <input type="text" id="newKeyword" placeholder="输入中文关键词创建项目，如：电商点击率" class="form-input-large">
+            </div>
+            <div class="button-row">
+                <button type="submit" class="btn btn-primary btn-large">创建项目</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-number">{{ total_papers }}</div>
+            <div class="stat-label">论文总数</div>
+        </div>
+        <div class="stat-card highlight">
+            <div class="stat-number">{{ total_top }}</div>
+            <div class="stat-label">顶会论文</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ projects|length }}</div>
+            <div class="stat-label">项目数量</div>
+        </div>
+    </div>
+
+    <!-- 设置按钮 -->
+    <button onclick="openSettings()" class="settings-btn" title="系统设置">⚙ 设置</button>
+</div>
+
+<!-- 全局搜索进度条 -->
+<div id="globalProgress" class="global-progress" style="display: none;">
+    <div class="progress-content">
+        <div class="progress-info">
+            <span class="progress-title">正在搜索...</span>
+            <span class="progress-percent" id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-status" id="progressStatus">准备中...</div>
+    </div>
+</div>
+
+<!-- 项目列表 -->
+<div class="projects-section">
+    <h3>我的项目</h3>
+
+    {% if projects %}
+    <div class="projects-grid">
+        {% for pid, project in projects.items() %}
+        <div class="project-card" data-project-id="{{ pid }}">
+            <div class="project-header">
+                <span class="project-name">{{ project.name }}</span>
+                <span class="project-status {% if project.status == 'searching' %}searching{% else %}completed{% endif %}">
+                    {{ '搜索中...' if project.status == 'searching' else '已完成' }}
+                </span>
+            </div>
+            <div class="project-stats">
+                <span class="stat-item">{{ project.total_papers }} 篇论文</span>
+                <span class="stat-item highlight">{{ project.top_papers }} 顶会</span>
+                <span class="stat-item">{{ project.created }}</span>
+            </div>
+            <div class="project-actions">
+                <button onclick="viewProject('{{ pid }}')" class="btn btn-small">查看</button>
+                <button onclick="showSummary('{{ pid }}')" class="btn btn-small btn-primary">汇总</button>
+                <button onclick="continueSearch('{{ pid }}', '{{ project.name }}')" class="btn btn-small btn-outline">继续搜索</button>
+                <button onclick="downloadProject('{{ pid }}')" class="btn btn-small btn-outline">下载</button>
+                <button onclick="deleteProject('{{ pid }}')" class="btn btn-small btn-danger">删除</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-projects">
+        <p>暂无项目，输入关键词创建第一个项目</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- 设置弹窗 -->
+<div id="settingsModal" class="modal">
+    <div class="modal-content modal-settings">
+        <div class="modal-header">
+            <h3>系统设置</h3>
+            <button class="close-btn" onclick="closeSettings()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="settingsForm">
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="password" id="apiKey" class="form-input" placeholder="输入大模型API Key">
+                </div>
+                <div class="form-group">
+                    <label>API URL</label>
+                    <input type="text" id="apiUrl" class="form-input" placeholder="如: https://api.openai.com/v1">
+                </div>
+                <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" id="apiModel" class="form-input" placeholder="如: gpt-4, gpt-3.5-turbo">
+                </div>
+                <div class="form-group">
+                    <label>每关键词搜索数量</label>
+                    <input type="number" id="searchCount" class="form-input" placeholder="默认15" min="5" max="50">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">保存设置</button>
+                    <button type="button" class="btn btn-outline" onclick="closeSettings()">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 汇总弹窗 -->
+<div id="summaryModal" class="modal">
+    <div class="modal-content modal-xlarge">
+        <div class="modal-header">
+            <h3 id="summaryTitle">论文汇总</h3>
+            <button class="close-btn" onclick="closeSummary()">&times;</button>
+        </div>
+        <div class="modal-body" id="summaryBody"></div>
+    </div>
+</div>
+
+<!-- 继续搜索弹窗 -->
+<div id="continueModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>继续搜索 - <span id="continueProjectName"></span></h3>
+            <button class="close-btn" onclick="closeContinue()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="hint-text">系统将自动扩展搜索范围，搜索更多相关论文</p>
+            <div class="keyword-suggestions" id="keywordSuggestions"></div>
+            <form id="continueForm">
+                <input type="hidden" id="continueProjectId">
+                <div class="form-group">
+                    <label>输入额外关键词（可选）</label>
+                    <input type="text" id="continueKeyword" class="form-input" placeholder="留空则自动扩展搜索">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">开始搜索</button>
+                    <button type="button" class="btn btn-outline" onclick="closeContinue()">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// 加载设置
+function loadSettings() {
+    fetch('/api/settings')
+        .then(r => r.json())
+        .then(data => {
+            if (data.api_key) document.getElementById('apiKey').value = data.api_key;
+            if (data.api_url) document.getElementById('apiUrl').value = data.api_url;
+            if (data.model) document.getElementById('apiModel').value = data.model;
+            if (data.search_count) document.getElementById('searchCount').value = data.search_count;
+        });
+}
+
+// 打开设置
+function openSettings() {
+    loadSettings();
+    document.getElementById('settingsModal').style.display = 'flex';
+}
+
+function closeSettings() {
+    document.getElementById('settingsModal').style.display = 'none';
+}
+
+// 保存设置
+document.getElementById('settingsForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const settings = {
+        api_key: document.getElementById('apiKey').value.trim(),
+        api_url: document.getElementById('apiUrl').value.trim(),
+        model: document.getElementById('apiModel').value.trim(),
+        search_count: parseInt(document.getElementById('searchCount').value) || 15
+    };
+
+    fetch('/api/settings', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(settings)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            alert('设置已保存');
+            closeSettings();
+        } else {
+            alert('保存失败: ' + data.error);
+        }
+    });
+});
+
+// 检查搜索状态
+let hasReloaded = false;  // 防止重复刷新
+function checkSearchStatus() {
+    if (hasReloaded) return;  // 已经刷新过就不再检查
+    fetch('/api/search_status')
+        .then(r => r.json())
+        .then(data => {
+            if (data.searching) {
+                showGlobalProgress();
+                updateProgress(data.progress, data.status);
+                setTimeout(checkSearchStatus, 1000);
+            } else {
+                hideGlobalProgress();
+                if (data.progress === 100 && !hasReloaded) {
+                    hasReloaded = true;
+                    location.reload();
+                }
+            }
+        })
+        .catch(() => hideGlobalProgress());
+}
+
+function showGlobalProgress() {
+    document.getElementById('globalProgress').style.display = 'block';
+}
+
+function hideGlobalProgress() {
+    document.getElementById('globalProgress').style.display = 'none';
+}
+
+function updateProgress(percent, status) {
+    document.getElementById('progressPercent').textContent = percent + '%';
+    document.getElementById('progressFill').style.width = percent + '%';
+    document.getElementById('progressStatus').textContent = status;
+}
+
+// 页面加载时检查
+document.addEventListener('DOMContentLoaded', function() {
+    checkSearchStatus();
+});
+
+// 创建项目
+document.getElementById('createForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const keyword = document.getElementById('newKeyword').value.trim();
+    if (!keyword) return alert('请输入关键词');
+
+    fetch('/api/create_project', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({keyword: keyword})
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            checkSearchStatus();
+        } else {
+            alert('创建失败: ' + data.error);
+        }
+    });
+});
+
+// 查看项目
+function viewProject(pid) {
+    window.location.href = '/project/' + pid;
+}
+
+// 显示汇总
+function showSummary(pid) {
+    fetch('/api/project_summary/' + pid)
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('summaryTitle').textContent = data.name + ' - 论文汇总 (' + data.total + '篇)';
+            document.getElementById('summaryBody').innerHTML = data.html;
+            document.getElementById('summaryModal').style.display = 'flex';
+        });
+}
+
+function closeSummary() {
+    document.getElementById('summaryModal').style.display = 'none';
+}
+
+// 继续搜索
+function continueSearch(pid, name) {
+    document.getElementById('continueProjectId').value = pid;
+    document.getElementById('continueProjectName').textContent = name;
+    document.getElementById('continueKeyword').value = '';
+
+    // 获取推荐关键词（中文）
+    fetch('/api/suggest_keywords/' + pid)
+        .then(r => r.json())
+        .then(data => {
+            const container = document.getElementById('keywordSuggestions');
+            if (data.keywords && data.keywords.length > 0) {
+                container.innerHTML = '<p class="suggest-label">推荐关键词:</p>' +
+                    data.keywords.map(k => `<span class="suggest-tag" onclick="useKeyword('${k}')">${k}</span>`).join('');
+            } else {
+                container.innerHTML = '';
+            }
+        });
+
+    document.getElementById('continueModal').style.display = 'flex';
+}
+
+function useKeyword(kw) {
+    document.getElementById('continueKeyword').value = kw;
+}
+
+function closeContinue() {
+    document.getElementById('continueModal').style.display = 'none';
+}
+
+document.getElementById('continueForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const pid = document.getElementById('continueProjectId').value;
+    const keyword = document.getElementById('continueKeyword').value.trim();
+
+    // 如果没有输入关键词，使用空字符串让后端自动扩展
+    fetch('/api/continue_search', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({project_id: pid, keyword: keyword})
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            closeContinue();
+            checkSearchStatus();
+        }
+    });
+});
+
+// 下载项目
+function downloadProject(pid) {
+    window.location.href = '/download_project/' + pid;
+}
+
+// 删除项目
+function deleteProject(pid) {
+    if (!confirm('确定删除此项目？所有论文数据将被删除！')) return;
+
+    fetch('/api/delete_project', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({project_id: pid})
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) location.reload();
+    });
+}
+
+// 点击弹窗外部关闭
+document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

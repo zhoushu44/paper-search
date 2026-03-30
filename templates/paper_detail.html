@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}{{ paper.title[:30] }}... - 论文详情{% endblock %}
+
+{% block content %}
+<div class="paper-detail-page">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">首页</a> /
+        <a href="{{ url_for('search', keyword=keyword) }}">{{ keyword }}</a> /
+        <span>论文详情</span>
+    </nav>
+
+    <div class="paper-header">
+        <div class="paper-title-section">
+            <h1>{{ paper.title }}</h1>
+            <div class="paper-meta">
+                <span class="meta-item">📅 {{ paper.year }}</span>
+                <span class="meta-item">📖 {{ paper.venue }}</span>
+                <span class="meta-item">👥 {{ paper.authors }}</span>
+                <span class="meta-item">📊 引用: {{ paper.citations }}</span>
+            </div>
+            <div class="paper-badges">
+                <span class="score-badge-large">{{ paper.score }}</span>
+                {% if is_top_venue(paper.venue) %}
+                <span class="badge badge-top-large">🏆 顶会论文</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="paper-content">
+        <!-- 核心概述 -->
+        <section class="detail-section">
+            <h2>📋 核心概述</h2>
+            <div class="section-content">
+                {{ paper.summary }}
+            </div>
+        </section>
+
+        <!-- 中文详细解读 -->
+        <section class="detail-section highlight-section">
+            <h2>🇨🇳 中文详细解读</h2>
+            <div class="section-content chinese-detail">
+                {{ paper.chinese_detail }}
+            </div>
+        </section>
+
+        <!-- 相关应用 -->
+        <section class="detail-section">
+            <h2>💡 相关应用场景</h2>
+            <div class="section-content">
+                <p class="keyword-context">基于搜索关键词「<strong>{{ keyword }}</strong>」的实际运用：</p>
+                <div class="applications-list">
+                    {% if paper.applications %}
+                    {{ paper.applications }}
+                    {% else %}
+                    <p>暂无应用场景信息</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- 阅读建议 -->
+        <section class="detail-section">
+            <h2>📝 阅读建议</h2>
+            <div class="section-content">
+                {% if paper.suggestions %}
+                {{ paper.suggestions }}
+                {% else %}
+                <p>暂无阅读建议</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- 论文链接 -->
+        <section class="detail-section">
+            <h2>🔗 论文链接</h2>
+            <div class="section-content">
+                {% if paper.link %}
+                <a href="{{ paper.link }}" target="_blank" class="paper-link-btn">
+                    打开原文 →
+                </a>
+                {% else %}
+                <p>暂无链接</p>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="back-nav">
+        <a href="{{ url_for('search', keyword=keyword) }}" class="back-btn">← 返回搜索结果</a>
+    </div>
+</div>
+{% endblock %}

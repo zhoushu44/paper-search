@@ -1,0 +1,5 @@
+{
+  "api_url": "https://api.nofx.online/v1",
+  "model": "gpt-5.4",
+  "search_count": 20
+}
