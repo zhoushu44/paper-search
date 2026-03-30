@@ -1,0 +1,28 @@
+# Python cache and virtualenv
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Claude and local tooling
+.claude/
+.playwright-mcp/
+home-snapshot.md
+
+# Runtime data and temporary exports at repo root
+/.meta_*.json
+/papers_*.md
+/papers_*.json
+/*.zip
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log

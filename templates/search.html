@@ -18,7 +18,7 @@
             <h3>搜索结果汇总</h3>
             <div class="summary-actions">
                 <button onclick="toggleExportPanel()" class="btn btn-primary btn-small">导出</button>
-                <a href="{{ url_for('continue_search') }}" class="btn btn-outline btn-small">继续搜索</a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline btn-small">返回首页</a>
             </div>
         </div>
         <div class="summary-stats">
@@ -65,16 +65,23 @@
 
             <div class="papers-list">
                 {% for paper in result.data.papers %}
-                <article class="paper-card" data-is-top="{{ 'true' if is_top_venue(paper.get('venue', '')) else 'false' }}" data-score="{{ paper.score|replace('D','')|replace('C','')|replace('B','')|replace('A','')|replace('S','')|replace('(','')|replace(')','') }}" data-filename="{{ result.filename }}" data-index="{{ loop.index0 }}">
+                <article class="paper-card" data-is-top="{{ 'true' if is_top_venue(paper.get('venue', '')) else 'false' }}" data-score="{{ paper.score|replace('D','')|replace('C','')|replace('B','')|replace('A','')|replace('S','')|replace('(','')|replace(')','') }}" data-filename="{{ result.filename }}" data-project-id="{{ result.project_id }}" data-index="{{ loop.index0 }}">
                     <div class="paper-select">
-                        <input type="checkbox" class="paper-checkbox" onchange="updateSelectedCount()" data-filename="{{ result.filename }}" data-index="{{ loop.index0 }}">
+                        <input type="checkbox" class="paper-checkbox" onchange="updateSelectedCount()" data-filename="{{ result.filename }}" data-project-id="{{ result.project_id }}" data-index="{{ loop.index0 }}">
                     </div>
                     <div class="paper-card-body">
                         <div class="paper-card-header">
                             <h3>
-                                <a href="{{ url_for('paper_detail', filename=result.filename, index=loop.index0) }}">
+                                {% set note_url = get_project_paper_note_url(result.project_id, paper) if result.project_id else None %}
+                                {% if note_url %}
+                                <a href="{{ note_url }}" target="_blank" rel="noopener noreferrer">
                                     {{ paper.title }}
                                 </a>
+                                {% else %}
+                                <a href="{{ url_for('paper_detail', project_id=result.project_id, filename=result.filename, index=loop.index0) }}">
+                                    {{ paper.title }}
+                                </a>
+                                {% endif %}
                             </h3>
                             <span class="score-badge">{{ paper.score }}</span>
                         </div>
@@ -99,9 +106,15 @@
                     </div>
 
                     <div class="paper-footer">
-                        <a href="{{ url_for('paper_detail', filename=result.filename, index=loop.index0) }}" class="view-detail-btn">
+                        {% if note_url %}
+                        <a href="{{ note_url }}" target="_blank" rel="noopener noreferrer" class="view-detail-btn">
+                            查看全文解读 →
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('paper_detail', project_id=result.project_id, filename=result.filename, index=loop.index0) }}" class="view-detail-btn">
                             查看详情 →
                         </a>
+                        {% endif %}
                         {% if paper.link %}
                         <a href="{{ paper.link }}" target="_blank" class="external-link-btn">
                             原文链接
@@ -187,6 +200,7 @@ function getSelectedPapers() {
     checked.forEach(cb => {
         papers.push({
             filename: cb.dataset.filename,
+            project_id: cb.dataset.projectId,
             index: parseInt(cb.dataset.index)
         });
     });

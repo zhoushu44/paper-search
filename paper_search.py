@@ -542,7 +542,20 @@ def is_top_venue(venue):
     return False, ""
 
 
-# ==================== AI分析 ====================
+# ==================== AI分析与全文解读 ====================
+
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+MIN_FULLTEXT_CHARS = 4000
+MAX_FULLTEXT_PROMPT_CHARS = 26000
+
+try:
+    from pypdf import PdfReader
+except Exception:
+    try:
+        from PyPDF2 import PdfReader
+    except Exception:
+        PdfReader = None
+
 
 def check_relevance(title, abstract, keyword):
     prompt = f"""Is this paper relevant to keyword '{keyword}'?
@@ -566,13 +579,13 @@ Return JSON only:
         if match:
             data = json.loads(match.group())
             return data.get("is_relevant", True), data.get("score", 50), data.get("reason", "")
-    except Exception as e:
+    except Exception:
         pass
     return True, 50, "Check failed"
 
 
 def generate_analysis(title, abstract, keyword, original_keyword=None):
-    """生成论文分析，original_keyword为用户输入的中文关键词"""
+    """生成摘要级分析（兼容旧页面）"""
     user_keyword = original_keyword or keyword
 
     prompt = f"""请分析这篇论文与用户研究主题"{user_keyword}"的相关性。
@@ -617,6 +630,239 @@ def generate_analysis(title, abstract, keyword, original_keyword=None):
     return "", "", "", "", "★★★☆☆", ""
 
 
+def slugify_text(text, fallback="paper"):
+    text = (text or "").strip().lower()
+    text = re.sub(r'https?://', '', text)
+    text = re.sub(r'[^a-z0-9\u4e00-\u9fff]+', '-', text)
+    text = re.sub(r'-+', '-', text).strip('-')
+    return text[:80] or fallback
+
+
+def sanitize_filename(text, fallback="paper"):
+    safe = re.sub(r'[\\/:*?"<>|]+', '_', (text or '').strip())
+    safe = re.sub(r'\s+', '_', safe)
+    safe = safe.strip('._')
+    return safe[:120] or fallback
+
+
+def strip_html_tags(text):
+    text = re.sub(r'<script[\s\S]*?</script>', ' ', text, flags=re.I)
+    text = re.sub(r'<style[\s\S]*?</style>', ' ', text, flags=re.I)
+    text = re.sub(r'<[^>]+>', ' ', text)
+    text = text.replace('&nbsp;', ' ')
+    return text
+
+
+def clean_fulltext(text):
+    text = strip_html_tags(text or '')
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('\x00', ' ')
+    return text.strip()
+
+
+def extract_pdf_text(content_bytes):
+    if not PdfReader:
+        return ""
+    try:
+        import io
+        reader = PdfReader(io.BytesIO(content_bytes))
+        texts = []
+        for page in reader.pages:
+            try:
+                page_text = page.extract_text() or ""
+            except Exception:
+                page_text = ""
+            if page_text:
+                texts.append(page_text)
+        return clean_fulltext("\n".join(texts))
+    except Exception:
+        return ""
+
+
+def normalize_candidate_url(url):
+    if not url:
+        return ""
+    url = str(url).strip()
+    if not url or url.startswith('https://api.openalex.org/'):
+        return ""
+    if 'arxiv.org/abs/' in url:
+        return url.replace('/abs/', '/pdf/') + '.pdf'
+    return url
+
+
+def build_fulltext_candidate_urls(paper):
+    candidates = []
+    for key in ['pdf_url', 'link', 'landing_page_url', 'url', 'doi_url']:
+        value = normalize_candidate_url(paper.get(key, ''))
+        if value and value not in candidates:
+            candidates.append(value)
+    for value in paper.get('candidate_urls', []) or []:
+        value = normalize_candidate_url(value)
+        if value and value not in candidates:
+            candidates.append(value)
+    return candidates
+
+
+def fetch_url_text(url):
+    headers = {'User-Agent': USER_AGENT, 'Accept': 'text/html,application/pdf;q=0.9,*/*;q=0.8'}
+    try:
+        response = requests.get(url, headers=headers, timeout=40, allow_redirects=True)
+        response.raise_for_status()
+        content_type = response.headers.get('Content-Type', '').lower()
+        final_url = response.url
+
+        if 'pdf' in content_type or final_url.lower().endswith('.pdf'):
+            text = extract_pdf_text(response.content)
+            if len(text) >= MIN_FULLTEXT_CHARS:
+                return {'status': 'ok', 'text': text, 'source_url': final_url, 'content_type': 'pdf'}
+            return {'status': 'too_short', 'text': text, 'source_url': final_url, 'content_type': 'pdf'}
+
+        text = clean_fulltext(response.text)
+        if len(text) >= MIN_FULLTEXT_CHARS:
+            return {'status': 'ok', 'text': text, 'source_url': final_url, 'content_type': 'html'}
+        return {'status': 'too_short', 'text': text, 'source_url': final_url, 'content_type': 'html'}
+    except Exception as e:
+        return {'status': 'error', 'error': str(e), 'source_url': url}
+
+
+def fetch_fulltext_for_paper(paper):
+    candidates = build_fulltext_candidate_urls(paper)
+    errors = []
+    for candidate in candidates:
+        result = fetch_url_text(candidate)
+        if result['status'] == 'ok':
+            return {
+                'status': 'available',
+                'fulltext_text': result['text'],
+                'fulltext_url': result.get('source_url', candidate),
+                'fulltext_source_type': result.get('content_type', ''),
+                'fulltext_attempts': candidates
+            }
+        error_hint = result.get('error') or result.get('status')
+        errors.append(f"{candidate} => {error_hint}")
+
+    return {
+        'status': 'unavailable',
+        'fulltext_text': '',
+        'fulltext_url': '',
+        'fulltext_source_type': '',
+        'fulltext_attempts': candidates,
+        'fulltext_error': '; '.join(errors[:5])
+    }
+
+
+def build_fulltext_prompt_segments(fulltext_text):
+    text = clean_fulltext(fulltext_text)
+    if len(text) <= MAX_FULLTEXT_PROMPT_CHARS:
+        return [text]
+
+    windows = []
+    segment_len = MAX_FULLTEXT_PROMPT_CHARS // 4
+    positions = [0, max(len(text) // 3 - segment_len // 2, 0), max(2 * len(text) // 3 - segment_len // 2, 0), max(len(text) - segment_len, 0)]
+    seen = set()
+    for pos in positions:
+        if pos in seen:
+            continue
+        seen.add(pos)
+        windows.append(text[pos:pos + segment_len])
+    return windows
+
+
+def generate_fulltext_analysis(paper, keyword, original_keyword, fulltext_text):
+    user_keyword = original_keyword or keyword
+    segments = build_fulltext_prompt_segments(fulltext_text)
+    segment_text = "\n\n".join([f"[正文片段{i+1}]\n{seg}" for i, seg in enumerate(segments)])
+
+    prompt = f"""你将基于论文全文片段生成中文分析。禁止使用论文之外的信息、常识补充、外部资料或猜测。
+
+用户研究主题：{user_keyword}
+英文搜索关键词：{keyword}
+论文标题：{paper.get('title', '')}
+作者：{paper.get('authors', '')}
+年份：{paper.get('year', '')}
+会议/期刊：{paper.get('venue', '')}
+
+请只依据下面给出的论文正文片段作答：
+{segment_text}
+
+请严格返回JSON，不要输出JSON之外的任何文字：
+{{
+  "detailed_interpretation": "中文详细解读，必须只基于正文；若某点正文未明确说明，请明确写‘论文未明确说明’",
+  "practical_usage": "结合用户主题，说明该论文可支持的实际运用或业务含义。只能写正文可支持的应用、任务、场景；不确定就写‘论文未明确说明’",
+  "evidence_excerpt": ["从正文片段中摘录的3-5条关键依据，可直接引用或紧贴原意转述"],
+  "evidence_note": "说明上述解读和实际运用分别由正文哪些内容支撑；无支撑处必须写‘论文未明确说明’"
+}}
+"""
+
+    try:
+        r = requests.post(
+            f"{OPENAI_API_BASE}/chat/completions",
+            headers={"Authorization": f"Bearer {OPENAI_API_KEY}", "Content-Type": "application/json"},
+            json={"model": OPENAI_MODEL, "messages": [{"role": "user", "content": prompt}], "temperature": 0.1, "max_tokens": 2200},
+            timeout=120
+        )
+        content = r.json()["choices"][0]["message"]["content"]
+        match = re.search(r'\{[\s\S]*\}', content)
+        if match:
+            data = json.loads(match.group())
+            excerpts = data.get('evidence_excerpt', [])
+            if not isinstance(excerpts, list):
+                excerpts = [str(excerpts)] if excerpts else []
+            return {
+                'detailed_interpretation': data.get('detailed_interpretation', '论文未明确说明'),
+                'practical_usage': data.get('practical_usage', '论文未明确说明'),
+                'evidence_excerpt': [str(item).strip() for item in excerpts if str(item).strip()][:5],
+                'evidence_note': data.get('evidence_note', '论文未明确说明')
+            }
+    except Exception as e:
+        print(f"\n    Fulltext analysis error: {e}")
+
+    return {
+        'detailed_interpretation': '论文未明确说明',
+        'practical_usage': '论文未明确说明',
+        'evidence_excerpt': [],
+        'evidence_note': '论文未明确说明'
+    }
+
+
+def build_paper_note_markdown(paper, keyword, original_keyword, fulltext_analysis):
+    user_keyword = original_keyword or keyword
+    evidence_excerpt = fulltext_analysis.get('evidence_excerpt', [])
+    if evidence_excerpt:
+        evidence_md = "\n".join([f"- {item}" for item in evidence_excerpt])
+    else:
+        evidence_md = "- 论文未明确说明"
+
+    original_link = paper.get('fulltext_url') or paper.get('link') or paper.get('url') or '无'
+
+    return f"""# {paper.get('title', '未知标题')}
+
+## 论文信息
+- 标题：{paper.get('title', '未知标题')}
+- 作者：{paper.get('authors', '未知')}
+- 年份：{paper.get('year', '未知')}
+- 会议/期刊：{paper.get('venue', '未知')}
+- 用户搜索主题：{user_keyword}
+- 原文链接：{original_link}
+
+## 中文详细解读
+{fulltext_analysis.get('detailed_interpretation', '论文未明确说明')}
+
+## 结合主题的实际运用
+{fulltext_analysis.get('practical_usage', '论文未明确说明')}
+
+## 证据摘录
+{evidence_md}
+
+## 依据说明
+{fulltext_analysis.get('evidence_note', '论文未明确说明')}
+
+## 生成约束说明
+- 本文仅基于可获取的论文全文/正文片段生成。
+- 对正文无法支持的内容，统一标记为“论文未明确说明”。
+"""
+
+
 # ==================== 可视化 ====================
 
 def generate_visualization(papers, keyword):
@@ -628,8 +874,8 @@ def generate_visualization(papers, keyword):
     # 1. 评分分布
     score_dist = {"S": 0, "A": 0, "B": 0, "C": 0, "D": 0}
     for p in papers:
-        score, _ = calculate_paper_score(p)
-        level, _ = get_score_level(score)
+        score = p.get("score", 0)
+        level = p.get("level", get_score_level(score)[0])
         score_dist[level] += 1
 
     # 2. 年份分布
@@ -645,7 +891,6 @@ def generate_visualization(papers, keyword):
         source = p.get("source", "Unknown")
         source_dist[source] = source_dist.get(source, 0) + 1
 
-    # 生成ASCII图表
     viz = f"""
 ## 数据可视化
 
@@ -686,7 +931,6 @@ def generate_markdown(papers, keyword, original_keyword=None):
     """生成Markdown（含评分和可视化）"""
     user_keyword = original_keyword or keyword
 
-    # 计算评分并排序
     for p in papers:
         score, details = calculate_paper_score(p)
         p["score"] = score
@@ -695,9 +939,7 @@ def generate_markdown(papers, keyword, original_keyword=None):
         p["level"] = level
         p["level_desc"] = desc
 
-    # 按评分排序
     papers.sort(key=lambda x: x.get("score", 0), reverse=True)
-
     top_papers = [p for p in papers if is_top_venue(p.get("venue", ""))[0]]
 
     md = f"""# 论文搜索结果
@@ -711,28 +953,24 @@ def generate_markdown(papers, keyword, original_keyword=None):
 
 ## 汇总表（按评分排序）
 
-| 排名 | 评分 | 论文 | 作者 | 年份 | 会议 | 顶会 | 相关性 | 核心观点 |
-|------|------|------|------|------|------|------|--------|----------|
+| 排名 | 评分 | 论文 | 作者 | 年份 | 会议 | 顶会 | 相关性 | 全文解读 | 核心观点 |
+|------|------|------|------|------|------|------|--------|----------|----------|
 """
 
     for i, p in enumerate(papers, 1):
         is_top, venue_name = is_top_venue(p.get("venue", ""))
         top_mark = f"[{venue_name}]" if is_top else "--"
-
         score = p.get("score", 0)
         level = p.get("level", "?")
-
         authors = str(p.get("authors", ""))[:15]
         venue = str(p.get("venue", ""))[:12]
         summary = p.get("summary", "")[:50]
         rel_stars = p.get("relevance_stars", "★★★☆☆")
+        note_status = "已生成" if p.get("has_fulltext_markdown") else "缺全文"
 
-        md += f"| {i} | {level}({score}) | [[{p['title'][:35]}]] | {authors} | {p.get('year', '')} | {venue} | {top_mark} | {rel_stars} | {summary} |\n"
+        md += f"| {i} | {level}({score}) | [[{p['title'][:35]}]] | {authors} | {p.get('year', '')} | {venue} | {top_mark} | {rel_stars} | {note_status} | {summary} |\n"
 
-    # 可视化
     md += generate_visualization(papers, keyword)
-
-    # 详细信息
     md += "\n---\n\n## 论文详情\n\n"
 
     for i, p in enumerate(papers, 1):
@@ -742,6 +980,7 @@ def generate_markdown(papers, keyword, original_keyword=None):
         level_desc = p.get("level_desc", "")
         rel_stars = p.get("relevance_stars", "★★★☆☆")
         rel_reason = p.get("relevance_reason", "")
+        fulltext_status = "已生成单篇全文解读" if p.get('has_fulltext_markdown') else "未生成（未获取到可解析全文）"
 
         md += f"""### {i}. [[{p['title']}]]
 
@@ -753,7 +992,8 @@ def generate_markdown(papers, keyword, original_keyword=None):
 - **年份**: {p.get('year', 'N/A')}
 - **作者**: {p.get('authors', 'N/A')}
 - **引用**: {p.get('citations', 0)}
-- **链接**: [{p.get('url', '')}]({p.get('url', '')})
+- **链接**: [{p.get('link') or p.get('url', '')}]({p.get('link') or p.get('url', '')})
+- **单篇全文解读**: {fulltext_status}
 
 **评分详情**: {p.get('score_details', 'N/A')}
 
@@ -769,40 +1009,12 @@ def generate_markdown(papers, keyword, original_keyword=None):
 
 """
 
-    # 笔记模板
-    md += """## 论文笔记模板
-
-```
-# {{title}}
-
-## 基本信息
-- 会议:
-- 年份:
-- 作者:
-- 关键词: [[]]
-
-## 核心内容
-
-### 研究问题
-
-### 方法
-
-### 贡献
-
-## 相关论文
-- [[]]
-
-## 笔记
-
-```
-"""
-
     return md
 
 
 # ==================== 主程序 ====================
 
-def main(keyword, max_results=MAX_RESULTS, original_keyword=None):
+def main(keyword, max_results=MAX_RESULTS, original_keyword=None, project_dir=None):
     """主函数，original_keyword为用户输入的中文关键词"""
 
     print(f"""
@@ -813,7 +1025,6 @@ def main(keyword, max_results=MAX_RESULTS, original_keyword=None):
 +----------------------------------------------------------+
 """)
 
-    # Step 1: 并发搜索
     print("="*50)
     print(f"关键词: {keyword}")
     if original_keyword:
@@ -822,46 +1033,44 @@ def main(keyword, max_results=MAX_RESULTS, original_keyword=None):
     print("="*50)
 
     all_papers = search_all_concurrent(keyword, max_results)
-
-    # 去重
     papers = deduplicate(all_papers)
     print(f"\n去重: {len(all_papers)} -> {len(papers)} 篇")
 
     if not papers:
         print("未找到论文")
-        return
+        return []
 
-    # Step 2: 处理（带进度条）
     print("\n" + "="*50)
     print("处理论文...")
     print("="*50)
 
     valid_papers = []
-    stats = {"duplicate": 0, "irrelevant": 0, "invalid": 0}
-
+    stats = {"duplicate": 0, "irrelevant": 0, "invalid": 0, "fulltext_available": 0, "fulltext_unavailable": 0}
     progress = ProgressBar(min(len(papers), max_results), "处理进度")
+
+    output_dir = Path(project_dir) if project_dir else Path.cwd()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    notes_dir = output_dir / 'paper_notes'
+    notes_dir.mkdir(parents=True, exist_ok=True)
 
     for i, paper in enumerate(papers[:max_results]):
         title_short = paper["title"][:40] + "..." if len(paper["title"]) > 40 else paper["title"]
         print(f"\n[{i+1}/{min(len(papers), max_results)}] {title_short}")
 
-        # 检查重复
         if is_duplicate(paper, valid_papers):
             print("  [跳过] 重复")
             stats["duplicate"] += 1
             progress.update()
             continue
 
-        # 验证
         year = paper.get("year")
         has_valid_year = year and YEAR_START <= year <= YEAR_END
-        if not paper.get("title") or len(paper["title"]) < 10:
+        if not paper.get("title") or len(paper["title"]) < 10 or not has_valid_year:
             print("  [跳过] 信息不完整")
             stats["invalid"] += 1
             progress.update()
             continue
 
-        # 相关性检查
         print("  检查相关性...", end=" ")
         is_rel, rel_score, reason = check_relevance(paper["title"], paper.get("abstract", ""), keyword)
         paper["relevance_score"] = rel_score
@@ -873,45 +1082,79 @@ def main(keyword, max_results=MAX_RESULTS, original_keyword=None):
             continue
         print(f"OK ({rel_score}%)")
 
-        # AI分析
-        print("  生成分析...", end=" ")
+        print("  生成摘要级分析...", end=" ")
         result = generate_analysis(paper["title"], paper.get("abstract", ""), keyword, original_keyword)
         summary, chinese, apps, suggs, rel_stars, rel_reason = result
         print("完成")
 
         paper["summary"] = summary
         paper["chinese_explanation"] = chinese
+        paper["chinese_detail"] = chinese
         paper["applications"] = apps
         paper["suggestions"] = suggs
         paper["relevance_stars"] = rel_stars
         paper["relevance_reason"] = rel_reason
-        valid_papers.append(paper)
+        paper["link"] = paper.get("link") or paper.get("url", "")
 
+        print("  获取全文...", end=" ")
+        fulltext_result = fetch_fulltext_for_paper(paper)
+        paper["fulltext_status"] = fulltext_result.get("status", "unavailable")
+        paper["fulltext_url"] = fulltext_result.get("fulltext_url", "")
+        paper["fulltext_source_type"] = fulltext_result.get("fulltext_source_type", "")
+        paper["fulltext_attempts"] = fulltext_result.get("fulltext_attempts", [])
+        paper["fulltext_error"] = fulltext_result.get("fulltext_error", "")
+
+        if fulltext_result.get('status') == 'available':
+            print("成功")
+            stats['fulltext_available'] += 1
+            slug = f"{i+1:02d}-{slugify_text(paper.get('title', ''), 'paper')}"
+            paper_note_path = notes_dir / f"{slug}.md"
+            print("  生成单篇全文解读...", end=" ")
+            fulltext_analysis = generate_fulltext_analysis(paper, keyword, original_keyword, fulltext_result['fulltext_text'])
+            note_markdown = build_paper_note_markdown(paper, keyword, original_keyword, fulltext_analysis)
+            with open(paper_note_path, 'w', encoding='utf-8') as f:
+                f.write(note_markdown)
+            print("完成")
+
+            paper['has_fulltext_markdown'] = True
+            paper['paper_markdown_slug'] = slug
+            paper['paper_markdown_path'] = str(Path('paper_notes') / paper_note_path.name).replace('\\', '/')
+            paper['paper_markdown_filename'] = paper_note_path.name
+            paper['fulltext_analysis'] = fulltext_analysis
+        else:
+            print("未获取到可解析全文")
+            stats['fulltext_unavailable'] += 1
+            paper['has_fulltext_markdown'] = False
+            paper['paper_markdown_slug'] = ''
+            paper['paper_markdown_path'] = ''
+            paper['paper_markdown_filename'] = ''
+            paper['fulltext_analysis'] = {}
+
+        valid_papers.append(paper)
         progress.update()
 
     progress.close()
 
-    # Step 3: 输出
     print("\n" + "="*50)
     print("生成结果...")
     print("="*50)
 
     markdown = generate_markdown(valid_papers, keyword, original_keyword)
-
-    filename = f"papers_{keyword.replace(' ', '_')}.md"
-    with open(filename, "w", encoding="utf-8") as f:
+    safe_keyword = sanitize_filename(keyword.replace(' ', '_'))
+    filename = output_dir / f"papers_{safe_keyword}.md"
+    with open(filename, 'w', encoding='utf-8') as f:
         f.write(markdown)
 
-    json_file = f"papers_{keyword.replace(' ', '_')}.json"
-    with open(json_file, "w", encoding="utf-8") as f:
+    json_file = output_dir / f"papers_{safe_keyword}.json"
+    with open(json_file, 'w', encoding='utf-8') as f:
         json.dump({
             "keyword": keyword,
+            "original_keyword": original_keyword or keyword,
             "timestamp": datetime.now().isoformat(),
             "count": len(valid_papers),
             "papers": valid_papers
         }, f, ensure_ascii=False, indent=2)
 
-    # 统计
     top_count = sum(1 for p in valid_papers if is_top_venue(p.get("venue", ""))[0])
     avg_score = sum(p.get("score", 0) for p in valid_papers) / len(valid_papers) if valid_papers else 0
 
@@ -920,6 +1163,7 @@ def main(keyword, max_results=MAX_RESULTS, original_keyword=None):
     print(f"  有效论文: {len(valid_papers)} 篇")
     print(f"  顶会论文: {top_count} 篇")
     print(f"  平均评分: {avg_score:.1f}")
+    print(f"  全文解读: 已生成={stats['fulltext_available']}, 缺全文={stats['fulltext_unavailable']}")
     print(f"  跳过: 重复={stats['duplicate']}, 不相关={stats['irrelevant']}, 无效={stats['invalid']}")
 
     return valid_papers
@@ -929,24 +1173,25 @@ def main(keyword, max_results=MAX_RESULTS, original_keyword=None):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        # 解析参数
-        # 用法: paper_search.py keyword [max_results] [--original="中文关键词"]
         args = sys.argv[1:]
         max_r = MAX_RESULTS
         keyword_parts = []
         original_keyword = None
+        project_dir = None
 
         for arg in args:
             if arg.isdigit():
                 max_r = int(arg)
             elif arg.startswith('--original='):
                 original_keyword = arg.split('=', 1)[1]
+            elif arg.startswith('--project-dir='):
+                project_dir = arg.split('=', 1)[1]
             else:
                 keyword_parts.append(arg)
 
         keyword = " ".join(keyword_parts) if keyword_parts else ""
         if keyword:
-            main(keyword, max_r, original_keyword)
+            main(keyword, max_r, original_keyword, project_dir)
     else:
         while True:
             keyword = input("\n输入关键词 (q退出): ").strip()

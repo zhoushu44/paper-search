@@ -39,7 +39,14 @@
             <div class="paper-rank">{{ loop.index }}</div>
             <div class="paper-content">
                 <div class="paper-header">
-                    <h3 class="paper-title">{{ paper.title }}</h3>
+                    {% set note_url = get_project_paper_note_url(project_id, paper) %}
+                    <h3 class="paper-title">
+                        {% if note_url %}
+                        <a href="{{ note_url }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a>
+                        {% else %}
+                        {{ paper.title }}
+                        {% endif %}
+                    </h3>
                     <span class="score-badge">{{ paper.score }}</span>
                 </div>
                 <div class="paper-meta">
@@ -51,6 +58,9 @@
                     {% endif %}
                 </div>
                 <div class="paper-summary">{{ paper.summary }}</div>
+                {% if not note_url %}
+                <div class="paper-note-status">未生成单篇全文解读</div>
+                {% endif %}
                 <details class="paper-detail-toggle">
                     <summary>查看中文解读</summary>
                     <div class="paper-detail-content">

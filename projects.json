@@ -12,5 +12,23 @@
     "total_papers": 0,
     "top_papers": 0,
     "status": "searching"
+  },
+  "proj_电商点击率_20260330_234225": {
+    "name": "电商点击率",
+    "created": "2026-03-30 23:42",
+    "search_keywords": [
+      "click-through rate estimation",
+      "e-commerce prediction",
+      "e-commerce deep learning",
+      "CTR prediction e-commerce",
+      "e-commerce",
+      "click-through rate estimation deep learning",
+      "e-commerce prediction survey review",
+      "e-commerce prediction deep learning",
+      "click-through rate estimation survey review"
+    ],
+    "total_papers": 19,
+    "top_papers": 1,
+    "status": "completed"
   }
 }

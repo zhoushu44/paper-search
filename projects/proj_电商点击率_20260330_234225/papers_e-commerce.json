@@ -1,0 +1,89 @@
+{
+  "keyword": "e-commerce",
+  "original_keyword": "电商点击率",
+  "timestamp": "2026-03-31T01:52:16.086640",
+  "count": 2,
+  "papers": [
+    {
+      "title": "Methods and Applications of Quick Commerce (Q-Commerce)",
+      "authors": "S. Kavitha, K. Santhanalaxmi",
+      "year": 2025,
+      "venue": "Methods and Applications of Quick Commerce (Q-Commerce)",
+      "abstract": "<jats:p>A completely new business model that emerged during the COVID-19 pandemic is quick commerce. During COVID-19, lockdowns and social alienation forced many to purchase goods online, particularly groceries and perishables. With prominent platforms offering immediate delivery, it has become known as a major trend in the rapidly evolving Indian retail industry, raising the standard for ease. The long-term viability of this quick service in India's D2C market is still up in the air, though. Quick commerce has grown as a result of rising demand and a desire for speedy delivery. The emphasis on quick deliveries where products and services are delivered within 10 to 30 minutes of receiving an order has revolutionized retail establishments in India. It uses a dark store for operating its Kirana store. Quick commerce is more helpful when it comes to delivery speed than traditional retail stores, which are open around-the-clock.</jats:p>",
+      "url": "https://doi.org/10.4018/979-8-3373-1712-0.ch010",
+      "citations": 1,
+      "source": "CrossRef",
+      "relevance_score": 96,
+      "summary": "文章讨论疫情后Q-Commerce的发展、需求驱动与商业可持续性，可为研究电商点击率中的配送时效卖点、用户购买动机提供背景参考。",
+      "chinese_explanation": "该论文主要研究疫情后兴起的即时零售（Q-Commerce）商业模式，关注其在印度零售与D2C市场中的发展动因、应用场景及长期可持续性。核心方法更偏综述与行业分析，可能基于市场现象、平台案例和消费者需求变化进行讨论，而非点击率预测实验。主要贡献在于梳理“快速配送”如何成为电商平台的新价值主张，并揭示便利性、即时满足需求对线上消费行为的影响。就实验结果看，摘要未体现具体CTR模型、A/B测试或点击数据分析，因此对“电商点击率”研究的帮助主要体现在提供用户动机与营销卖点层面的解释框架。",
+      "chinese_detail": "该论文主要研究疫情后兴起的即时零售（Q-Commerce）商业模式，关注其在印度零售与D2C市场中的发展动因、应用场景及长期可持续性。核心方法更偏综述与行业分析，可能基于市场现象、平台案例和消费者需求变化进行讨论，而非点击率预测实验。主要贡献在于梳理“快速配送”如何成为电商平台的新价值主张，并揭示便利性、即时满足需求对线上消费行为的影响。就实验结果看，摘要未体现具体CTR模型、A/B测试或点击数据分析，因此对“电商点击率”研究的帮助主要体现在提供用户动机与营销卖点层面的解释框架。",
+      "applications": "1. 在商品卡片或广告创意中突出“30分钟达/即时送达”卖点，观察点击率变化；2. 用于首页推荐位优化，测试高时效商品是否更易吸引点击；3. 结合用户分群，在生鲜、日用品等高时效品类中设计CTR提升策略。",
+      "suggestions": "若研究重点是CTR算法、点击率预估或广告排序，此文参考价值有限，但可作为理解用户为何会点击“极速配送”商品的行业背景材料。适合电商运营、零售战略、用户行为研究者阅读。可与点击率研究结合的切入点是：把配送时效、履约承诺、品类紧急性作为影响点击的特征变量。",
+      "relevance_stars": "★★☆☆☆",
+      "relevance_reason": "论文聚焦即时零售模式，与点击率仅间接相关，缺少CTR建模分析。",
+      "link": "https://doi.org/10.4018/979-8-3373-1712-0.ch010",
+      "fulltext_status": "available",
+      "fulltext_url": "https://www.igi-global.com/gateway/chapter/383433",
+      "fulltext_source_type": "html",
+      "fulltext_attempts": [
+        "https://doi.org/10.4018/979-8-3373-1712-0.ch010"
+      ],
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "02-methods-and-applications-of-quick-commerce-q-commerce",
+      "paper_markdown_path": "paper_notes/02-methods-and-applications-of-quick-commerce-q-commerce.md",
+      "paper_markdown_filename": "02-methods-and-applications-of-quick-commerce-q-commerce.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "从给定正文片段看，这篇论文讨论的是“Quick Commerce（Q-Commerce，快速电商/即时零售）”这一商业模式，核心背景是其在COVID-19疫情期间兴起。正文明确指出，封锁和社交隔离迫使许多人转向线上购买商品，尤其是杂货和易腐品，因此快速电商成为一种“全新的商业模式”。\n\n论文片段表明，快速电商在印度零售业中已成为一个重要趋势，主要原因是头部平台提供“即时配送”，从而提升了“便利性标准”。正文还强调，这种模式以“10到30分钟内送达”为突出特征，这种对超快配送的强调“改变了印度的零售机构/零售业态”。\n\n在运营方式上，正文明确提到，快速电商“使用dark store来运营其Kirana store”。这说明其履约和门店组织方式不同于传统零售，但片段没有进一步解释dark store如何运作、Kirana store的具体组织结构、成本机制或技术实现，因此这些细节论文片段未明确说明。\n\n从竞争优势看，正文明确表示，相比“传统零售店”，快速电商“在配送速度上更有帮助/更具优势”，并提到传统零售店是“24小时营业”的。也就是说，论文片段将快速电商的差异化重点放在“送达速度”而非单纯营业时长上。\n\n同时，正文对其未来持保留态度。虽然快速电商因需求上升和对快速配送的偏好而增长，但其在“印度D2C市场中的长期可行性仍悬而未决”。因此，这篇论文片段一方面承认快速电商的增长和行业影响，另一方面也明确指出其长期可持续性/长期生存能力尚不确定。\n\n如果结合“电商点击率”这一用户研究主题来看，正文片段并没有直接讨论点击率、点击行为、转化率、推荐系统、广告投放、页面设计、用户画像或流量获取机制。因此，关于快速电商如何影响CTR，论文未明确说明。",
+        "practical_usage": "基于正文片段，这篇论文可支持的实际运用或业务含义主要包括：\n\n1. 可用于电商业务定位“快配送价值主张”\n正文明确指出快速电商的核心吸引力在于“10到30分钟送达”以及“提高便利性标准”。因此，在业务层面，这篇论文可支持把“即时配送/超快履约”作为电商平台的核心卖点之一。\n\n2. 可用于生鲜、杂货、易腐品类的场景判断\n正文指出疫情期间线上购买特别集中在“grocery and perishables（杂货和易腐品）”。因此，该论文可支持将快速电商优先应用于这些高时效需求品类。\n\n3. 可用于理解印度零售市场中快速电商的行业背景\n正文明确说明快速电商已成为“快速演变的印度零售业中的主要趋势”。因此，这篇论文可以作为分析印度即时零售/快速电商市场背景的参考依据。\n\n4. 可用于运营模式层面的方向性参考\n正文提到快速电商“使用dark store来运营其Kirana store”。因此，该论文可支持把dark store视为快速电商履约组织的一种模式参考。但其具体实施方法、选址原则、库存策略、配送算法等，论文未明确说明。\n\n5. 可用于业务风险提示\n正文明确指出其“在印度D2C市场中的长期可行性仍悬而未决”。因此，这篇论文可用于提醒企业：即便需求增长明显，也不能仅凭短期增长判断该模式已被长期验证。\n\n6. 与“电商点击率”直接相关的应用\n论文未明确说明。正文没有提供任何关于CTR提升、点击驱动因素、商品曝光、广告创意、搜索排序、推荐策略、用户停留或转化漏斗的数据和结论，因此不能据此直接支持点击率优化任务。",
+        "evidence_excerpt": [
+          "“A completely new business model that emerged during the COVID-19 pandemic is quick commerce.”",
+          "“During COVID-19, lockdowns and social alienation forced many to purchase goods online, particularly groceries and perishables.”",
+          "“With prominent platforms offering immediate delivery, it has become known as a major trend in the rapidly evolving Indian retail industry, raising the standard for ease.”",
+          "“The emphasis on quick deliveries where products and services are delivered within 10 to 30 minutes of receiving an order has revolutionized retail establishments in India.”",
+          "“The long-term viability of this quick service in India's D2C market is still up in the air... It uses a dark store for operating its Kirana store.”"
+        ],
+        "evidence_note": "上述解读中，关于快速电商在疫情期间兴起、受封锁与社交隔离推动、重点覆盖杂货和易腐品，主要由第1、2条依据支撑。关于其在印度零售业中成为重要趋势、以即时配送提升便利性，主要由第3条依据支撑。关于其核心特征是10至30分钟送达并改变零售业态，主要由第4条依据支撑。关于其运营涉及dark store及其在印度D2C市场中的长期可行性仍不确定，主要由第5条依据支撑。\n\n在实际运用部分，关于“将快配送作为价值主张”“优先适用于杂货和易腐品”“用于理解印度市场背景”“注意长期可行性风险”，均有正文直接支撑。关于dark store只能作为方向性运营模式参考，也有正文直接支撑，但具体落地方法论文未明确说明。关于电商点击率、CTR优化、流量获取、推荐或广告应用，论文未明确说明。"
+      },
+      "score": 48,
+      "score_details": "引用1(新/少); 非顶会; 1年内; 完整度15/15; 高度相关",
+      "level": "D",
+      "level_desc": "参考"
+    },
+    {
+      "title": "Connectivité numérique, commerce électronique et commerce durable",
+      "authors": "",
+      "year": 2023,
+      "venue": "Examen global 2022 de l'Aide pour le commerce",
+      "abstract": "",
+      "url": "https://doi.org/10.30875/9789287073327c006",
+      "citations": 0,
+      "source": "CrossRef",
+      "relevance_score": 98,
+      "summary": "论文或讨论数字连接如何影响电商与可持续商业，对点击率研究可提供行业背景与用户行为环境线索。",
+      "chinese_explanation": "从题名看，论文主要研究数字连接性如何促进电子商务发展，并与可持续商业模式相结合。核心方法因无摘要暂不明确，可能采用文献综述、案例分析或宏观数据讨论。其主要贡献更可能在解释数字基础设施、线上交易与可持续经营之间的关系，而非直接分析广告曝光、商品主图或推荐排序对点击率的影响。若涉及用户线上接触路径，或可为CTR研究提供背景变量与影响机制参考，但预计缺少直接实验结果或点击率模型。",
+      "chinese_detail": "从题名看，论文主要研究数字连接性如何促进电子商务发展，并与可持续商业模式相结合。核心方法因无摘要暂不明确，可能采用文献综述、案例分析或宏观数据讨论。其主要贡献更可能在解释数字基础设施、线上交易与可持续经营之间的关系，而非直接分析广告曝光、商品主图或推荐排序对点击率的影响。若涉及用户线上接触路径，或可为CTR研究提供背景变量与影响机制参考，但预计缺少直接实验结果或点击率模型。",
+      "applications": "1. 在分析电商CTR时，将网络连接质量、终端普及度作为外部影响变量；2. 研究绿色商品页面中“可持续”信息展示对用户点击意愿的间接作用；3. 为跨地区电商投放评估数字基础设施差异与点击表现关系提供背景依据。",
+      "suggestions": "相关性较弱但可选读。适合关注电商宏观发展、数字基础设施、可持续消费的读者。若你的研究核心是电商点击率优化、推荐算法或广告创意，此文不是优先文献；但可作为建立研究背景、补充外部环境变量和消费价值观因素的辅助材料。",
+      "relevance_stars": "2星",
+      "relevance_reason": "论文聚焦电商与数字连接及可持续议题，对点击率仅有间接参考价值。",
+      "link": "https://doi.org/10.30875/9789287073327c006",
+      "fulltext_status": "unavailable",
+      "fulltext_url": "",
+      "fulltext_source_type": "",
+      "fulltext_attempts": [
+        "https://doi.org/10.30875/9789287073327c006"
+      ],
+      "fulltext_error": "https://doi.org/10.30875/9789287073327c006 => too_short",
+      "has_fulltext_markdown": false,
+      "paper_markdown_slug": "",
+      "paper_markdown_path": "",
+      "paper_markdown_filename": "",
+      "fulltext_analysis": {},
+      "score": 35,
+      "score_details": "引用0(新/少); 非顶会; 3年内; 完整度8/15; 高度相关",
+      "level": "D",
+      "level_desc": "参考"
+    }
+  ]
+}

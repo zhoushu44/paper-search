@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - 单篇全文解读{% endblock %}
+
+{% block content %}
+<div class="paper-detail-page markdown-note-page">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">首页</a>
+        {% if project_id %}
+        /
+        <a href="{{ url_for('project_detail', project_id=project_id) }}">{{ project_name or '项目详情' }}</a>
+        {% endif %}
+        /
+        <span>单篇全文解读</span>
+    </nav>
+
+    <div class="paper-content">
+        <section class="detail-section highlight-section">
+            <div class="section-content markdown-body">
+                {{ content|safe }}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

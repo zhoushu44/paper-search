@@ -42,13 +42,17 @@
 <div id="globalProgress" class="global-progress" style="display: none;">
     <div class="progress-content">
         <div class="progress-info">
-            <span class="progress-title">正在搜索...</span>
+            <div class="progress-heading">
+                <span class="progress-title">正在搜索...</span>
+                <span class="progress-subtitle">实时同步当前搜索阶段</span>
+            </div>
             <span class="progress-percent" id="progressPercent">0%</span>
         </div>
         <div class="progress-bar-container">
             <div class="progress-bar-fill" id="progressFill"></div>
         </div>
         <div class="progress-status" id="progressStatus">准备中...</div>
+        <div class="progress-logs" id="progressLogs"></div>
     </div>
 </div>
 
@@ -124,7 +128,7 @@
 
 <!-- 汇总弹窗 -->
 <div id="summaryModal" class="modal">
-    <div class="modal-content modal-xlarge">
+    <div class="modal-content modal-xlarge" style="max-width: 1800px; width: 98%;">
         <div class="modal-header">
             <h3 id="summaryTitle">论文汇总</h3>
             <button class="close-btn" onclick="closeSummary()">&times;</button>
@@ -159,6 +163,46 @@
 </div>
 
 <script>
+const SEARCH_COMPLETION_FLAG_KEY = 'searchCompletionHandled';
+let searchStatusTimer = null;
+
+function clearSearchStatusTimer() {
+    if (searchStatusTimer) {
+        clearTimeout(searchStatusTimer);
+        searchStatusTimer = null;
+    }
+}
+
+function markSearchStarted() {
+    sessionStorage.removeItem(SEARCH_COMPLETION_FLAG_KEY);
+}
+
+function markSearchCompleted(completionKey) {
+    sessionStorage.setItem(SEARCH_COMPLETION_FLAG_KEY, completionKey || 'completed');
+}
+
+function hasHandledSearchCompletion(completionKey) {
+    return sessionStorage.getItem(SEARCH_COMPLETION_FLAG_KEY) === (completionKey || 'completed');
+}
+
+function resetSearchStatus() {
+    return fetch('/api/search_status/update', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            searching: false,
+            progress: 0,
+            status: '',
+            log_message: '',
+            logs: [],
+            reset_logs: true,
+            task_id: null,
+            original_keyword: '',
+            project_id: null
+        })
+    }).catch(() => null);
+}
+
 // 加载设置
 function loadSettings() {
     fetch('/api/settings')
@@ -209,25 +253,31 @@ document.getElementById('settingsForm').addEventListener('submit', function(e) {
 });
 
 // 检查搜索状态
-let hasReloaded = false;  // 防止重复刷新
 function checkSearchStatus() {
-    if (hasReloaded) return;  // 已经刷新过就不再检查
+    clearSearchStatusTimer();
+
     fetch('/api/search_status')
         .then(r => r.json())
         .then(data => {
             if (data.searching) {
                 showGlobalProgress();
-                updateProgress(data.progress, data.status);
-                setTimeout(checkSearchStatus, 1000);
-            } else {
-                hideGlobalProgress();
-                if (data.progress === 100 && !hasReloaded) {
-                    hasReloaded = true;
-                    location.reload();
-                }
+                updateProgress(data.progress, data.status, data.logs || []);
+                searchStatusTimer = setTimeout(checkSearchStatus, 1000);
+                return;
+            }
+
+            hideGlobalProgress();
+
+            const completionKey = data.task_id || data.project_id || data.original_keyword || 'completed';
+            if (data.progress === 100 && !hasHandledSearchCompletion(completionKey)) {
+                markSearchCompleted(completionKey);
+                resetSearchStatus().finally(() => window.location.reload());
             }
         })
-        .catch(() => hideGlobalProgress());
+        .catch(() => {
+            hideGlobalProgress();
+            clearSearchStatusTimer();
+        });
 }
 
 function showGlobalProgress() {
@@ -238,10 +288,33 @@ function hideGlobalProgress() {
     document.getElementById('globalProgress').style.display = 'none';
 }
 
-function updateProgress(percent, status) {
+function updateProgress(percent, status, logs = []) {
     document.getElementById('progressPercent').textContent = percent + '%';
     document.getElementById('progressFill').style.width = percent + '%';
     document.getElementById('progressStatus').textContent = status;
+
+    const logsContainer = document.getElementById('progressLogs');
+    const displayLogs = (Array.isArray(logs) && logs.length ? logs : [status]).slice(-5);
+
+    logsContainer.innerHTML = displayLogs.map((log, index) => {
+        const isLatest = index === displayLogs.length - 1;
+        return `
+            <div class="progress-log-item${isLatest ? ' is-latest' : ''}">
+                <span class="progress-log-dot"></span>
+                <span class="progress-log-text">${escapeHtml(log)}</span>
+            </div>
+        `;
+    }).join('');
+}
+
+function escapeHtml(text) {
+    return String(text || '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    })[char]);
 }
 
 // 页面加载时检查
@@ -254,6 +327,8 @@ document.getElementById('createForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const keyword = document.getElementById('newKeyword').value.trim();
     if (!keyword) return alert('请输入关键词');
+
+    markSearchStarted();
 
     fetch('/api/create_project', {
         method: 'POST',
@@ -324,6 +399,8 @@ document.getElementById('continueForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const pid = document.getElementById('continueProjectId').value;
     const keyword = document.getElementById('continueKeyword').value.trim();
+
+    markSearchStarted();
 
     // 如果没有输入关键词，使用空字符串让后端自动扩展
     fetch('/api/continue_search', {

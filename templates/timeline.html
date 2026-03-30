@@ -30,9 +30,16 @@
                     <div class="paper-content">
                         <div class="paper-header">
                             <h3>
-                                <a href="{{ url_for('paper_detail', filename=paper.filename, index=loop.index0) }}">
+                                {% set note_url = get_project_paper_note_url(paper.project_id, paper) if paper.project_id else None %}
+                                {% if note_url %}
+                                <a href="{{ note_url }}" target="_blank" rel="noopener noreferrer">
                                     {{ paper.title }}
                                 </a>
+                                {% else %}
+                                <a href="{{ url_for('paper_detail', project_id=paper.project_id, filename=paper.filename, index=paper.paper_index) }}">
+                                    {{ paper.title }}
+                                </a>
+                                {% endif %}
                             </h3>
                             <span class="score-badge">{{ paper.score }}</span>
                         </div>
@@ -63,7 +70,7 @@
 
     <div class="timeline-actions">
         <a href="{{ url_for('search', keyword=keyword) }}" class="btn btn-outline">← 返回列表</a>
-        <a href="{{ url_for('continue_search') }}" class="btn btn-primary">继续搜索</a>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">返回首页</a>
     </div>
 </div>
 {% endblock %}

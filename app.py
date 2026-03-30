@@ -6,13 +6,17 @@ sys.stdout.reconfigure(encoding='utf-8')
 import os
 import json
 import re
+import html
 import markdown
 import requests
 from datetime import datetime
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, send_file, abort, url_for
 from pathlib import Path
 
 app = Flask(__name__)
+
+APP_HOST = '0.0.0.0'
+APP_PORT = 5055
 
 # 数据目录
 DATA_DIR = Path(__file__).parent
@@ -27,10 +31,14 @@ if not PROJECTS_DIR.exists():
     PROJECTS_DIR.mkdir(exist_ok=True)
 
 # 默认API配置
-DEFAULT_API_KEY = "sk-rniPHXm3rCD1M4LIyFFw0zhXsJIdmfXIRRZLEsSpBoLk56n2"
-DEFAULT_API_BASE = "https://api.nofx.online/v1"
-DEFAULT_MODEL = "gpt-5.4"
+DEFAULT_API_KEY = os.environ.get('PAPER_SEARCH_API_KEY', '')
+DEFAULT_API_BASE = os.environ.get('PAPER_SEARCH_API_BASE', '')
+DEFAULT_MODEL = os.environ.get('PAPER_SEARCH_MODEL', 'gpt-5.4')
 DEFAULT_SEARCH_COUNT = 15
+
+OPENAI_API_KEY = DEFAULT_API_KEY
+OPENAI_API_BASE = DEFAULT_API_BASE
+OPENAI_MODEL = DEFAULT_MODEL
 
 # 加载设置
 def load_settings():
@@ -379,21 +387,6 @@ def is_top_venue(venue):
     return False, ""
 
 
-# 数据目录
-DATA_DIR = Path(__file__).parent
-MARKDOWN_DIR = DATA_DIR
-JSON_DIR = DATA_DIR
-PROJECTS_DIR = DATA_DIR / 'projects'
-PROJECTS_FILE = DATA_DIR / 'projects.json'
-
-# 确保项目目录存在
-if not PROJECTS_DIR.exists():
-    PROJECTS_DIR.mkdir(exist_ok=True)
-
-# 注册模板全局函数
-app.jinja_env.globals.update(is_top_venue=is_top_venue)
-
-
 def load_projects():
     """加载项目列表"""
     if PROJECTS_FILE.exists():
@@ -461,6 +454,43 @@ def get_project_papers(project_id):
     return all_papers
 
 
+def build_project_paper_note_path(project_id, paper):
+    """构建项目内单篇全文解读文件路径"""
+    relative_path = str(paper.get('paper_markdown_path', '') or '').strip()
+    filename = str(paper.get('paper_markdown_filename', '') or '').strip()
+    slug = str(paper.get('paper_markdown_slug', '') or '').strip()
+    project_dir = PROJECTS_DIR / project_id
+
+    candidate = None
+    if relative_path:
+        candidate = project_dir / relative_path
+    elif filename:
+        candidate = project_dir / 'paper_notes' / filename
+    elif slug:
+        candidate = project_dir / 'paper_notes' / f'{slug}.md'
+
+    return candidate
+
+
+def get_project_paper_note_url(project_id, paper):
+    """获取项目内单篇全文解读链接"""
+    if not paper.get('has_fulltext_markdown'):
+        return None
+
+    candidate = build_project_paper_note_path(project_id, paper)
+    if not candidate or not candidate.exists() or candidate.suffix.lower() != '.md':
+        return None
+
+    slug = str(paper.get('paper_markdown_slug', '') or '').strip()
+    if slug:
+        return url_for('project_paper_note', project_id=project_id, slug=slug)
+
+    return url_for('project_paper_note_file', project_id=project_id, filename=candidate.name)
+
+
+app.jinja_env.globals.update(get_project_paper_note_url=get_project_paper_note_url)
+
+
 def parse_markdown_file(filepath):
     """解析markdown文件，提取论文信息"""
     if not os.path.exists(filepath):
@@ -471,17 +501,25 @@ def parse_markdown_file(filepath):
 
     papers = []
 
-    # 提取关键词和日期
     keyword_match = re.search(r'\*\*关键词\*\*:\s*(.+?)\n', content)
     date_match = re.search(r'\*\*日期\*\*:\s*(.+?)\n', content)
     keyword = keyword_match.group(1).strip() if keyword_match else Path(filepath).stem.replace('papers_', '').replace('_', ' ')
     date = date_match.group(1).strip() if date_match else 'Unknown'
 
-    # 解析汇总表
+    json_path = Path(filepath).with_suffix('.json')
+    papers_from_json = []
+    if json_path.exists():
+        try:
+            with open(json_path, 'r', encoding='utf-8') as jf:
+                json_data = json.load(jf)
+            papers_from_json = json_data.get('papers', []) or []
+        except Exception:
+            papers_from_json = []
+
     table_section = re.search(r'## 汇总表.*?\n\n(.+?)\n##', content, re.DOTALL)
     if table_section:
         table_content = table_section.group(1)
-        rows = table_content.split('\n')[2:]  # 跳过表头和分隔线
+        rows = table_content.split('\n')[2:]
 
         for row in rows:
             if '|' not in row:
@@ -491,41 +529,34 @@ def parse_markdown_file(filepath):
                 papers.append({
                     'rank': parts[1],
                     'score': parts[2],
-                    'title': parts[3],
+                    'title': parts[3].replace('[[', '').replace(']]', ''),
                     'authors': parts[4],
                     'year': parts[5],
                     'venue': parts[6],
                     'is_top': parts[7],
-                    'summary': parts[8] if len(parts) > 8 else ''
+                    'summary': parts[9] if len(parts) > 9 else (parts[8] if len(parts) > 8 else '')
                 })
 
-    # 解析详情部分并匹配到对应论文
     detail_section = re.split(r'### \d+\.\s*', content)
     for detail in detail_section:
         if not detail.strip():
             continue
 
-        # 提取标题
         title_match = re.search(r'\[\[(.+?)\]\]', detail)
         if not title_match:
             continue
         title = title_match.group(1)
 
-        # 匹配到对应论文（双向匹配：表格标题可能被截断）
         for paper in papers:
-            paper_title = paper['title'].replace('[[', '').replace(']]', '')
-            # 双向匹配：表格标题被截断，所以用子串匹配
+            paper_title = paper['title']
             if title in paper_title or paper_title in title:
-                # 提取评分
                 score_match = re.search(r'\*\*评分\*\*:\s*(.+?)\n', detail)
                 if score_match:
                     paper['score_full'] = score_match.group(1).strip()
 
-                # 提取会议、年份、作者、引用、链接
                 venue_match = re.search(r'\*\*会议\*\*:\s*([^\n]*)', detail)
                 if venue_match:
                     venue_val = venue_match.group(1).strip()
-                    # 过滤掉无效的venue值（如空值或包含其他字段标记）
                     if venue_val and not venue_val.startswith('- **'):
                         paper['venue'] = venue_val
 
@@ -546,25 +577,47 @@ def parse_markdown_file(filepath):
                     paper['link_text'] = link_match.group(1).strip()
                     paper['link'] = link_match.group(2).strip()
 
-                # 提取中文详细解读
-                chinese_match = re.search(r'\*\*中文详细解读\*\*:\s*(.+?)(?=\*\*相关应用\*\*|\*\*阅读建议\*\*|---|$)', detail, re.DOTALL)
+                chinese_match = re.search(r'\*\*中文详细解读\*\*:\s*(.+?)(?=\*\*与|\*\*阅读建议\*\*|---|$)', detail, re.DOTALL)
                 if chinese_match:
                     paper['chinese_detail'] = chinese_match.group(1).strip()
 
-                # 提取相关应用
-                apps_match = re.search(r'\*\*相关应用\*\*:\s*(.+?)(?=\*\*阅读建议\*\*|---|$)', detail, re.DOTALL)
+                apps_match = re.search(r'\*\*与.+?相关的应用\*\*:\s*(.+?)(?=\*\*阅读建议\*\*|---|$)', detail, re.DOTALL)
                 if apps_match:
                     paper['applications'] = apps_match.group(1).strip()
 
-                # 提取阅读建议
                 suggs_match = re.search(r'\*\*阅读建议\*\*:\s*(.+?)(?=\n---|\n##|$)', detail, re.DOTALL)
                 if suggs_match:
                     paper['suggestions'] = suggs_match.group(1).strip()
 
-                # 提取完整详情（用于展示）
-                paper['full_detail'] = detail.strip()
+                fulltext_status_match = re.search(r'\*\*单篇全文解读\*\*:\s*(.+?)\n', detail)
+                if fulltext_status_match:
+                    paper['fulltext_markdown_status'] = fulltext_status_match.group(1).strip()
 
+                paper['full_detail'] = detail.strip()
                 break
+
+    if papers_from_json:
+        merged = []
+        used = set()
+        for paper in papers:
+            matched = None
+            for idx, item in enumerate(papers_from_json):
+                item_title = str(item.get('title', ''))
+                if idx in used:
+                    continue
+                if item_title == paper.get('title') or item_title.startswith(paper.get('title', '')) or paper.get('title', '').startswith(item_title):
+                    matched = dict(item)
+                    used.add(idx)
+                    break
+            if matched is None:
+                matched = {}
+            merged_paper = dict(matched)
+            merged_paper.update({k: v for k, v in paper.items() if v not in ('', None, [])})
+            merged.append(merged_paper)
+        for idx, item in enumerate(papers_from_json):
+            if idx not in used:
+                merged.append(item)
+        papers = merged
 
     return {
         'keyword': keyword,
@@ -574,31 +627,9 @@ def parse_markdown_file(filepath):
 
 
 def get_all_markdown_files_grouped():
-    """获取按中文关键词分组的文件列表"""
-    files = []
-    for f in os.listdir(MARKDOWN_DIR):
-        if f.startswith('papers_') and f.endswith('.md'):
-            filepath = os.path.join(MARKDOWN_DIR, f)
-            data = parse_markdown_file(filepath)
+    """获取按中文关键词分组的项目文件列表"""
+    files = get_all_markdown_files()
 
-            # 尝试读取原始中文关键词
-            meta_file = os.path.join(MARKDOWN_DIR, f.replace('papers_', '.meta_').replace('.md', '.json'))
-            if os.path.exists(meta_file):
-                try:
-                    with open(meta_file, 'r', encoding='utf-8') as mf:
-                        meta = json.load(mf)
-                        data['original_keyword'] = meta.get('original_keyword', data['keyword'])
-                except:
-                    data['original_keyword'] = data['keyword']
-            else:
-                data['original_keyword'] = data['keyword']
-
-            files.append({
-                'filename': f,
-                'data': data
-            })
-
-    # 按原始中文关键词分组
     grouped = {}
     for f in files:
         orig_kw = f['data'].get('original_keyword', f['data']['keyword'])
@@ -615,15 +646,24 @@ def get_all_markdown_files_grouped():
 
 
 def get_all_markdown_files():
-    """获取所有markdown论文文件（原始格式）"""
+    """获取所有项目内markdown论文文件（原始格式）"""
     files = []
-    for f in os.listdir(MARKDOWN_DIR):
-        if f.startswith('papers_') and f.endswith('.md'):
-            filepath = os.path.join(MARKDOWN_DIR, f)
+
+    for project_dir in sorted(PROJECTS_DIR.iterdir(), key=lambda item: item.name) if PROJECTS_DIR.exists() else []:
+        if not project_dir.is_dir():
+            continue
+        for f in sorted(project_dir.glob('papers_*.md')):
+            data = parse_markdown_file(str(f))
+            data['original_keyword'] = data.get('original_keyword', data['keyword'])
+            for paper in data['papers']:
+                paper['project_id'] = project_dir.name
+                paper['source_file'] = f.name
             files.append({
-                'filename': f,
-                'data': parse_markdown_file(filepath)
+                'filename': f.name,
+                'project_id': project_dir.name,
+                'data': data
             })
+
     return files
 
 
@@ -660,11 +700,14 @@ def api_create_project():
     project_id, search_keywords = create_project(keyword)
 
     # 更新搜索状态
-    search_status_store['searching'] = True
-    search_status_store['project_id'] = project_id
-    search_status_store['original_keyword'] = keyword
-    search_status_store['progress'] = 5
-    search_status_store['status'] = '正在翻译关键词...'
+    update_search_status(
+        searching=True,
+        progress=5,
+        status='正在翻译关键词...',
+        reset_logs=True,
+        project_id=project_id,
+        original_keyword=keyword
+    )
 
     # 后台搜索
     import subprocess
@@ -678,8 +721,11 @@ def api_create_project():
 
         for idx, kw in enumerate(search_keywords):
             try:
-                search_status_store['status'] = f'正在搜索 ({idx+1}/{total}): {kw[:20]}...'
-                search_status_store['progress'] = 5 + int((idx / total) * 90)
+                update_search_status(
+                    status=f'正在搜索 ({idx+1}/{total}): {kw[:20]}...',
+                    progress=5 + int((idx / total) * 90),
+                    log_message=f'第 {idx+1}/{total} 步：搜索关键词 {kw}'
+                )
 
                 # 切换到DATA_DIR执行搜索，确保文件生成在正确位置
                 original_cwd = os.getcwd()
@@ -692,7 +738,8 @@ def api_create_project():
                         str(DATA_DIR / 'paper_search.py'),
                         kw,
                         str(search_count),
-                        f'--original={keyword}'
+                        f'--original={keyword}',
+                        f'--project-dir={project_dir}'
                     ]
                     result = subprocess.run(
                         cmd,
@@ -703,27 +750,7 @@ def api_create_project():
                 finally:
                     os.chdir(original_cwd)
 
-                # 查找生成的文件（关键词中的特殊字符会被替换为下划线）
-                safe_kw = kw.replace(' ', '_').replace('/', '_').replace('-', '_')
-                src_file = DATA_DIR / f"papers_{safe_kw}.md"
-
-                # 如果精确匹配没找到，尝试模糊查找
-                if not src_file.exists():
-                    import glob
-                    matches = list(DATA_DIR.glob(f"papers_{safe_kw[:10]}*.md"))
-                    if matches:
-                        src_file = matches[0]
-
-                if src_file.exists():
-                    dst_file = project_dir / f"papers_{safe_kw}.md"
-                    import shutil
-                    shutil.move(str(src_file), str(dst_file))
-
-                    # 同时移动JSON文件
-                    json_src = DATA_DIR / f"papers_{safe_kw}.json"
-                    if json_src.exists():
-                        json_dst = project_dir / f"papers_{safe_kw}.json"
-                        shutil.move(str(json_src), str(json_dst))
+                # 文件现在直接生成到项目目录，无需再从根目录搬运
 
             except Exception as e:
                 print(f"搜索错误 [{kw}]: {e}")
@@ -738,9 +765,12 @@ def api_create_project():
             projects[project_id]['top_papers'] = sum(1 for p in papers if is_top_venue(p.get('venue', ''))[0])
             save_projects(projects)
 
-        search_status_store['searching'] = False
-        search_status_store['progress'] = 100
-        search_status_store['status'] = '搜索完成'
+        update_search_status(
+            searching=False,
+            progress=100,
+            status='搜索完成',
+            log_message='搜索完成，正在刷新结果'
+        )
 
     thread = threading.Thread(target=run_search)
     thread.daemon = True
@@ -821,10 +851,14 @@ def api_continue_search():
     save_projects(projects)
 
     # 更新搜索状态
-    search_status_store['searching'] = True
-    search_status_store['project_id'] = project_id
-    search_status_store['progress'] = 5
-    search_status_store['status'] = '正在扩展搜索...'
+    update_search_status(
+        searching=True,
+        progress=5,
+        status='正在扩展搜索...',
+        reset_logs=True,
+        project_id=project_id,
+        original_keyword=original_keyword
+    )
 
     import subprocess
     import sys
@@ -837,8 +871,11 @@ def api_continue_search():
 
         for idx, kw in enumerate(new_keywords):
             try:
-                search_status_store['status'] = f'搜索 ({idx+1}/{total}): {kw[:25]}...'
-                search_status_store['progress'] = 5 + int((idx / total) * 90)
+                update_search_status(
+                    status=f'搜索 ({idx+1}/{total}): {kw[:25]}...',
+                    progress=5 + int((idx / total) * 90),
+                    log_message=f'第 {idx+1}/{total} 步：扩展搜索 {kw}'
+                )
 
                 # 切换到DATA_DIR执行搜索
                 original_cwd = os.getcwd()
@@ -851,7 +888,8 @@ def api_continue_search():
                         str(DATA_DIR / 'paper_search.py'),
                         kw,
                         str(search_count),
-                        f'--original={original_keyword}'
+                        f'--original={original_keyword}',
+                        f'--project-dir={project_dir}'
                     ]
                     result = subprocess.run(
                         cmd,
@@ -862,26 +900,7 @@ def api_continue_search():
                 finally:
                     os.chdir(original_cwd)
 
-                # 移动文件到项目目录
-                safe_kw = kw.replace(' ', '_').replace('/', '_').replace('-', '_')
-                src_file = DATA_DIR / f"papers_{safe_kw}.md"
-
-                # 模糊查找
-                if not src_file.exists():
-                    import glob
-                    matches = list(DATA_DIR.glob(f"papers_{safe_kw[:10]}*.md"))
-                    if matches:
-                        src_file = matches[0]
-
-                if src_file.exists():
-                    dst_file = project_dir / f"papers_{safe_kw}.md"
-                    import shutil
-                    shutil.move(str(src_file), str(dst_file))
-
-                    json_src = DATA_DIR / f"papers_{safe_kw}.json"
-                    if json_src.exists():
-                        json_dst = project_dir / f"papers_{safe_kw}.json"
-                        shutil.move(str(json_src), str(json_dst))
+                # 文件现在直接生成到项目目录，无需再从根目录搬运
 
             except Exception as e:
                 print(f"搜索错误 [{kw}]: {e}")
@@ -895,9 +914,12 @@ def api_continue_search():
             projects[project_id]['top_papers'] = sum(1 for p in papers if is_top_venue(p.get('venue', ''))[0])
             save_projects(projects)
 
-        search_status_store['searching'] = False
-        search_status_store['progress'] = 100
-        search_status_store['status'] = '搜索完成'
+        update_search_status(
+            searching=False,
+            progress=100,
+            status='搜索完成',
+            log_message='扩展搜索完成，正在刷新结果'
+        )
 
     thread = threading.Thread(target=run_search)
     thread.daemon = True
@@ -1027,7 +1049,6 @@ def api_suggest_keywords(project_id):
 @app.route('/download_project/<project_id>')
 def download_project(project_id):
     """下载项目 - 打包为ZIP"""
-    from flask import send_file
     projects = load_projects()
     if project_id not in projects:
         return "项目不存在", 404
@@ -1035,64 +1056,32 @@ def download_project(project_id):
     project = projects[project_id]
     project_dir = PROJECTS_DIR / project_id
 
-    # 创建内存ZIP文件
-    import zipfile
     import io
+    import zipfile
 
     memory_file = io.BytesIO()
 
     with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zf:
-        # 添加项目元数据
         zf.writestr('项目信息.txt', f"""项目名称: {project['name']}
 创建时间: {project['created']}
 论文总数: {project['total_papers']}
 顶会论文: {project['top_papers']}
-        """)
+""")
 
-        # 添加汇总Markdown
-        papers = get_project_papers(project_id)
-        summary_md = f"# {project['name']} - 论文汇总\n\n"
-        summary_md += f"**创建时间**: {project['created']}\n"
-        summary_md += f"**论文总数**: {len(papers)} 篇\n\n"
-        summary_md += "## 汇总表\n\n"
-        summary_md += "| 排名 | 评分 | 论文 | 作者 | 年份 | 会议 | 顶会 |\n"
-        summary_md += "|------|------|------|------|------|------|------|\n"
+        for f in sorted(project_dir.iterdir(), key=lambda item: item.name):
+            if f.name == 'meta.json':
+                zf.write(f, f.name)
+                continue
 
-        for i, p in enumerate(papers, 1):
-            is_top = "是" if is_top_venue(p.get('venue', '')) else "--"
-            summary_md += f"| {i} | {p.get('score', '--')} | {p.get('title', '')[:35]}... | {p.get('authors', '--')} | {p.get('year', '--')} | {p.get('venue', '--')[:12]} | {is_top} |\n"
-
-        zf.writestr(f'{project["name"]}_汇总.md', summary_md)
-
-        # 添加每篇论文详情
-        for i, p in enumerate(papers, 1):
-            paper_md = f"""# {p.get('title', '未知标题')}
-
-## 基本信息
-- 评分: {p.get('score', '--')}
-- 年份: {p.get('year', '--')}
-- 会议: {p.get('venue', '--')}
-- 作者: {p.get('authors', '--')}
-- 引用: {p.get('citations', '--')}
-
-## 核心概述
-{p.get('summary', '暂无')}
-
-## 中文详细解读
-{p.get('chinese_detail', '暂无')}
-
-## 相关应用
-{p.get('applications', '暂无')}
-
-## 阅读建议
-{p.get('suggestions', '暂无')}
-"""
-            zf.writestr(f'论文/{i}_{p.get("title", "unknown")[:20]}.md', paper_md)
-
-        # 添加原始搜索结果文件
-        for f in project_dir.iterdir():
-            if f.suffix == '.md':
+            if f.is_file() and f.suffix in {'.md', '.json'} and f.name.startswith('papers_'):
                 zf.write(f, f'原始数据/{f.name}')
+
+        paper_notes_dir = project_dir / 'paper_notes'
+        if paper_notes_dir.exists():
+            for note_file in sorted(paper_notes_dir.rglob('*')):
+                if note_file.is_file():
+                    arcname = note_file.relative_to(project_dir).as_posix()
+                    zf.write(note_file, arcname)
 
     memory_file.seek(0)
 
@@ -1113,17 +1102,22 @@ def api_project_summary(project_id):
 
     project = projects[project_id]
     papers = get_project_papers(project_id)
-    original_keyword = project.get('name', '')  # 用户输入的中文关键词
+    original_keyword = project.get('name', '')
 
-    # 统计顶会数量
+    def esc(value):
+        return html.escape(str(value if value is not None else '--'))
+
+    def format_multiline_text(value):
+        text = esc(value)
+        return text.replace('\n', '<br>') if text else ''
+
     top_count = sum(1 for p in papers if is_top_venue(p.get('venue', ''))[0])
 
-    # 生成大汇总表格HTML
-    html = f'''
+    html_content = f'''
     <div class="summary-stats">
         <span>共 <strong>{len(papers)}</strong> 篇论文</span>
         <span>顶会论文 <strong>{top_count}</strong> 篇</span>
-        <span>关键词: <strong>{original_keyword}</strong></span>
+        <span>关键词: <strong>{esc(original_keyword)}</strong></span>
     </div>
     <table class="summary-table-xlarge">
         <thead>
@@ -1145,80 +1139,116 @@ def api_project_summary(project_id):
         is_top, venue_name = is_top_venue(p.get('venue', ''))
         venue_category = get_venue_category(p.get('venue', ''))
 
-        # 顶会标签显示中文名称
         if is_top:
-            top_html = f'<span class="badge-top">{venue_category}</span>'
+            top_html = f'<span class="badge-top">{esc(venue_category or venue_name)}</span>'
         else:
             top_html = '--'
 
-        # 评分
-        score = p.get('score', '--')
-        score_class = 'score-high' if 'A' in str(score) or 'S' in str(score) else ''
+        score = str(p.get('score', '--'))
+        score_class = 'score-high' if 'A' in score or 'S' in score else ''
 
-        # 核心概述（优先显示AI生成内容，否则显示摘要）
         summary = p.get('summary', '') or p.get('chinese_explanation', '')
         abstract = p.get('abstract', '')
-
-        # 清理HTML标签
-        import re
         if abstract:
-            abstract = re.sub(r'<[^>]+>', '', abstract)  # 移除HTML标签
-            abstract = abstract.strip()
+            abstract = re.sub(r'<[^>]+>', '', str(abstract)).strip()
 
-        # 中文解读和应用
         applications = p.get('applications', '')
         suggestions = p.get('suggestions', '')
 
-        # 构建详细内容
         if summary:
-            detail_content = summary
+            detail_content = format_multiline_text(summary)
         elif abstract:
-            # 截取摘要前400字符
-            if len(abstract) > 400:
-                detail_content = f'<span style="color:#60a5fa;">【摘要】</span>{abstract[:400]}...'
-            else:
-                detail_content = f'<span style="color:#60a5fa;">【摘要】</span>{abstract}'
+            abstract_preview = abstract[:400] + '...' if len(abstract) > 400 else abstract
+            detail_content = f'<span style="color:#60a5fa;">【摘要】</span>{format_multiline_text(abstract_preview)}'
         else:
             detail_content = '<span style="color:#94a3b8;">暂无概述</span>'
 
-        # 应用场景
         if applications:
-            detail_content += f'<br><br><span style="color:#10b981;">📌 <b>应用场景:</b></span> {applications}'
+            detail_content += f'<br><br><span style="color:#10b981;">📌 <b>应用场景:</b></span> {format_multiline_text(applications)}'
 
-        # 阅读建议
         if suggestions:
-            detail_content += f'<br><span style="color:#f59e0b;">💡 <b>阅读建议:</b></span> {suggestions}'
+            detail_content += f'<br><span style="color:#f59e0b;">💡 <b>阅读建议:</b></span> {format_multiline_text(suggestions)}'
 
-        # 相关性（基于关键词分析）
-        relevance_stars = '★★★★★' if is_top else ('★★★★☆' if 'A' in str(score) else '★★★☆☆')
+        if p.get('has_fulltext_markdown'):
+            title_url = get_project_paper_note_url(project_id, p)
+            if title_url:
+                title_html = f'<a href="{esc(title_url)}" target="_blank" rel="noopener noreferrer">{esc(p.get("title", "--"))}</a>'
+            else:
+                title_html = f'{esc(p.get("title", "--"))}<div class="note-unavailable">全文解读文件缺失</div>'
+        else:
+            title_html = f'{esc(p.get("title", "--"))}<div class="note-unavailable">未生成单篇全文解读</div>'
 
-        # 会议/期刊显示（含中文分类）
+        relevance_stars = '★★★★★' if is_top else ('★★★★☆' if 'A' in score else '★★★☆☆')
+
         venue = str(p.get('venue', '--'))[:25]
         if venue_category:
-            venue_display = f'{venue}<br><span style="color:#f59e0b;font-size:11px;">{venue_category}</span>'
+            venue_display = f'{esc(venue)}<br><span style="color:#f59e0b;font-size:11px;">{esc(venue_category)}</span>'
         else:
-            venue_display = venue
+            venue_display = esc(venue)
 
-        html += f'''
+        html_content += f'''
             <tr>
                 <td class="rank">{i}</td>
-                <td><span class="score-badge {score_class}">{score}</span></td>
-                <td class="title-cell">{p.get('title', '--')}</td>
-                <td>{str(p.get('authors', '--'))[:18]}</td>
-                <td>{p.get('year', '--')}</td>
-                <td>{venue_display}</td>
+                <td><span class="score-badge {score_class}">{esc(score)}</span></td>
+                <td class="title-cell">{title_html}</td>
+                <td>{esc(str(p.get('authors', '--'))[:18])}</td>
+                <td>{esc(p.get('year', '--'))}</td>
+                <td>{venue_display}<br>{top_html}</td>
                 <td class="relevance-cell"><span class="relevance-stars">{relevance_stars}</span></td>
                 <td class="summary-cell" style="font-size:15px;line-height:1.8;">{detail_content}</td>
             </tr>
         '''
 
-    html += '</tbody></table>'
+    html_content += '</tbody></table>'
 
     return jsonify({
         'name': project['name'],
         'total': len(papers),
-        'html': html
+        'html': html_content
     })
+
+
+@app.route('/project/<project_id>/paper_note/<slug>')
+def project_paper_note(project_id, slug):
+    """渲染项目内单篇全文解读 Markdown"""
+    projects = load_projects()
+    if project_id not in projects:
+        abort(404)
+
+    project_dir = PROJECTS_DIR / project_id
+    note_path = project_dir / 'paper_notes' / f'{slug}.md'
+    if not note_path.exists() or note_path.suffix.lower() != '.md':
+        abort(404)
+
+    with open(note_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    rendered_html = markdown.markdown(content, extensions=['tables', 'fenced_code'])
+    title = content.splitlines()[0].lstrip('# ').strip() if content.strip() else '单篇全文解读'
+
+    return render_template(
+        'markdown_view.html',
+        title=title,
+        content=rendered_html,
+        project_id=project_id,
+        project_name=projects[project_id].get('name', ''),
+        is_project_note=True
+    )
+
+
+@app.route('/project/<project_id>/paper_note_file/<path:filename>')
+def project_paper_note_file(project_id, filename):
+    """按文件名兜底访问项目内单篇全文解读 Markdown"""
+    projects = load_projects()
+    if project_id not in projects:
+        abort(404)
+
+    safe_filename = Path(filename).name
+    note_path = PROJECTS_DIR / project_id / 'paper_notes' / safe_filename
+    if not note_path.exists() or note_path.suffix.lower() != '.md':
+        abort(404)
+
+    return send_file(note_path)
 
 
 @app.route('/')
@@ -1241,24 +1271,26 @@ def index():
                           total_top=total_top)
 
 
-@app.route('/paper/<filename>/<int:index>')
-def paper_detail(filename, index):
-    """论文详情页"""
-    filepath = os.path.join(MARKDOWN_DIR, filename)
-    data = parse_markdown_file(filepath)
+@app.route('/project/<project_id>/paper/<filename>/<int:index>')
+def paper_detail(project_id, filename, index):
+    """项目内论文详情页"""
+    safe_filename = Path(filename).name
+    filepath = PROJECTS_DIR / project_id / safe_filename
+    if not filepath.exists() or filepath.suffix.lower() != '.md':
+        return "论文不存在", 404
+
+    data = parse_markdown_file(str(filepath))
 
     if index < 0 or index >= len(data['papers']):
         return "论文不存在", 404
 
     paper = data['papers'][index]
 
-    # 获取完整详情内容
     full_content = ''
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # 找到对应的论文详情部分
-    detail_pattern = rf'### {index + 1}\.\s*\[\[{re.escape(paper["title"])}}}\]\](.+?)(?=\n### \d+\.|\n##|$)'
+    detail_pattern = rf'### {index + 1}\.\s*\[\[{re.escape(paper["title"])}\]\](.+?)(?=\n### \d+\.|\n##|$)'
     detail_match = re.search(detail_pattern, content, re.DOTALL)
     if detail_match:
         full_content = detail_match.group(0)
@@ -1267,7 +1299,8 @@ def paper_detail(filename, index):
                           paper=paper,
                           keyword=data['keyword'],
                           date=data['date'],
-                          full_detail=full_content)
+                          full_detail=full_content,
+                          project_id=project_id)
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -1280,17 +1313,10 @@ def search():
 
     for f in files:
         data = f['data']
-        # 如果有关键词，进行筛选
         if keyword:
             if keyword.lower() in data['keyword'].lower():
-                for paper in data['papers']:
-                    paper['search_keyword'] = data['keyword']
-                    paper['search_date'] = data['date']
                 results.append(f)
         else:
-            for paper in data['papers']:
-                paper['search_keyword'] = data['keyword']
-                paper['search_date'] = data['date']
             results.append(f)
 
     return render_template('search.html',
@@ -1312,6 +1338,7 @@ def api_papers():
                 'keyword': data['keyword'],
                 'date': data['date'],
                 'filename': f['filename'],
+                'project_id': f.get('project_id'),
                 'title': paper.get('title', ''),
                 'authors': paper.get('authors', ''),
                 'year': paper.get('year', ''),
@@ -1339,18 +1366,25 @@ def export_papers():
     if not selected_papers:
         return jsonify({'error': '没有选择论文'}), 400
 
-    # 解析文件和索引
     exported = []
     for item in selected_papers:
-        filepath = os.path.join(MARKDOWN_DIR, item['filename'])
-        data = parse_markdown_file(filepath)
+        project_id = item.get('project_id')
+        filename = Path(item.get('filename', '')).name
+        if not project_id or not filename:
+            continue
 
-        index = item['index']
-        if 0 <= index < len(data['papers']):
-            paper = data['papers'][index]
+        filepath = PROJECTS_DIR / project_id / filename
+        if not filepath.exists():
+            continue
 
-            # 生成单篇论文Markdown
-            md_content = f"""# {paper['title']}
+        data = parse_markdown_file(str(filepath))
+        index = item.get('index', -1)
+        if not isinstance(index, int) or not (0 <= index < len(data['papers'])):
+            continue
+
+        paper = data['papers'][index]
+
+        md_content = f"""# {paper['title']}
 
 ## 基本信息
 
@@ -1397,11 +1431,11 @@ def export_papers():
 ---
 *导出时间: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}*
 """
-            exported.append({
-                'filename': f"paper_{index}_{data['keyword'].replace(' ', '_')}.md",
-                'content': md_content,
-                'title': paper['title']
-            })
+        exported.append({
+            'filename': f"paper_{index}_{data['keyword'].replace(' ', '_')}.md",
+            'content': md_content,
+            'title': paper['title']
+        })
 
     return jsonify({'exported': exported})
 
@@ -1414,14 +1448,15 @@ def timeline_view(keyword):
     all_papers = []
     for f in files:
         data = f['data']
-        # 筛选关键词
         if keyword.lower() in data['keyword'].lower():
-            for paper in data['papers']:
-                paper['filename'] = f['filename']
-                paper['search_keyword'] = data['keyword']
-                all_papers.append(paper)
+            for idx, paper in enumerate(data['papers']):
+                timeline_paper = dict(paper)
+                timeline_paper['filename'] = f['filename']
+                timeline_paper['project_id'] = f.get('project_id')
+                timeline_paper['paper_index'] = idx
+                timeline_paper['search_keyword'] = data['keyword']
+                all_papers.append(timeline_paper)
 
-    # 按年份分组
     timeline = {}
     for paper in all_papers:
         year = paper.get('year', 'Unknown')
@@ -1429,7 +1464,6 @@ def timeline_view(keyword):
             timeline[year] = []
         timeline[year].append(paper)
 
-    # 按年份排序
     sorted_years = sorted([y for y in timeline.keys() if y != 'Unknown'], reverse=True)
     if 'Unknown' in timeline:
         sorted_years.append('Unknown')
@@ -1441,115 +1475,48 @@ def timeline_view(keyword):
                           total_papers=len(all_papers))
 
 
-@app.route('/continue_search', methods=['GET', 'POST'])
-def continue_search():
-    """继续搜索 - 搜索更多论文并更新汇总表"""
-    global search_status_store
-
-    if request.method == 'POST':
-        keyword = request.form.get('keyword', '').strip()
-        more_results = request.form.get('more_results', '10')
-        existing_file = request.form.get('existing_file', '')
-
-        try:
-            more_count = int(more_results)
-        except:
-            more_count = 10
-
-        if not keyword:
-            return render_template('continue_search.html',
-                                   error='请输入关键词',
-                                   files=get_all_markdown_files())
-
-        # 翻译中文关键词为英文
-        translation = translate_keyword(keyword)
-        search_keywords = translation['expanded'][:3]
-
-        # 更新搜索状态
-        search_status_store['searching'] = True
-        search_status_store['original_keyword'] = keyword
-        search_status_store['status'] = '正在翻译关键词...'
-        search_status_store['progress'] = 10
-
-        # 调用论文搜索脚本
-        import subprocess
-        import sys
-        import threading
-
-        script_path = os.path.join(DATA_DIR, 'paper_search.py')
-        all_results = []
-
-        def run_search():
-            global search_status_store
-            total_keywords = len(search_keywords)
-
-            for idx, kw in enumerate(search_keywords):
-                try:
-                    search_status_store['status'] = f'正在搜索: {kw}'
-                    search_status_store['progress'] = 10 + int((idx / total_keywords) * 80)
-
-                    result = subprocess.run(
-                        [sys.executable, script_path, kw, str(max(1, more_count // total_keywords))],
-                        capture_output=True,
-                        text=True,
-                        timeout=180
-                    )
-
-                    new_filename = f"papers_{kw.replace(' ', '_').replace('/', '_')}.md"
-
-                    # 保存原始中文关键词到文件
-                    meta_file = os.path.join(MARKDOWN_DIR, f".meta_{kw.replace(' ', '_')}.json")
-                    with open(meta_file, 'w', encoding='utf-8') as f:
-                        json.dump({'original_keyword': keyword, 'translated': kw}, f)
-
-                    all_results.append({
-                        'keyword': kw,
-                        'filename': new_filename,
-                        'success': True
-                    })
-
-                except subprocess.TimeoutExpired:
-                    all_results.append({'keyword': kw, 'error': '搜索超时'})
-                except Exception as e:
-                    all_results.append({'keyword': kw, 'error': str(e)})
-
-            search_status_store['searching'] = False
-            search_status_store['progress'] = 100
-            search_status_store['status'] = '搜索完成'
-
-        # 启动后台搜索线程
-        search_thread = threading.Thread(target=run_search)
-        search_thread.daemon = True
-        search_thread.start()
-
-        return render_template('continue_search.html',
-                               success=True,
-                               message=f'搜索已启动，正在后台运行...',
-                               search_results=all_results,
-                               original_keyword=keyword,
-                               translated_keywords=translation['expanded'],
-                               files=get_all_markdown_files())
-
-    # GET请求 - 显示继续搜索页面
-    raw_files = get_all_markdown_files()  # 使用原始格式
-    return render_template('continue_search.html',
-                           files=raw_files)
-
-
-@app.route('/markdown/<filename>')
-def serve_markdown(filename):
-    """直接提供markdown文件"""
-    return send_from_directory(MARKDOWN_DIR, filename)
-
-
 # 全局搜索状态存储
 search_status_store = {
     'searching': False,
     'progress': 0,
     'status': '',
     'task_id': None,
-    'original_keyword': ''  # 原始中文关键词
+    'original_keyword': '',  # 原始中文关键词
+    'logs': []
 }
+
+
+def append_search_log(message):
+    """追加搜索日志，仅保留最近5条"""
+    if not message:
+        return
+    logs = search_status_store.setdefault('logs', [])
+    logs.append(message)
+    search_status_store['logs'] = logs[-5:]
+
+
+
+def update_search_status(status=None, progress=None, searching=None, reset_logs=False, log_message=None, logs=None, **extra_fields):
+    """统一更新搜索状态，并维护最近日志"""
+    if reset_logs:
+        search_status_store['logs'] = []
+
+    if searching is not None:
+        search_status_store['searching'] = searching
+    if progress is not None:
+        search_status_store['progress'] = progress
+    if status is not None:
+        search_status_store['status'] = status
+
+    for key, value in extra_fields.items():
+        search_status_store[key] = value
+
+    if logs is not None:
+        search_status_store['logs'] = list(logs)[-5:]
+
+    message = log_message if log_message is not None else status
+    if logs is None:
+        append_search_log(message)
 
 
 @app.route('/api/search_status')
@@ -1566,183 +1533,18 @@ def api_update_search_status():
     """更新搜索状态（内部调用）"""
     global search_status_store
     data = request.json
-    search_status_store['searching'] = data.get('searching', False)
-    search_status_store['progress'] = data.get('progress', 0)
-    search_status_store['status'] = data.get('status', '')
+    update_search_status(
+        searching=data.get('searching', False),
+        progress=data.get('progress', 0),
+        status=data.get('status', ''),
+        log_message=data.get('log_message'),
+        logs=data.get('logs'),
+        reset_logs=data.get('reset_logs', False),
+        task_id=data.get('task_id', search_status_store.get('task_id')),
+        original_keyword=data.get('original_keyword', search_status_store.get('original_keyword', '')),
+        project_id=data.get('project_id', search_status_store.get('project_id'))
+    )
     return jsonify({'success': True})
-
-
-@app.route('/api/delete_record', methods=['POST'])
-def api_delete_record():
-    """删除搜索记录"""
-    filename = request.json.get('filename', '')
-    if not filename:
-        return jsonify({'success': False, 'error': '文件名不能为空'})
-
-    filepath = os.path.join(MARKDOWN_DIR, filename)
-    if not os.path.exists(filepath):
-        return jsonify({'success': False, 'error': '文件不存在'})
-
-    try:
-        os.remove(filepath)
-        return jsonify({'success': True})
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)})
-
-
-@app.route('/api/summary/<filename>')
-def api_summary(filename):
-    """获取单个搜索记录的汇总"""
-    filepath = os.path.join(MARKDOWN_DIR, filename)
-    data = parse_markdown_file(filepath)
-
-    # 生成汇总HTML表格
-    html = f'''
-    <table class="summary-table">
-        <thead>
-            <tr>
-                <th>排名</th>
-                <th>评分</th>
-                <th>论文</th>
-                <th>作者</th>
-                <th>年份</th>
-                <th>会议</th>
-                <th>顶会</th>
-                <th>核心概述</th>
-            </tr>
-        </thead>
-        <tbody>
-    '''
-
-    for i, p in enumerate(data['papers'], 1):
-        is_top = is_top_venue(p.get('venue', ''))
-        top_mark = '<span class="badge-top">是</span>' if is_top else '--'
-        html += f'''
-            <tr>
-                <td>{i}</td>
-                <td><span class="score-badge">{p.get('score', '--')}</span></td>
-                <td><a href="/paper/{filename}/{i-1}">{p.get('title', '')[:35]}...</a></td>
-                <td>{p.get('authors', '--')}</td>
-                <td>{p.get('year', '--')}</td>
-                <td>{p.get('venue', '--')[:12]}</td>
-                <td>{top_mark}</td>
-                <td>{p.get('summary', '')[:25]}...</td>
-            </tr>
-        '''
-
-    html += '</tbody></table>'
-
-    return jsonify({
-        'keyword': data['keyword'],
-        'html': html
-    })
-
-
-@app.route('/api/delete_group', methods=['POST'])
-def api_delete_group():
-    """删除整个搜索组"""
-    keyword = request.json.get('keyword', '')
-    if not keyword:
-        return jsonify({'success': False, 'error': '关键词不能为空'})
-
-    deleted = 0
-    for f in os.listdir(MARKDOWN_DIR):
-        if f.startswith('papers_') and f.endswith('.md'):
-            # 检查meta文件
-            meta_file = os.path.join(MARKDOWN_DIR, f.replace('papers_', '.meta_').replace('.md', '.json'))
-            should_delete = False
-
-            if os.path.exists(meta_file):
-                try:
-                    with open(meta_file, 'r', encoding='utf-8') as mf:
-                        meta = json.load(mf)
-                        if meta.get('original_keyword') == keyword:
-                            should_delete = True
-                            os.remove(meta_file)
-                except:
-                    pass
-
-            if should_delete:
-                filepath = os.path.join(MARKDOWN_DIR, f)
-                os.remove(filepath)
-                deleted += 1
-
-    return jsonify({'success': True, 'deleted': deleted})
-
-
-@app.route('/api/group_summary/<keyword>')
-def api_group_summary(keyword):
-    """获取搜索组的汇总"""
-    all_papers = []
-
-    for f in os.listdir(MARKDOWN_DIR):
-        if f.startswith('papers_') and f.endswith('.md'):
-            # 检查是否属于该组
-            meta_file = os.path.join(MARKDOWN_DIR, f.replace('papers_', '.meta_').replace('.md', '.json'))
-            if os.path.exists(meta_file):
-                try:
-                    with open(meta_file, 'r', encoding='utf-8') as mf:
-                        meta = json.load(mf)
-                        if meta.get('original_keyword') == keyword:
-                            filepath = os.path.join(MARKDOWN_DIR, f)
-                            data = parse_markdown_file(filepath)
-                            for p in data['papers']:
-                                p['filename'] = f
-                                all_papers.append(p)
-                except:
-                    pass
-
-    # 按评分排序
-    def get_score(p):
-        s = p.get('score', 'D(0)')
-        match = re.search(r'\((\d+)\)', s)
-        return int(match.group(1)) if match else 0
-
-    all_papers.sort(key=get_score, reverse=True)
-
-    # 生成汇总HTML表格
-    html = f'''
-    <div class="summary-info">共 {len(all_papers)} 篇论文</div>
-    <table class="summary-table">
-        <thead>
-            <tr>
-                <th>排名</th>
-                <th>评分</th>
-                <th>论文</th>
-                <th>作者</th>
-                <th>年份</th>
-                <th>会议</th>
-                <th>顶会</th>
-                <th>核心概述</th>
-            </tr>
-        </thead>
-        <tbody>
-    '''
-
-    for i, p in enumerate(all_papers, 1):
-        is_top = is_top_venue(p.get('venue', ''))
-        top_mark = '<span class="badge-top">是</span>' if is_top else '--'
-        filename = p.get('filename', '')
-
-        html += f'''
-            <tr>
-                <td>{i}</td>
-                <td><span class="score-badge">{p.get('score', '--')}</span></td>
-                <td><a href="/paper/{filename}/{i-1}">{p.get('title', '')[:30]}...</a></td>
-                <td>{str(p.get('authors', '--'))[:12]}</td>
-                <td>{p.get('year', '--')}</td>
-                <td>{str(p.get('venue', '--'))[:10]}</td>
-                <td>{top_mark}</td>
-                <td>{str(p.get('summary', ''))[:20]}...</td>
-            </tr>
-        '''
-
-    html += '</tbody></table>'
-
-    return jsonify({
-        'keyword': keyword,
-        'html': html
-    })
 
 
 if __name__ == '__main__':
@@ -1759,7 +1561,8 @@ if __name__ == '__main__':
     print(f"Markdown文件: {len(get_all_markdown_files())} 个")
     print("=" * 60)
     print("启动Web服务器...")
-    print("访问地址: http://127.0.0.1:5000")
+    print(f"访问地址: http://127.0.0.1:{APP_PORT}")
+    print(f"监听地址: http://{APP_HOST}:{APP_PORT}")
     print("=" * 60)
 
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host=APP_HOST, port=APP_PORT, debug=False)
