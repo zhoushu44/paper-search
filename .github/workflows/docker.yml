@@ -17,7 +17,7 @@ jobs:
       packages: write
     env:
       REGISTRY: ${{ vars.DOCKER_REGISTRY || 'docker.io' }}
-      IMAGE_NAME: ${{ vars.DOCKER_IMAGE_NAME || github.repository }}
+      IMAGE_NAME: ${{ vars.DOCKER_IMAGE_NAME || format('{0}/paper-search', secrets.DOCKER_HUB_USERNAME) }}
       IMAGE_TAG_SHA: ${{ github.sha }}
 
     steps:
