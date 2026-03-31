@@ -21,7 +21,7 @@
             </div>
             <div class="paper-badges">
                 <span class="score-badge-large">{{ paper.score }}</span>
-                {% if is_top_venue(paper.venue) %}
+                {% if is_top_venue(paper.venue)[0] %}
                 <span class="badge badge-top-large">🏆 顶会论文</span>
                 {% endif %}
             </div>
@@ -68,6 +68,24 @@
                 {{ paper.suggestions }}
                 {% else %}
                 <p>暂无阅读建议</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- 单篇全文解读状态 -->
+        <section class="detail-section">
+            <h2>📄 单篇全文解读</h2>
+            <div class="section-content">
+                {% if paper.has_fulltext_markdown %}
+                <p>已生成单篇全文解读，可从项目详情页标题链接打开。</p>
+                {% else %}
+                <p>暂未生成单篇全文解读。</p>
+                {% if paper.fulltext_failure_reason_display %}
+                <p><strong>失败原因：</strong>{{ paper.fulltext_failure_reason_display }}</p>
+                {% endif %}
+                {% if paper.fulltext_last_attempt %}
+                <p><strong>最后尝试来源：</strong>{{ paper.fulltext_last_attempt }}</p>
+                {% endif %}
                 {% endif %}
             </div>
         </section>

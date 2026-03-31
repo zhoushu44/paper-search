@@ -1,7 +1,7 @@
 {
   "keyword": "recommendation system",
   "original_keyword": "电商点击率影响因素",
-  "timestamp": "2026-03-31T00:57:05.722597",
+  "timestamp": "2026-03-31T09:41:46.401192",
   "count": 17,
   "papers": [
     {
@@ -26,9 +26,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3217681006"
+        "https://openalex.org/W3217681006",
+        "https://openalex.org/W3217681006.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3217681006 => too_short",
+      "fulltext_error": "https://openalex.org/W3217681006 => landing_page_only; https://openalex.org/W3217681006.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -37,7 +38,35 @@
       "score": 78,
       "score_details": "引用242(中); 顶会:Nature; 5年前; 完整度15/15; 高度相关",
       "level": "A",
-      "level_desc": "推荐阅读"
+      "level_desc": "推荐阅读",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3217681006",
+          "final_url": "https://openalex.org/W3217681006",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3217681006.pdf",
+          "final_url": "https://openalex.org/W3217681006.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Mobile Tourism Recommendation System for Visually Disabled",
@@ -61,9 +90,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.2174/9789815136746123010013"
+        "https://doi.org/10.2174/9789815136746123010013",
+        "https://doi.org/10.2174/9789815136746123010013/pdf",
+        "https://doi.org/10.2174/9789815136746123010013/full",
+        "https://doi.org/10.2174/9789815136746123010013?download=1",
+        "https://doi.org/10.2174/9789815136746123010013.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.2174/9789815136746123010013 => 403 Client Error: Forbidden for url: https://www.eurekaselect.com/node/219823",
+      "fulltext_error": "https://doi.org/10.2174/9789815136746123010013 => network_error; https://doi.org/10.2174/9789815136746123010013/pdf => network_error; https://doi.org/10.2174/9789815136746123010013/full => network_error; https://doi.org/10.2174/9789815136746123010013?download=1 => network_error; https://doi.org/10.2174/9789815136746123010013.pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -72,7 +105,61 @@
       "score": 67,
       "score_details": "引用0(新/少); 顶会:Science; 3年内; 完整度15/15; 高度相关",
       "level": "B",
-      "level_desc": "值得一看"
+      "level_desc": "值得一看",
+      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.2174/9789815136746123010013",
+          "final_url": "https://doi.org/10.2174/9789815136746123010013",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://www.eurekaselect.com/node/219823"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.2174/9789815136746123010013/pdf",
+          "final_url": "https://doi.org/10.2174/9789815136746123010013/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.2174/9789815136746123010013/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.2174/9789815136746123010013/full",
+          "final_url": "https://doi.org/10.2174/9789815136746123010013/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.2174/9789815136746123010013/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.2174/9789815136746123010013?download=1",
+          "final_url": "https://doi.org/10.2174/9789815136746123010013?download=1",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://www.eurekaselect.com/node/219823"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.2174/9789815136746123010013.pdf",
+          "final_url": "https://doi.org/10.2174/9789815136746123010013.pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.2174/9789815136746123010013.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Application Research of Intelligent Algorithm in Short Video Recommendation System Optimization Personalized Recommendation System",
@@ -96,9 +183,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.1109/icsece61636.2024.10729508"
+        "https://doi.org/10.1109/icsece61636.2024.10729508",
+        "https://doi.org/10.1109/icsece61636.2024.10729508/pdf",
+        "https://doi.org/10.1109/icsece61636.2024.10729508/full",
+        "https://doi.org/10.1109/icsece61636.2024.10729508?download=1"
       ],
-      "fulltext_error": "https://doi.org/10.1109/icsece61636.2024.10729508 => too_short",
+      "fulltext_error": "https://doi.org/10.1109/icsece61636.2024.10729508 => landing_page_only; https://doi.org/10.1109/icsece61636.2024.10729508/pdf => network_error; https://doi.org/10.1109/icsece61636.2024.10729508/full => network_error; https://doi.org/10.1109/icsece61636.2024.10729508?download=1 => landing_page_only",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -107,7 +197,53 @@
       "score": 66,
       "score_details": "引用0(新/少); 顶会:ICSE; 2年内; 完整度11/15; 高度相关",
       "level": "B",
-      "level_desc": "值得一看"
+      "level_desc": "值得一看",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508",
+          "final_url": "https://ieeexplore.ieee.org/document/10729508/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508/pdf",
+          "final_url": "https://doi.org/10.1109/icsece61636.2024.10729508/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/icsece61636.2024.10729508/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508/full",
+          "final_url": "https://doi.org/10.1109/icsece61636.2024.10729508/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/icsece61636.2024.10729508/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508?download=1",
+          "final_url": "https://ieeexplore.ieee.org/document/10729508/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "DESIGNING A RECOMMENDATION SYSTEM FOR SPECIALIZEDCOURSES FOR THE UNIVERSITY",
@@ -131,9 +267,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.47344/sdubnts.v58i1.693"
+        "https://doi.org/10.47344/sdubnts.v58i1.693",
+        "https://doi.org/10.47344/sdubnts.v58i1.693/pdf",
+        "https://doi.org/10.47344/sdubnts.v58i1.693/full",
+        "https://doi.org/10.47344/sdubnts.v58i1.693?download=1"
       ],
-      "fulltext_error": "https://doi.org/10.47344/sdubnts.v58i1.693 => 404 Client Error: Not Found for url: https://jetc.sdu.edu.kz/index.php/nts/article/view/33",
+      "fulltext_error": "https://doi.org/10.47344/sdubnts.v58i1.693 => network_error; https://doi.org/10.47344/sdubnts.v58i1.693/pdf => network_error; https://doi.org/10.47344/sdubnts.v58i1.693/full => network_error; https://doi.org/10.47344/sdubnts.v58i1.693?download=1 => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -142,7 +281,51 @@
       "score": 63,
       "score_details": "引用0(新/少); 顶会:Science; 4年前; 完整度15/15; 高度相关",
       "level": "B",
-      "level_desc": "值得一看"
+      "level_desc": "值得一看",
+      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.47344/sdubnts.v58i1.693",
+          "final_url": "https://doi.org/10.47344/sdubnts.v58i1.693",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://jetc.sdu.edu.kz/index.php/nts/article/view/33"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.47344/sdubnts.v58i1.693/pdf",
+          "final_url": "https://doi.org/10.47344/sdubnts.v58i1.693/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.47344/sdubnts.v58i1.693/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.47344/sdubnts.v58i1.693/full",
+          "final_url": "https://doi.org/10.47344/sdubnts.v58i1.693/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.47344/sdubnts.v58i1.693/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.47344/sdubnts.v58i1.693?download=1",
+          "final_url": "https://doi.org/10.47344/sdubnts.v58i1.693?download=1",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://jetc.sdu.edu.kz/index.php/nts/article/view/33"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Music Recommendation System",
@@ -170,9 +353,9 @@
       ],
       "fulltext_error": "",
       "has_fulltext_markdown": true,
-      "paper_markdown_slug": "01-music-recommendation-system",
-      "paper_markdown_path": "paper_notes/01-music-recommendation-system.md",
-      "paper_markdown_filename": "01-music-recommendation-system.md",
+      "paper_markdown_slug": "Music Recommendation System",
+      "paper_markdown_path": "paper_notes/Music Recommendation System.md",
+      "paper_markdown_filename": "Music Recommendation System.md",
       "fulltext_analysis": {
         "detailed_interpretation": "从给定正文看，这篇论文围绕“音乐推荐系统”展开，核心出发点是：由于歌曲流媒体平台上存在大量歌曲相关信息，用户在设备上查找新歌并不容易，因此作者希望建立一个能够支持当前用户歌单或偏好的推荐系统，以便更容易发现新的歌曲轨道。论文摘要明确提到，系统会在用户设备上展示歌曲，并显示其属性，包括“genre, culture, emotions, language, rhythm, and tempo”（流派、文化、情感、语言、节奏与速度等）。这说明论文关注的是基于歌曲内容属性和用户历史偏好的推荐展示逻辑。\n\n从方法描述看，论文将该系统放在人工智能（AI）和机器学习（ML）框架下，认为这些方法可用于处理使用与效率问题。摘要还指出，算法指导从一组“arrangements (preferred by the user's song)”开始，并形成动态解决方案，推荐与用户过去多次听过或当前正在喜欢的音乐流派相似的内容。这表明推荐依据至少包含用户过去偏好和歌曲相似性两个方面。\n\n摘要同时提到“Through the framework of music promotion, the music provider will expect and will in time provide relevant music to their customers who are attracted by the qualities of song tracks that has previously been acquired.” 按正文可理解为：音乐提供方希望根据用户此前已获取歌曲所体现出的特征，持续提供相关音乐。因此，论文的推荐逻辑强调“已获得/已喜欢内容的属性”与“后续推荐内容的相关性”之间的连接。\n\n另外，摘要还说实验希望“expand the song recommendation gadget in an effort to provide suggestions for similar similarities in other ways to the audio signal”，并“looks at the usage of the know-how-to-output feature gadget to see similarity among other methods”。据此可知，论文实验部分似乎尝试将推荐扩展到音频信号以外的相似性方式，并比较不同方法下的相似性识别效果。但具体采用了哪些特征工程、模型、数据集、评价指标、实验流程与结果，给定正文片段未明确说明。\n\n从关键词看，论文涉及“content based, collaborative, item, user”等概念，说明作者至少在概念层面涉及基于内容、协同、基于项目/物品和基于用户的推荐相关方向。但给定正文片段没有明确说明最终系统具体采用了哪一种推荐算法、如何融合这些方法、是否做了对比实验，也未明确说明系统性能提升幅度。\n\n如果把这篇论文与“电商点击率影响因素”的研究主题做关联，那么从正文中唯一可以谨慎提炼的启发是：推荐内容的相关性可能来自用户历史偏好与物品属性相似性，且推荐结果会显示在用户设备上供其收听或选择；但论文并未直接讨论点击率、转化率、曝光排序、界面位置、价格、促销、评价数量等电商CTR因素，因此不能据此推出更具体的点击率结论，这些内容均应视为论文未明确说明。",
         "practical_usage": "基于给定正文，这篇论文可支持的实际运用主要是以下几个方面：\n1. 可用于构建内容属性驱动的推荐场景：正文明确提到系统展示歌曲及其“genre, culture, emotions, language, rhythm, and tempo”等属性，因此可支持按物品属性组织和推荐内容的应用。若迁移到用户研究主题，只能非常有限地理解为：平台可根据用户已偏好的内容属性，向其展示属性相近的项目。至于这是否提升电商点击率，论文未明确说明。\n2. 可用于基于历史偏好的个性化推荐：正文提到算法从用户偏好的歌曲集合出发，形成动态方案，推荐与其过去多次听过或当前喜欢的流派相似的音乐。因此可支持“依据历史行为进行个性化内容推荐”的业务任务。若用于电商，只能对应到“基于用户既往兴趣推荐相似商品/内容”的一般性启发；CTR提升效果论文未明确说明。\n3. 可用于推荐结果展示到用户终端：摘要中说“Emerging tips are displayed on the user's display to listen.” 这支持一种实际场景，即把推荐结果直接展示在用户设备界面上，供用户进一步收听或选择。若类比电商，可对应到在用户端展示推荐商品/内容，但具体展示形式、排序策略、点击机制论文未明确说明。\n4. 可用于探索多种相似性方法：正文提到实验希望从“audio signal”之外的其他方式扩展相似性建议，并查看不同方法的相似性。这可支持业务中对不同相似性特征来源的探索。但具体如何落地、何种方法更有效、对点击行为是否有影响，论文未明确说明。\n\n总的来说，对“电商点击率影响因素”这一主题，本论文正文可提供的支持非常有限：它只能支持“用户历史偏好”和“物品内容属性相似性”可能是推荐相关性的依据，并且推荐结果可展示给用户；至于点击率是否提升、哪些因素显著影响CTR、影响程度如何，论文未明确说明。",
@@ -188,7 +371,8 @@
       "score": 59,
       "score_details": "引用0(新/少); 顶会:Science; 5年前; 完整度11/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "paper_markdown_title": "Music Recommendation System"
     },
     {
       "title": "Analysis of Recommendation System in Cloud Platform",
@@ -212,9 +396,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.21275/sr22130223310"
+        "https://doi.org/10.21275/sr22130223310",
+        "https://doi.org/10.21275/sr22130223310/pdf",
+        "https://doi.org/10.21275/sr22130223310/full",
+        "https://doi.org/10.21275/sr22130223310?download=1",
+        "https://doi.org/10.21275/sr22130223310.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.21275/sr22130223310 => too_short",
+      "fulltext_error": "https://doi.org/10.21275/sr22130223310 => landing_page_only; https://doi.org/10.21275/sr22130223310/pdf => network_error; https://doi.org/10.21275/sr22130223310/full => network_error; https://doi.org/10.21275/sr22130223310?download=1 => landing_page_only; https://doi.org/10.21275/sr22130223310.pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -223,7 +411,63 @@
       "score": 59,
       "score_details": "引用0(新/少); 顶会:Science; 4年前; 完整度11/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.21275/sr22130223310",
+          "final_url": "https://www.ijsr.net/getabstract.php?paperid=SR22130223310",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 2812,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.21275/sr22130223310/pdf",
+          "final_url": "https://doi.org/10.21275/sr22130223310/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.21275/sr22130223310/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.21275/sr22130223310/full",
+          "final_url": "https://doi.org/10.21275/sr22130223310/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.21275/sr22130223310/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.21275/sr22130223310?download=1",
+          "final_url": "https://www.ijsr.net/getabstract.php?paperid=SR22130223310",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 2812,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.21275/sr22130223310.pdf",
+          "final_url": "https://doi.org/10.21275/sr22130223310.pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.21275/sr22130223310.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "A Survey of Recommendation Systems: Recommendation Models, Techniques, and Application Fields",
@@ -247,9 +491,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4205390421"
+        "https://openalex.org/W4205390421",
+        "https://openalex.org/W4205390421.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W4205390421 => too_short",
+      "fulltext_error": "https://openalex.org/W4205390421 => landing_page_only; https://openalex.org/W4205390421.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -258,7 +503,35 @@
       "score": 58,
       "score_details": "引用582(高); 非顶会; 4年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W4205390421",
+          "final_url": "https://openalex.org/W4205390421",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W4205390421.pdf",
+          "final_url": "https://openalex.org/W4205390421.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "A Digital Recommendation System for Personalized Learning to Enhance Online Education: A Review",
@@ -282,9 +555,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f"
+        "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f",
+        "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf"
       ],
-      "fulltext_error": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f => too_short",
+      "fulltext_error": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f => landing_page_only; https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -293,7 +567,35 @@
       "score": 55,
       "score_details": "引用95(一般); 非顶会; 2年内; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f",
+          "final_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf",
+          "final_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "DEEP-CARDIO: Recommendation System for Cardiovascular Disease Prediction Using IoT Network",
@@ -317,9 +619,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03"
+        "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
+        "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf"
       ],
-      "fulltext_error": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03 => too_short",
+      "fulltext_error": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03 => landing_page_only; https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -328,7 +631,35 @@
       "score": 55,
       "score_details": "引用64(一般); 非顶会; 2年内; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
+          "final_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf",
+          "final_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "A Review of Content-Based and Context-Based Recommendation Systems",
@@ -352,9 +683,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3130481949"
+        "https://openalex.org/W3130481949",
+        "https://openalex.org/W3130481949.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3130481949 => too_short",
+      "fulltext_error": "https://openalex.org/W3130481949 => landing_page_only; https://openalex.org/W3130481949.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -363,7 +695,35 @@
       "score": 53,
       "score_details": "引用336(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3130481949",
+          "final_url": "https://openalex.org/W3130481949",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3130481949.pdf",
+          "final_url": "https://openalex.org/W3130481949.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Recommendation Systems for Education: Systematic Review",
@@ -387,9 +747,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3179424508"
+        "https://openalex.org/W3179424508",
+        "https://openalex.org/W3179424508.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3179424508 => too_short",
+      "fulltext_error": "https://openalex.org/W3179424508 => landing_page_only; https://openalex.org/W3179424508.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -398,7 +759,35 @@
       "score": 53,
       "score_details": "引用163(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3179424508",
+          "final_url": "https://openalex.org/W3179424508",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3179424508.pdf",
+          "final_url": "https://openalex.org/W3179424508.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Improvising personalized travel recommendation system with recency effects",
@@ -422,9 +811,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3162663167"
+        "https://openalex.org/W3162663167",
+        "https://openalex.org/W3162663167.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3162663167 => too_short",
+      "fulltext_error": "https://openalex.org/W3162663167 => landing_page_only; https://openalex.org/W3162663167.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -433,7 +823,35 @@
       "score": 53,
       "score_details": "引用150(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3162663167",
+          "final_url": "https://openalex.org/W3162663167",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3162663167.pdf",
+          "final_url": "https://openalex.org/W3162663167.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "GHRS: Graph-based Hybrid Recommendation System with Application to Movie Recommendation",
@@ -457,9 +875,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4220818090"
+        "https://openalex.org/W4220818090",
+        "https://openalex.org/W4220818090.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W4220818090 => too_short",
+      "fulltext_error": "https://openalex.org/W4220818090 => landing_page_only; https://openalex.org/W4220818090.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -468,7 +887,35 @@
       "score": 53,
       "score_details": "引用145(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W4220818090",
+          "final_url": "https://openalex.org/W4220818090",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W4220818090.pdf",
+          "final_url": "https://openalex.org/W4220818090.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "A Role of Machine Learning Algorithms for Demand Based Netflix Recommendation System",
@@ -492,9 +939,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7"
+        "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
+        "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf"
       ],
-      "fulltext_error": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7 => too_short",
+      "fulltext_error": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7 => landing_page_only; https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -503,7 +951,35 @@
       "score": 53,
       "score_details": "引用17(较少); 非顶会; 1年内; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
+          "final_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf",
+          "final_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Personalized recommendation system based on knowledge embedding and historical behavior",
@@ -527,9 +1003,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3163731277"
+        "https://openalex.org/W3163731277",
+        "https://openalex.org/W3163731277.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3163731277 => too_short",
+      "fulltext_error": "https://openalex.org/W3163731277 => landing_page_only; https://openalex.org/W3163731277.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -538,7 +1015,35 @@
       "score": 49,
       "score_details": "引用148(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3163731277",
+          "final_url": "https://openalex.org/W3163731277",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3163731277.pdf",
+          "final_url": "https://openalex.org/W3163731277.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Smart Travel Recommendation System",
@@ -562,9 +1067,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.55248/gengpi.6.0825.32103"
+        "https://doi.org/10.55248/gengpi.6.0825.32103",
+        "https://doi.org/10.55248/gengpi.6.0825.32103/pdf",
+        "https://doi.org/10.55248/gengpi.6.0825.32103/full",
+        "https://doi.org/10.55248/gengpi.6.0825.32103?download=1"
       ],
-      "fulltext_error": "https://doi.org/10.55248/gengpi.6.0825.32103 => 403 Client Error: Forbidden for url: https://ijrpr.com/uploads/V6ISSUE8/IJRPR52165.pdf",
+      "fulltext_error": "https://doi.org/10.55248/gengpi.6.0825.32103 => network_error; https://doi.org/10.55248/gengpi.6.0825.32103/pdf => network_error; https://doi.org/10.55248/gengpi.6.0825.32103/full => network_error; https://doi.org/10.55248/gengpi.6.0825.32103?download=1 => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -573,7 +1081,51 @@
       "score": 44,
       "score_details": "引用0(新/少); 非顶会; 1年内; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103",
+          "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://ijrpr.com/uploads/V6ISSUE8/IJRPR52165.pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103/pdf",
+          "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.55248/gengpi.6.0825.32103/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103/full",
+          "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.55248/gengpi.6.0825.32103/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103?download=1",
+          "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103?download=1",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://ijrpr.com/uploads/V6ISSUE8/IJRPR52165.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Developing A Professor Recommendation System",
@@ -597,9 +1149,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.31274/cc-20250502-81"
+        "https://doi.org/10.31274/cc-20250502-81",
+        "https://doi.org/10.31274/cc-20250502-81/pdf",
+        "https://doi.org/10.31274/cc-20250502-81/full",
+        "https://doi.org/10.31274/cc-20250502-81?download=1",
+        "https://doi.org/10.31274/cc-20250502-81.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.31274/cc-20250502-81 => too_short",
+      "fulltext_error": "https://doi.org/10.31274/cc-20250502-81 => landing_page_only; https://doi.org/10.31274/cc-20250502-81/pdf => network_error; https://doi.org/10.31274/cc-20250502-81/full => network_error; https://doi.org/10.31274/cc-20250502-81?download=1 => landing_page_only; https://doi.org/10.31274/cc-20250502-81.pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -608,7 +1164,63 @@
       "score": 38,
       "score_details": "引用0(新/少); 非顶会; 2年内; 完整度8/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.31274/cc-20250502-81",
+          "final_url": "https://dr.lib.iastate.edu/handle/20.500.12876/105891",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.31274/cc-20250502-81/pdf",
+          "final_url": "https://doi.org/10.31274/cc-20250502-81/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.31274/cc-20250502-81/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.31274/cc-20250502-81/full",
+          "final_url": "https://doi.org/10.31274/cc-20250502-81/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.31274/cc-20250502-81/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.31274/cc-20250502-81?download=1",
+          "final_url": "https://dr.lib.iastate.edu/handle/20.500.12876/105891",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.31274/cc-20250502-81.pdf",
+          "final_url": "https://doi.org/10.31274/cc-20250502-81.pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.31274/cc-20250502-81.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     }
   ]
 }

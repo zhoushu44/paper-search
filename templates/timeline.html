@@ -55,7 +55,7 @@
                         </p>
 
                         <div class="paper-tags">
-                            {% if is_top_venue(paper.venue) %}
+                            {% if is_top_venue(paper.venue)[0] %}
                             <span class="tag tag-top">🏆 顶会</span>
                             {% endif %}
                             <span class="tag">{{ paper.search_keyword }}</span>

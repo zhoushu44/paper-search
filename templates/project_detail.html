@@ -15,6 +15,7 @@
         </div>
         <div class="project-actions-bar">
             <button onclick="showSummary()" class="btn btn-primary">查看汇总</button>
+            <button onclick="backfillFulltext()" class="btn btn-outline">补生成全文解读</button>
             <button onclick="downloadProject()" class="btn btn-outline">下载项目</button>
             <a href="/" class="btn btn-outline">返回首页</a>
         </div>
@@ -23,9 +24,9 @@
     <!-- 筛选栏 -->
     <div class="filter-bar">
         <div class="filter-left">
-            <button class="filter-btn active" onclick="filterPapers('all')">全部 ({{ papers|length }})</button>
-            <button class="filter-btn" onclick="filterPapers('top')">顶会 ({{ papers|selectattr('venue')|map('string')|list|length }})</button>
-            <button class="filter-btn" onclick="filterPapers('high')">高分</button>
+            <button class="filter-btn active" onclick="filterPapers('all', this)">全部 ({{ papers|length }})</button>
+            <button class="filter-btn" onclick="filterPapers('top', this)">顶会 ({{ project.top_papers }})</button>
+            <button class="filter-btn" onclick="filterPapers('high', this)">高分</button>
         </div>
         <div class="filter-right">
             <input type="text" id="searchInput" placeholder="搜索论文..." class="form-input-small" oninput="searchPapers()">
@@ -35,7 +36,7 @@
     <!-- 论文列表 -->
     <div class="papers-list">
         {% for paper in papers %}
-        <div class="paper-card" data-is-top="{{ 'true' if is_top_venue(paper.get('venue', '')) else 'false' }}" data-score="{{ paper.score|replace('D','')|replace('C','')|replace('B','')|replace('A','')|replace('S','')|replace('(','')|replace(')','') }}">
+        <div class="paper-card" data-is-top="{{ 'true' if is_top_venue(paper.get('venue', ''))[0] else 'false' }}" data-score="{{ paper.score|replace('D','')|replace('C','')|replace('B','')|replace('A','')|replace('S','')|replace('(','')|replace(')','') }}">
             <div class="paper-rank">{{ loop.index }}</div>
             <div class="paper-content">
                 <div class="paper-header">
@@ -53,13 +54,19 @@
                     <span>{{ paper.authors }}</span>
                     <span>{{ paper.year }}</span>
                     <span>{{ paper.venue }}</span>
-                    {% if is_top_venue(paper.get('venue', '')) %}
+                    {% if is_top_venue(paper.get('venue', ''))[0] %}
                     <span class="badge-top">顶会</span>
                     {% endif %}
                 </div>
                 <div class="paper-summary">{{ paper.summary }}</div>
                 {% if not note_url %}
                 <div class="paper-note-status">未生成单篇全文解读</div>
+                {% if paper.fulltext_failure_reason_display %}
+                <div class="paper-note-status">失败原因：{{ paper.fulltext_failure_reason_display }}</div>
+                {% endif %}
+                {% if paper.fulltext_last_attempt %}
+                <div class="paper-note-status">最后尝试来源：{{ paper.fulltext_last_attempt }}</div>
+                {% endif %}
                 {% endif %}
                 <details class="paper-detail-toggle">
                     <summary>查看中文解读</summary>
@@ -98,10 +105,10 @@
 </div>
 
 <script>
-function filterPapers(type) {
+function filterPapers(type, button) {
     const cards = document.querySelectorAll('.paper-card');
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    if (button) button.classList.add('active');
 
     cards.forEach(card => {
         const isTop = card.dataset.isTop === 'true';
@@ -144,6 +151,25 @@ function closeSummary() {
 
 function downloadProject() {
     window.location.href = '/download_project/{{ project_id }}';
+}
+
+function backfillFulltext() {
+    if (!confirm('确定补生成当前项目缺失的单篇全文解读？已有解读不会被覆盖。')) return;
+
+    fetch('/api/project/{{ project_id }}/backfill_fulltext', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message || '已开始补生成');
+            window.location.href = '/';
+        } else {
+            alert('补生成失败: ' + (data.error || '未知错误'));
+        }
+    })
+    .catch(() => alert('补生成失败，请稍后重试'));
 }
 
 document.getElementById('summaryModal').addEventListener('click', function(e) {

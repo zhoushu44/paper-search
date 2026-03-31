@@ -1,7 +1,7 @@
 {
   "keyword": "e-commerce",
   "original_keyword": "电商点击率影响因素",
-  "timestamp": "2026-03-31T01:16:06.684274",
+  "timestamp": "2026-03-31T09:40:12.326742",
   "count": 14,
   "papers": [
     {
@@ -26,9 +26,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4398182172"
+        "https://openalex.org/W4398182172",
+        "https://openalex.org/W4398182172.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W4398182172 => too_short",
+      "fulltext_error": "https://openalex.org/W4398182172 => landing_page_only; https://openalex.org/W4398182172.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -37,7 +38,35 @@
       "score": 95,
       "score_details": "引用1547(顶级); 顶会:Science; 2年内; 完整度15/15; 高度相关",
       "level": "S",
-      "level_desc": "强烈推荐"
+      "level_desc": "强烈推荐",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W4398182172",
+          "final_url": "https://openalex.org/W4398182172",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W4398182172.pdf",
+          "final_url": "https://openalex.org/W4398182172.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "E-Commerce: Advantages and Limitations",
@@ -61,9 +90,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3158590217"
+        "https://openalex.org/W3158590217",
+        "https://openalex.org/W3158590217.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3158590217 => too_short",
+      "fulltext_error": "https://openalex.org/W3158590217 => landing_page_only; https://openalex.org/W3158590217.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -72,7 +102,35 @@
       "score": 78,
       "score_details": "引用143(中); 顶会:Science; 5年前; 完整度15/15; 高度相关",
       "level": "A",
-      "level_desc": "推荐阅读"
+      "level_desc": "推荐阅读",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3158590217",
+          "final_url": "https://openalex.org/W3158590217",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3158590217.pdf",
+          "final_url": "https://openalex.org/W3158590217.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Consumer Marketing Strategy and E-Commerce in the Last Decade: A Literature Review",
@@ -96,9 +154,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3208801535"
+        "https://openalex.org/W3208801535",
+        "https://openalex.org/W3208801535.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3208801535 => too_short",
+      "fulltext_error": "https://openalex.org/W3208801535 => landing_page_only; https://openalex.org/W3208801535.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -107,7 +166,35 @@
       "score": 53,
       "score_details": "引用274(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3208801535",
+          "final_url": "https://openalex.org/W3208801535",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3208801535.pdf",
+          "final_url": "https://openalex.org/W3208801535.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Connecting the Countryside via E-Commerce: Evidence from China",
@@ -131,9 +218,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W2970889537"
+        "https://openalex.org/W2970889537",
+        "https://openalex.org/W2970889537.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W2970889537 => too_short",
+      "fulltext_error": "https://openalex.org/W2970889537 => landing_page_only; https://openalex.org/W2970889537.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -142,7 +230,35 @@
       "score": 53,
       "score_details": "引用248(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W2970889537",
+          "final_url": "https://openalex.org/W2970889537",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W2970889537.pdf",
+          "final_url": "https://openalex.org/W2970889537.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Poverty alleviation through e-commerce: Village involvement and demonstration policies in rural China",
@@ -166,9 +282,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3146911727"
+        "https://openalex.org/W3146911727",
+        "https://openalex.org/W3146911727.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3146911727 => too_short",
+      "fulltext_error": "https://openalex.org/W3146911727 => landing_page_only; https://openalex.org/W3146911727.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -177,7 +294,35 @@
       "score": 53,
       "score_details": "引用253(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3146911727",
+          "final_url": "https://openalex.org/W3146911727",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3146911727.pdf",
+          "final_url": "https://openalex.org/W3146911727.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Artificial intelligence in E-Commerce: a bibliometric study and literature review",
@@ -201,9 +346,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4220923293"
+        "https://openalex.org/W4220923293",
+        "https://openalex.org/W4220923293.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W4220923293 => too_short",
+      "fulltext_error": "https://openalex.org/W4220923293 => landing_page_only; https://openalex.org/W4220923293.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -212,7 +358,35 @@
       "score": 49,
       "score_details": "引用314(中); 非顶会; 4年前; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W4220923293",
+          "final_url": "https://openalex.org/W4220923293",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W4220923293.pdf",
+          "final_url": "https://openalex.org/W4220923293.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Applications of artificial intelligence in business management, e-commerce and finance",
@@ -236,9 +410,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3182797139"
+        "https://openalex.org/W3182797139",
+        "https://openalex.org/W3182797139.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3182797139 => too_short",
+      "fulltext_error": "https://openalex.org/W3182797139 => landing_page_only; https://openalex.org/W3182797139.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -247,7 +422,35 @@
       "score": 49,
       "score_details": "引用239(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3182797139",
+          "final_url": "https://openalex.org/W3182797139",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3182797139.pdf",
+          "final_url": "https://openalex.org/W3182797139.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "The adoption and impact of E-commerce in rural China: Application of an endogenous switching regression model",
@@ -271,9 +474,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3135109632"
+        "https://openalex.org/W3135109632",
+        "https://openalex.org/W3135109632.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3135109632 => too_short",
+      "fulltext_error": "https://openalex.org/W3135109632 => landing_page_only; https://openalex.org/W3135109632.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -282,7 +486,35 @@
       "score": 49,
       "score_details": "引用262(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3135109632",
+          "final_url": "https://openalex.org/W3135109632",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3135109632.pdf",
+          "final_url": "https://openalex.org/W3135109632.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Resources and digital export: An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce",
@@ -306,9 +538,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3159274234"
+        "https://openalex.org/W3159274234",
+        "https://openalex.org/W3159274234.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3159274234 => too_short",
+      "fulltext_error": "https://openalex.org/W3159274234 => landing_page_only; https://openalex.org/W3159274234.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -317,7 +550,35 @@
       "score": 49,
       "score_details": "引用366(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3159274234",
+          "final_url": "https://openalex.org/W3159274234",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3159274234.pdf",
+          "final_url": "https://openalex.org/W3159274234.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "E-Commerce and Consumer Protection in India: The Emerging Trend",
@@ -341,9 +602,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3177694727"
+        "https://openalex.org/W3177694727",
+        "https://openalex.org/W3177694727.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3177694727 => too_short",
+      "fulltext_error": "https://openalex.org/W3177694727 => landing_page_only; https://openalex.org/W3177694727.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -352,7 +614,35 @@
       "score": 49,
       "score_details": "引用183(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3177694727",
+          "final_url": "https://openalex.org/W3177694727",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3177694727.pdf",
+          "final_url": "https://openalex.org/W3177694727.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Methods and Applications of Quick Commerce (Q-Commerce)",
@@ -380,9 +670,9 @@
       ],
       "fulltext_error": "",
       "has_fulltext_markdown": true,
-      "paper_markdown_slug": "01-methods-and-applications-of-quick-commerce-q-commerce",
-      "paper_markdown_path": "paper_notes/01-methods-and-applications-of-quick-commerce-q-commerce.md",
-      "paper_markdown_filename": "01-methods-and-applications-of-quick-commerce-q-commerce.md",
+      "paper_markdown_slug": "Methods and Applications of Quick Commerce (Q-Commerce)",
+      "paper_markdown_path": "paper_notes/Methods and Applications of Quick Commerce (Q-Commerce).md",
+      "paper_markdown_filename": "Methods and Applications of Quick Commerce (Q-Commerce).md",
       "fulltext_analysis": {
         "detailed_interpretation": "根据给定正文片段，这篇论文讨论的是“快速电商（Q-Commerce）”及其可持续性。正文明确指出，快速电商是在COVID-19疫情期间出现的一种全新商业模式。其形成背景是封锁和社交隔离迫使大量消费者转向线上购买商品，尤其是杂货和易腐品。正文还指出，随着主要平台提供“即时配送”，快速电商已经成为印度零售业快速演进中的一个重要趋势，并提升了“便利性标准”。\n\n从运营特征看，正文明确说明快速电商的核心在于“速度”，即在收到订单后10到30分钟内完成产品或服务交付。这种对超快配送的强调，被表述为已经“革新了印度的零售机构/零售业态”。此外，正文提到其使用“dark store”来运营其Kirana store，这说明其履约方式与传统门店存在差异，但具体dark store如何运作、怎样影响消费者行为，正文未明确说明。\n\n从竞争比较看，正文明确表示，快速电商在配送速度方面比传统零售店“更有帮助/更具优势”，即使传统零售店是24小时营业。也就是说，文段中最突出、最明确的价值主张是“更快送达”，而不是价格、商品丰富度、品牌、促销或推荐机制等其他因素。\n\n从行业发展判断看，正文指出快速电商的增长源于“不断上升的需求”和“对快速配送的渴望”。这意味着消费者对速度的偏好是该模式发展的直接推动力之一。但这种“需求”具体是哪些人群、需求如何测量、与点击率如何关联，正文未明确说明。\n\n从可持续性与长期前景看，正文明确提出：这种快速服务在印度D2C市场中的长期可行性“仍悬而未决/尚不确定”。因此，论文至少在摘要层面并没有把快速电商描述为已经被验证可长期稳定成立的模式，而是强调其增长很快，但长期持续性仍存在疑问。\n\n结合用户研究主题“电商点击率影响因素”来看，基于正文能够得到的最谨慎解读是：论文涉及的可观察影响因素主要是“即时配送/配送速度/便利性提升”，这些因素可能与用户线上转化或吸引力有关。但正文没有直接研究“点击率（CTR）”，也没有明确说明点击行为、曝光机制、推荐排序、广告素材、价格展示、评价信息等CTR常见影响因素。因此，若将其用于点击率研究，只能作为“速度与便利性可能是吸引用户的重要因素”的间接背景材料，不能据此声称论文已经证明了“配送速度提升点击率”。这一点论文未明确说明。",
         "practical_usage": "基于正文片段，这篇论文对“电商点击率影响因素”主题可支持的实际运用主要有以下几点：\n\n1. 可用于提炼业务假设：在电商或即时零售场景中，可将“10到30分钟配送”“即时送达”“便利性”作为潜在用户吸引点进行研究或测试。正文支持这些要素是快速电商增长的重要背景因素。\n\n2. 可用于页面卖点设计方向：若业务场景是生鲜、杂货、易腐品或即时消费品，正文支持将“快速配送”作为核心价值主张之一，因为文段明确指出疫情期间此类商品线上购买增加，且快速电商因即时配送成为重要趋势。\n\n3. 可用于细分场景选择：正文表明快速电商特别关联“grocery and perishables（杂货和易腐品）”场景，因此在这些品类中评估“配送时效信息”是否值得突出展示，是正文可以支持的应用方向。\n\n4. 可用于竞争定位分析：正文支持把“配送速度优于传统零售”作为与传统零售区分的一个关键维度，因此可用于构建业务分析框架，例如比较不同零售模式的核心用户价值。\n\n5. 关于点击率建模、点击率提升策略、A/B测试指标、推荐系统特征、广告创意因素、价格因素、用户画像因素等具体应用，论文未明确说明。\n\n6. 关于“dark store”如何具体提升点击率、转化率或复购率，论文未明确说明。\n\n7. 关于快速电商长期可持续经营对营销投放和获客效率的具体影响，正文仅指出长期可行性尚不确定，未提供可直接落地的方法或指标。",
@@ -398,7 +688,8 @@
       "score": 48,
       "score_details": "引用1(新/少); 非顶会; 1年内; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "paper_markdown_title": "Methods and Applications of Quick Commerce (Q-Commerce)"
     },
     {
       "title": "Q-COMMERCE AND E-COMMERCE IN GHANA: DIGITAL DEVELOPMENT TRENDS AND PROSPECTS",
@@ -426,9 +717,9 @@
       ],
       "fulltext_error": "",
       "has_fulltext_markdown": true,
-      "paper_markdown_slug": "06-q-commerce-and-e-commerce-in-ghana-digital-development-trends-and-prospects",
-      "paper_markdown_path": "paper_notes/06-q-commerce-and-e-commerce-in-ghana-digital-development-trends-and-prospects.md",
-      "paper_markdown_filename": "06-q-commerce-and-e-commerce-in-ghana-digital-development-trends-and-prospects.md",
+      "paper_markdown_slug": "Q-COMMERCE AND E-COMMERCE IN GHANA DIGITAL DEVELOPMENT TRENDS AND PROSPECTS",
+      "paper_markdown_path": "paper_notes/Q-COMMERCE AND E-COMMERCE IN GHANA DIGITAL DEVELOPMENT TRENDS AND PROSPECTS.md",
+      "paper_markdown_filename": "Q-COMMERCE AND E-COMMERCE IN GHANA DIGITAL DEVELOPMENT TRENDS AND PROSPECTS.md",
       "fulltext_analysis": {
         "detailed_interpretation": "这篇论文片段的核心并不是直接研究“电商点击率影响因素”，而是讨论电子商务与快速商业（q-commerce）在加纳的发展趋势、增长条件与市场前景。因此，若从“点击率影响因素”角度解读，只能提炼出与用户线上选择、平台吸引力和消费响应相关的间接因素，不能扩展为论文明确研究了点击、曝光、转化机制。\n\n基于正文，可提炼出的相关影响因素主要有以下几类：\n\n1. 便利性、速度与个性化是平台竞争力的重要因素。\n论文明确指出，在多渠道生态中，“便利性、服务速度和个性化方法”成为决定竞争力的因素。这说明，在电商场景中，消费者更容易被强调便捷、快速和个性化体验的平台或服务吸引。就“点击率影响因素”而言，这可以被谨慎理解为：如果平台展示内容突出这些属性，可能更有利于吸引用户注意和互动。但需要强调，论文并未直接测量点击率，也未建立这些因素与CTR之间的定量关系。\n\n2. 消费者行为变化是电商增长的重要驱动。\n正文多次提到，电子商务扩张与“消费者行为变化”“消费者对即时满足的需求增强”有关，尤其是在疫情后更明显。这说明用户偏好正在从传统购买方式转向更强调即时性与线上便利性的模式。从点击率研究角度，这可作为用户兴趣变化的背景变量：更强的即时需求可能使与“快速配送”“即时可得”相关的信息更具吸引力。但论文未明确说明这种需求变化会如何具体影响商品页点击、广告点击或推荐位点击。\n\n3. 移动技术、支付数字化和数字基础设施是促进线上交易活跃的重要条件。\n论文明确将移动技术快速发展、支付系统数字化、数字基础设施建设视为q-commerce和e-commerce增长的重要支撑。这意味着，用户能够更顺畅地完成线上浏览、下单和支付，平台也更容易扩大服务覆盖范围。若联系点击率主题，这些条件可被理解为提升用户进入和使用电商服务的前提环境，但论文未明确说明其对点击率的直接影响路径。\n\n4. 配送效率，尤其是“最后一公里”能力，是快速商业吸引用户的关键。\n论文强调q-commerce本质上是电子商务与高效率物流机制的结合，尤其重视最后一公里优化；并指出消费者愿意为更快配送支付更高价格。这表明“配送承诺”本身是一种重要的用户吸引点。在电商内容设计或平台运营中，突出配送时效可能增强用户反应意愿。但论文未明确说明这种吸引是否具体体现为点击率提升。\n\n5. 加纳市场中的需求增长，与城市化、中产阶层扩张、收入提高和即时商品需求有关。\n论文指出，加纳q-commerce增长由宏观经济增长、中产阶层扩张、居民可支配收入增加、城市化、数字基础设施发展等因素推动；同时，消费者对生活必需品的即时获取需求推动该领域增长。这些内容说明，在加纳市场，用户对线上快速购买服务的接受度和需求正在增强。从点击率视角，只能谨慎解读为：面向这些需求的电商内容更可能获得用户关注，但论文未明确说明哪些人群点击更高、哪些商品素材更易点击。\n\n6. 商品类型与“新鲜、本地、高质量”特征在加纳市场具有较强吸引力。\n正文特别提到，加纳快速商业中，供应新鲜本地产品的平台尤受欢迎；本地农业资源使平台可突出“本地生产、鲜度、质量”。这意味着，对加纳用户而言，商品展示如果强调新鲜度、品质和本地属性，可能更符合市场需求。从点击率研究角度，这些可以作为潜在内容吸引要素，但论文未明确给出点击数据、实验结果或因果验证。\n\n7. 市场竞争格局和领先平台案例说明“快速交付能力”是平台差异化卖点。\n论文举例Hubtel Mall覆盖食品、熟食配送和在线零售，并具备60分钟内快速配送能力，且使用自有配送服务。这表明平台通过配送速度和服务整合构建竞争优势。若用于点击率分析，可理解为“明确承诺配送时效”可能是吸引用户的重要展示点；但论文未明确说明该平台的点击表现、流量结构或用户点击行为。\n\n8. 论文未涉及的内容。\n对于电商点击率研究通常关心的广告文案、图片风格、标题关键词、价格呈现方式、促销标签、排序位置、推荐算法、页面布局、评价数量、评分高低、A/B测试结果等，论文未明确说明。对CTR的定义、测量方法、样本数据、回归模型、实验设计，论文也未明确说明。\n\n综上，这篇论文对“电商点击率影响因素”的价值主要是提供一个较高层面的市场与用户需求背景：在加纳电商/快速商业场景中，便利性、配送速度、个性化、移动技术、支付数字化、城市化、收入提升以及对新鲜本地商品的偏好，是可作为用户吸引因素进行关注的方向。但若要直接回答“什么因素影响点击率”，论文证据仍然有限，很多细化问题都属于论文未明确说明。",
         "practical_usage": "基于正文，这篇论文可支持的实际运用主要集中在电商平台定位、卖点提炼和市场进入判断，而不是直接建立点击率模型。\n\n1. 可用于提炼电商前端内容应重点突出的卖点。\n正文支持把“便利性”“服务速度”“个性化”“快速配送”作为平台竞争力核心。因此，在面向加纳电商或q-commerce业务时，可将这些作为页面主卖点、活动主题或服务承诺的重点方向。至于这些卖点会带来多大点击率提升，论文未明确说明。\n\n2. 可用于加纳市场的用户需求判断。\n正文表明，加纳消费者对“即时获取生活必需品”的需求在增长，且城市化、收入提升、数字基础设施改善共同推动线上消费。因此，企业可据此优先布局与高频、刚需、即时性相关的品类或场景。至于具体哪些商品点击率最高，论文未明确说明。\n\n3. 可用于快速商业平台的运营侧优先级排序。\n论文强调最后一公里、物流效率、移动技术、支付数字化对q-commerce发展重要。因此，若企业在加纳开展业务，可优先优化配送时效、支付便利性、移动端可用性和物流协同。这些属于提升用户整体体验和业务增长的方向。至于这些优化如何作用于点击率，论文未明确说明。\n\n4. 可用于商品与内容策略上的方向性选择。\n正文提到加纳市场中“新鲜、本地产品”平台特别受欢迎，本地农业资源有助于平台强调鲜度与质量。因此，平台可以优先展示本地商品、新鲜度和质量相关内容。是否会直接提高点击率，论文未明确说明。\n\n5. 可用于区域扩张与竞争进入评估。\n论文指出，加纳q-commerce市场竞争水平较低但需求增长，且对外国和国际企业存在良好进入机会。因此，这篇论文可支持“是否进入加纳q-commerce市场”的战略判断。至于市场进入后如何通过广告创意、推荐排序等提升点击率，论文未明确说明。\n\n6. 可用于用户增长与产品定位的宏观论证。\n论文给出了加纳q-commerce市场收入、用户数、渗透率和增长预测，可用于证明该赛道存在成长空间，适合向内部团队或管理层说明业务前景。它更适合支持市场机会判断，不足以直接支持CTR预测、投放优化或精细化用户分层建模。\n\n7. 对“电商点击率影响因素”研究的直接应用边界。\n如果任务是构建CTR因子库、做点击率回归分析、提炼广告层面的高点击元素，这篇论文只能提供非常有限的上层背景变量，如配送速度、即时满足需求、数字支付环境、城市化和用户便利偏好；对于点击率研究常用的细粒度变量，论文未明确说明。",
@@ -444,7 +735,8 @@
       "score": 44,
       "score_details": "引用0(新/少); 非顶会; 1年内; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "paper_markdown_title": "Q-COMMERCE AND E-COMMERCE IN GHANA DIGITAL DEVELOPMENT TRENDS AND PROSPECTS"
     },
     {
       "title": "Call for Metaverse e-commerce: future challenges and opportunities for electronic commerce",
@@ -472,9 +764,9 @@
       ],
       "fulltext_error": "",
       "has_fulltext_markdown": true,
-      "paper_markdown_slug": "08-call-for-metaverse-e-commerce-future-challenges-and-opportunities-for-electronic",
-      "paper_markdown_path": "paper_notes/08-call-for-metaverse-e-commerce-future-challenges-and-opportunities-for-electronic.md",
-      "paper_markdown_filename": "08-call-for-metaverse-e-commerce-future-challenges-and-opportunities-for-electronic.md",
+      "paper_markdown_slug": "Call for Metaverse e-commerce future challenges and opportunities for electronic commerce",
+      "paper_markdown_path": "paper_notes/Call for Metaverse e-commerce future challenges and opportunities for electronic commerce.md",
+      "paper_markdown_filename": "Call for Metaverse e-commerce future challenges and opportunities for electronic commerce.md",
       "fulltext_analysis": {
         "detailed_interpretation": "从给定正文看，这篇文章本质上是一则关于“Metaverse e-commerce（元宇宙电商）”专题的征稿启事，而不是一篇已经完成实证分析的研究论文。因此，就“电商点击率影响因素”这一用户主题而言，正文并未直接提供点击率的定义、测量方式、影响变量、模型结果或因果结论，论文未明确说明。\n\n但正文明确表达了作者对元宇宙电商发展方向的总体判断：第一，元宇宙相关技术包括VR、AR、非同质化代币和游戏等，其主要动机是“提供最佳用户体验”并实现虚拟环境与真实人的互动。第二，作者认为元宇宙正在重塑电商平台的运营与战略，未来型市场可更好地服务消费者在现实与虚拟场景中的需求。第三，VR和AR等沉浸式技术被视为构建虚拟存在感的关键技术，它们“有潜力改变人们购物的方式”，因为它们能够创建商品模拟并提供互动式消费体验。第四，正文指出电商已经成为元宇宙的重要应用场景，且已出现多种新商业模式，例如虚拟商店、直播购物平台、3D产品模型。第五，作者认为未来元宇宙电商将影响电子商务的“整个过程”，包括带来新的营销机会、改变产品制造与配送方式、以及改变客户服务。\n\n如果仅从与“点击率影响因素”可能相关的角度去解读，正文最多只能支持一种非常有限的推断：作者强调“用户体验”“互动体验”“虚拟商店”“直播购物”“3D商品模型”“品牌营销与推广”“客户关系管理与满意度”等方向在元宇宙电商中重要，这说明未来研究可能会关注这些因素与消费者行为之间的关系。但这些内容在正文中只是专题征稿的方向性议题，并非已经验证的点击率影响因素；关于它们是否影响点击率、影响方向如何、影响大小如何，论文未明确说明。\n\n此外，正文还列出了若干潜在研究主题，如VR/AR在电商中的应用、数字孪生、直播购物、区块链安全交易、创新营销模式、品牌营销推广、物流影响、客户关系管理与满意度、元宇宙硬件设备等。这些只能说明该领域未来可能研究的范围较广，覆盖技术、营销、物流、客户服务等多个环节；但与点击率之间的具体联系，正文未明确说明。",
         "practical_usage": "基于正文，这篇文章对“电商点击率影响因素”研究的实际可用价值较为有限，因为它不是点击率实证研究。若必须结合业务应用，其可支持的用途主要是帮助界定元宇宙电商中的潜在研究与业务关注方向，而不能直接作为点击率优化的证据。\n\n可支持的实际运用包括：\n1. 用于电商企业识别元宇宙电商的重点场景：正文明确提到虚拟商店、直播购物平台、3D产品模型，这些可作为未来业务布局或产品设计的方向。\n2. 用于用户体验导向的场景设计：正文指出元宇宙的主要动机是提供最佳用户体验，并通过VR/AR提供商品模拟和互动式消费体验，因此企业可以把“沉浸式体验设计”视为元宇宙电商建设的重要任务。\n3. 用于营销与服务创新议题规划：正文指出元宇宙电商将带来新的营销机会，并改变客户服务，因此企业可据此规划创新营销模式、品牌推广、客户关系管理与满意度相关项目。\n4. 用于研究选题或业务探索清单：正文列出的潜在主题可作为企业或研究者制定元宇宙电商研究路线图的参考，如VR/AR应用、直播购物、区块链交易、物流、客户关系管理等。\n\n但若具体问到“哪些因素会提升商品点击率、广告点击率、详情页点击率或直播间点击率”，正文没有提供可直接落地的变量、指标、实验设计或结论，论文未明确说明。",
@@ -490,7 +782,8 @@
       "score": 44,
       "score_details": "引用6(新/少); 非顶会; 1年内; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "paper_markdown_title": "Call for Metaverse e-commerce future challenges and opportunities for electronic commerce"
     },
     {
       "title": "Connectivité numérique, commerce électronique et commerce durable",
@@ -514,9 +807,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.30875/9789287073327c006"
+        "https://doi.org/10.30875/9789287073327c006",
+        "https://doi.org/10.30875/9789287073327c006/pdf",
+        "https://doi.org/10.30875/9789287073327c006/full",
+        "https://doi.org/10.30875/9789287073327c006?download=1",
+        "https://doi.org/10.30875/9789287073327c006.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.30875/9789287073327c006 => too_short",
+      "fulltext_error": "https://doi.org/10.30875/9789287073327c006 => landing_page_only; https://doi.org/10.30875/9789287073327c006/pdf => network_error; https://doi.org/10.30875/9789287073327c006/full => network_error; https://doi.org/10.30875/9789287073327c006?download=1 => landing_page_only; https://doi.org/10.30875/9789287073327c006.pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -525,7 +822,63 @@
       "score": 35,
       "score_details": "引用0(新/少); 非顶会; 3年内; 完整度8/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.30875/9789287073327c006",
+          "final_url": "https://www.wto-ilibrary.org/content/books/9789287073327c006",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 775,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.30875/9789287073327c006/pdf",
+          "final_url": "https://doi.org/10.30875/9789287073327c006/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.30875/9789287073327c006/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.30875/9789287073327c006/full",
+          "final_url": "https://doi.org/10.30875/9789287073327c006/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.30875/9789287073327c006/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.30875/9789287073327c006?download=1",
+          "final_url": "https://www.wto-ilibrary.org/content/books/9789287073327c006",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 775,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.30875/9789287073327c006.pdf",
+          "final_url": "https://doi.org/10.30875/9789287073327c006.pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.30875/9789287073327c006.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     }
   ]
 }

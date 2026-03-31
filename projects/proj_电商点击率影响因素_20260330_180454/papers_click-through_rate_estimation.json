@@ -1,7 +1,7 @@
 {
   "keyword": "click-through rate estimation",
   "original_keyword": "电商点击率影响因素",
-  "timestamp": "2026-03-31T01:22:29.063094",
+  "timestamp": "2026-03-31T09:39:41.697435",
   "count": 16,
   "papers": [
     {
@@ -26,9 +26,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4281657079"
+        "https://openalex.org/W4281657079",
+        "https://openalex.org/W4281657079.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W4281657079 => too_short",
+      "fulltext_error": "https://openalex.org/W4281657079 => landing_page_only; https://openalex.org/W4281657079.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -37,7 +38,35 @@
       "score": 63,
       "score_details": "引用1(新/少); 顶会:Science; 4年前; 完整度15/15; 高度相关",
       "level": "B",
-      "level_desc": "值得一看"
+      "level_desc": "值得一看",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W4281657079",
+          "final_url": "https://openalex.org/W4281657079",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W4281657079.pdf",
+          "final_url": "https://openalex.org/W4281657079.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Fast Click-Through Rate Estimation Using Data Aggregates",
@@ -61,9 +90,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3172503718"
+        "https://openalex.org/W3172503718",
+        "https://openalex.org/W3172503718.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3172503718 => too_short",
+      "fulltext_error": "https://openalex.org/W3172503718 => landing_page_only; https://openalex.org/W3172503718.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -72,7 +102,35 @@
       "score": 59,
       "score_details": "引用2(新/少); 顶会:Science; 5年前; 完整度11/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W3172503718",
+          "final_url": "https://openalex.org/W3172503718",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W3172503718.pdf",
+          "final_url": "https://openalex.org/W3172503718.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "A comprehensive survey on advertising click-through rate prediction algorithm",
@@ -100,9 +158,9 @@
       ],
       "fulltext_error": "",
       "has_fulltext_markdown": true,
-      "paper_markdown_slug": "16-a-comprehensive-survey-on-advertising-click-through-rate-prediction-algorithm",
-      "paper_markdown_path": "paper_notes/16-a-comprehensive-survey-on-advertising-click-through-rate-prediction-algorithm.md",
-      "paper_markdown_filename": "16-a-comprehensive-survey-on-advertising-click-through-rate-prediction-algorithm.md",
+      "paper_markdown_slug": "A comprehensive survey on advertising click-through rate prediction algorithm",
+      "paper_markdown_path": "paper_notes/A comprehensive survey on advertising click-through rate prediction algorithm.md",
+      "paper_markdown_filename": "A comprehensive survey on advertising click-through rate prediction algorithm.md",
       "fulltext_analysis": {
         "detailed_interpretation": "论文片段主要围绕广告点击率预测中的若干关键影响因素建模方式展开，核心可归纳为以下几类：\n\n1. 不同特征交互的重要性不同，且这种差异会影响CTR预测结果。\n正文指出，NFM模型在pair-wise interaction层中“所有交叉特征的权重都为1”，即没有区分不同交叉特征对结果的影响程度；AFM则通过在pair-wise interaction层与输出层之间加入attention net，学习不同交叉特征对预测目标的重要性，其中a_ij表示交互特征的重要程度。根据这一表述，论文明确支持这样的理解：在电商点击率问题中，特征之间不是“只要发生交互就同等重要”，而是“不同交互项对点击预测的贡献不同”。\n\n2. 用户历史行为与当前候选广告/商品之间的相关性，是CTR提升的重要建模对象。\n正文在DIN部分明确说明：用户行为特征，也就是用户过去购买或点击过的商品特征，是该模型最重要的特征之一；如果用户历史商品与当前商品相关，则该商品可能更符合用户偏好，因此应推荐给该用户。DIN通过activation unit，对“历史商品记录”与“待推荐商品”逐一做pairwise interaction并计算相关程度，再将这些相关性权重用于用户兴趣表示。由此可见，论文把“历史行为—当前商品相关性”作为点击率预测中的关键因素之一。\n\n3. 用户兴趣不是静态汇总，而是与当前候选广告相关的动态表达。\nDIN中的用户兴趣表示v_U(A)由候选广告向量v_A和用户历史行为嵌入序列共同决定，并通过加权求和生成；其中权重a(e_j, v_A)由前馈神经网络产生。这意味着论文强调的不是简单地把用户历史行为平均汇总，而是根据“当前候选广告”重新激活不同历史行为的重要性。正文还特别指出，为保留用户兴趣强度，attention score直接作为最终权重，不做softmax归一化。\n\n4. 注意力机制在CTR预测中具有关键作用，尤其适合处理特征交互与兴趣选择问题。\n正文直接提到：一些深度学习模型已经能够从用户行为中自动提取用户兴趣，并成功使用attention mechanism从历史行为中选择用户感兴趣的item，以提高CTR预测性能；同时，文献还发现“大多数CTR预测模型都可以视为适用于特征交互的一般注意力机制”，因此“attention mechanism plays a key role in CTR prediction models”。据此，论文片段将注意力机制定位为CTR预测中的核心方法之一。\n\n5. 细粒度属性关系也是影响CTR预测的重要对象。\n正文提到MIAN用于综合提取各种细粒度特征之间的潜在关系，例如用户画像中的gender、age和occupation；该模型包含多交互层进行细粒度特征交互学习，并使用基于Transformer的模块在不同特征子空间中提取多种用户行为表示。由此可见，论文认为用户画像中的细粒度属性及其相互关系，也是CTR预测中的重要影响因素。\n\n6. 特征本身的重要性不能被忽略，仅靠内积或Hadamard积构造交叉特征存在局限。\n正文引用FiBiNET相关内容时指出，当前通过特征组合进行CTR预测的工作，主要使用特征向量的inner product或Hadamard product计算交叉特征，但这种方法忽视了特征本身的重要性，因此进一步提出了动态学习特征重要性的做法。基于此，论文支持这样的解释：不仅“特征如何交互”重要，“单个特征本身有多重要”也会影响点击率建模效果。\n\n7. 图结构信息、属性依赖和多关系路径被用于进一步挖掘用户意图与商品意图。\n正文在图模型相关部分提到：传统方法把item attributes当作ID特征，从而忽略结构信息与属性之间的依赖；HIEN则基于构造的attribute graph，利用自底向上的tree aggregation考虑属性依赖，并通过hierarchical attention mechanism同时捕捉用户和商品在不同属性上的意图。这里反映出论文所强调的另一类影响因素：不仅有“用户做过什么”，还有“属性之间如何关联”“用户/商品意图在不同属性维度上如何表达”。\n\n8. CTR预测面临两类关键稀疏性挑战：特征稀疏与行为稀疏。\n正文明确指出，近年来CTR预测中的两个主要技术方向是feature interaction modeling和user interest mining，但它们分别遭遇关键挑战：一是很多特征出现频率低，导致feature sparsity，且特征交互模型严重依赖特征共现；二是user interest mining需要丰富行为数据才能刻画多样兴趣，但许多用户行为序列很短，导致behavior sparsity。由此可见，论文把“稀疏性问题”视为影响CTR预测效果的核心障碍之一。\n\n9. 为缓解稀疏问题，论文片段强调了属性图、协同图、多兴趣建模等增强方式。\nDG-ENN中构建了user/item attribute graph和collaborative graph，用于缓解特征稀疏和行为稀疏问题；Deminet则显式建模multiple user interests，并通过multi-dependency-aware heterogeneous attention和self-supervised interest learning减少行为序列中的噪声信号。这些内容表明：点击率预测的影响因素不仅在于原始特征和行为本身，还在于能否利用图结构、协同关系、多兴趣和降噪机制更充分地表达用户与商品。\n\n10. 在模型评价层面，论文片段强调AUC和Logloss是最常用指标。\n正文写到，现有研究提出了多种评价指标，其中最常用的是AUC和Logloss。AUC衡量随机选取的正样本是否比负样本排名更高，对类别不平衡不敏感；Logloss衡量预测值与真实标签之间的距离，越小越好。这部分不是点击率影响因素本身，但说明论文在讨论CTR任务时，如何判断上述建模因素是否真正提升了效果。\n\n11. 数据层面，论文片段表明Criteo、Avazu、Amazon是常用公开数据集，而私有数据常来自广告平台、社交媒体和电商网站。\n这说明论文所讨论的方法被用于广告平台、电商站点等CTR预测场景，但关于各数据集具体包含哪些电商点击率影响变量，正文片段未明确说明。\n\n总体而言，仅基于给定正文，论文将电商点击率影响因素主要落实为：不同特征交互的重要性、用户历史行为与当前商品的相关性、用户动态兴趣表达、细粒度属性关系、特征本身的重要性、属性依赖与用户/商品意图，以及特征稀疏和行为稀疏等问题。至于哪些具体业务字段在电商中最重要、各因素的量化贡献大小、不同模型在电商数据上的绝对优劣，论文片段未明确说明。",
         "practical_usage": "基于正文，该论文对“电商点击率影响因素”主题可支持的实际运用或业务含义主要包括：\n\n1. 可用于指导电商CTR模型把“用户历史点击/购买商品”作为关键输入。\n正文明确指出，DIN最重要的特征之一是用户行为特征，即用户过去购买或点击过的商品特征；如果历史商品与当前商品相关，则更可能符合用户口味。因此，在电商场景中，可以将用户历史行为序列与当前候选商品之间的相关性作为建模重点。\n\n2. 可用于支持“按候选商品动态激活用户兴趣”的推荐/广告排序方式。\n根据DIN公式与描述，用户兴趣表示是相对于当前候选广告A动态生成的，而非固定用户向量。这意味着在电商点击率估计任务中，可以针对每个候选商品分别计算用户兴趣权重，以改进排序或曝光决策。\n\n3. 可用于支持引入注意力机制，对不同特征交互赋予不同权重。\nAFM说明交叉特征的影响程度不同；DIN说明历史行为与候选商品的相关性权重不同；文中还明确指出attention mechanism在CTR prediction中起关键作用。因此，电商CTR建模可采用注意力机制来识别更重要的用户-商品、属性-属性或行为-商品关系。\n\n4. 可用于支持挖掘用户画像中的细粒度属性关系。\n正文提到MIAN可提取gender、age、occupation等细粒度特征的潜在关系。对应到电商点击率任务，可将用户画像中的细粒度属性交互纳入建模。至于电商中具体应采用哪些字段，正文未明确说明。\n\n5. 可用于支持同时关注“特征本身的重要性”和“特征交互的重要性”。\nFiBiNET相关表述指出，仅通过inner product或Hadamard product计算交叉特征会忽视特征自身重要性。因此，电商CTR任务中，不仅可以建模商品、用户、上下文之间的交互，还可以评估各特征自身的重要程度。具体业务字段或实现细节，正文未明确说明。\n\n6. 可用于支持解决电商场景中的特征稀疏和短行为序列问题。\n正文明确提出CTR预测存在feature sparsity和behavior sparsity两类挑战，并介绍DG-ENN通过用户/商品属性图和协同图缓解这两个问题。因此，对于电商中低频特征多、很多用户历史行为短的问题，可考虑图增强嵌入方式。具体在电商平台如何部署，正文未明确说明。\n\n7. 可用于支持多兴趣建模与行为降噪。\nDeminet被描述为显式建模multiple user interests，并通过heterogeneous attention和self-supervised interest learning减少行为序列噪声。这说明在电商CTR任务中，可以将用户兴趣视为多元而非单一，并尝试降低无关历史行为对点击预测的干扰。\n\n8. 可用于支持模型评估时重点使用AUC和Logloss。\n正文明确指出AUC和Logloss是最常用的评价指标，因此在电商点击率估计实验中，可以优先用这两个指标比较不同影响因素建模方式是否有效。\n\n9. 可用于支持在公开数据集和平台私有数据上开展CTR实验。\n正文说明Criteo、Avazu、Amazon是常见公开数据集，私有数据来自广告平台、社交媒体和电商网站。因此，对于电商点击率研究，该论文可支持“在公开数据集或平台自有数据上验证模型”的任务方向。但各数据集与电商业务的对应细节，正文未明确说明。\n\n10. 关于业务层面的更具体落地，如预算分配、广告创意优化、渠道投放策略、价格因素影响等，论文未明确说明。",
@@ -118,7 +176,8 @@
       "score": 53,
       "score_details": "引用18(较少); 非顶会; 1年内; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "paper_markdown_title": "A comprehensive survey on advertising click-through rate prediction algorithm"
     },
     {
       "title": "Predicting ad click-through rates in digital marketing with support vector machines",
@@ -146,9 +205,9 @@
       ],
       "fulltext_error": "",
       "has_fulltext_markdown": true,
-      "paper_markdown_slug": "19-predicting-ad-click-through-rates-in-digital-marketing-with-support-vector-machi",
-      "paper_markdown_path": "paper_notes/19-predicting-ad-click-through-rates-in-digital-marketing-with-support-vector-machi.md",
-      "paper_markdown_filename": "19-predicting-ad-click-through-rates-in-digital-marketing-with-support-vector-machi.md",
+      "paper_markdown_slug": "Predicting ad click-through rates in digital marketing with support vector machines",
+      "paper_markdown_path": "paper_notes/Predicting ad click-through rates in digital marketing with support vector machines.md",
+      "paper_markdown_filename": "Predicting ad click-through rates in digital marketing with support vector machines.md",
       "fulltext_analysis": {
         "detailed_interpretation": "该论文研究的是在数字营销场景中，利用支持向量机（SVM）预测广告点击率（CTR）的有效性。根据摘要，研究使用了包含“用户人口统计数据和行为数据”的数据集，目标是建立一个能够“准确预测广告点击”的模型。\n\n从研究流程看，论文的主要目标包括四个环节：一是进行探索性数据分析（EDA）；二是对数据进行预处理；三是训练SVM模型；四是使用标准指标评估模型表现。这说明论文不仅关注最终预测效果，也覆盖了从数据处理到模型评估的完整建模流程。\n\n就变量而言，正文明确列出的特征包括：Daily Time Spent on Site（每日网站停留时间）、Age（年龄）、Area Income（区域收入）、Daily Internet Usage（每日互联网使用量）和Gender（性别）。这些变量表明，该研究将用户的基础人口属性与上网/站内行为结合起来，用于CTR预测。\n\n关于影响CTR的重要因素，论文摘要明确指出，EDA的关键发现是“Daily Time Spent on Site”和“Daily Internet Usage”是CTR的重要预测变量，并且二者表现出“显著相关性”。因此，若仅依据给定正文，可以认为这篇论文对“电商点击率影响因素”主题最直接的支持在于：用户的站内停留时间和互联网使用强度被识别为对点击率预测更重要的变量。至于Age、Area Income、Gender各自的重要性高低、影响方向、显著性检验结果，正文片段未明确说明。\n\n在模型效果方面，论文报告SVM取得了非常高的评估结果：准确率97.65%，精确率98.58%，召回率96.53%，F1值97.54%。按照正文表述，这些结果“证实了模型的稳健性和可靠性”，并表明其具有用于优化数字营销策略的潜力。这里可以解读为：在该研究所使用的数据范围内，SVM对广告点击预测表现优异。但需要注意，正文片段没有说明训练集/测试集划分方式、是否交叉验证、类别分布、是否存在数据不平衡处理，因此不能进一步推断模型泛化能力细节，论文未明确说明。\n\n论文还强调了研究意义：其贡献在于展示了SVM在预测用户行为方面的适用性与优势，并指出这些洞察可帮助营销人员优化广告投放位置、提升用户参与度、改善投资回报率（ROI）。同时，摘要还给出实践含义：可以基于关键用户人口统计特征和行为特征，制定更有针对性和个性化的营销策略。\n\n不过，论文也明确承认了局限性，包括“数据集规模”和“特征范围”有限。因此，尽管结果较好，作者并未把结论扩展到所有场景，而是建议未来研究使用“更大且更多样化的数据集”、纳入“更多附加特征”，并探索“其他先进机器学习算法”。这说明当前结论更适合作为一个基于特定数据集的实证结果，而不是对所有电商或数字广告场景的普遍定论。\n\n若聚焦“电商点击率影响因素”这一用户主题，则该论文可提供的核心结论是：在其研究数据中，用户行为相关特征，尤其是每日网站停留时间和每日互联网使用量，是CTR预测中的关键因素；SVM可以较高精度完成CTR预测。至于是否适用于特定电商平台、商品类别、广告形式、流量渠道、实时竞价场景，正文片段未明确说明。",
         "practical_usage": "基于正文，该论文可支持的实际运用主要包括以下几类：\n\n1. 广告点击预测任务：论文直接证明可使用SVM对广告是否被点击进行预测，适用于数字营销中的CTR估计任务。\n\n2. 识别关键影响因素：对于关心“点击率受什么影响”的业务分析，论文可支持优先关注用户行为变量，尤其是“每日网站停留时间”和“每日互联网使用量”，因为摘要明确指出这两个特征是重要预测变量。\n\n3. 广告投放优化：正文明确写到，这些结果显示模型具有“优化数字营销策略”的潜力，并可帮助营销人员“优化广告投放位置”。因此，在业务上可用于辅助决定更优的广告展示策略。具体优化规则、投放算法或资源分配方式，论文未明确说明。\n\n4. 提升用户参与和ROI：摘要明确指出，研究洞察可帮助“提升用户参与度”和“改善投资回报率”。因此，该论文可作为将CTR预测用于营销效果提升的证据支持。具体ROI提升幅度、实施步骤，论文未明确说明。\n\n5. 定向化与个性化营销：论文明确提出实践意义包括“基于关键用户人口统计和行为特征的定向与个性化营销策略”。因此，在电商或数字广告业务中，可将这类特征用于用户分层和广告个性化触达。具体分群方法、推荐机制、个性化模板，论文未明确说明。\n\n6. 建立CTR建模流程参考：正文显示研究过程包含EDA、数据预处理、SVM训练和标准指标评估，因此可作为CTR预测项目的基本流程参考。具体预处理步骤、参数设置、特征工程方法，论文未明确说明。\n\n不能从正文确定的应用包括：该模型是否适用于某一具体电商行业、是否优于其他算法、是否支持实时在线预测、是否能用于创意优化或商品级CTR预测，这些内容论文未明确说明。",
@@ -164,7 +223,8 @@
       "score": 50,
       "score_details": "引用16(较少); 非顶会; 2年内; 完整度15/15; 高度相关",
       "level": "C",
-      "level_desc": "一般"
+      "level_desc": "一般",
+      "paper_markdown_title": "Predicting ad click-through rates in digital marketing with support vector machines"
     },
     {
       "title": "Deep Learning for Click-Through Rate Estimation",
@@ -188,9 +248,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.24963/ijcai.2021/636"
+        "https://doi.org/10.24963/ijcai.2021/636",
+        "https://doi.org/10.24963/ijcai.2021/636/pdf",
+        "https://doi.org/10.24963/ijcai.2021/636/full",
+        "https://doi.org/10.24963/ijcai.2021/636?download=1",
+        "https://doi.org/10.24963/ijcai.2021/636.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.24963/ijcai.2021/636 => too_short",
+      "fulltext_error": "https://doi.org/10.24963/ijcai.2021/636 => too_short_html; https://doi.org/10.24963/ijcai.2021/636/pdf => network_error; https://doi.org/10.24963/ijcai.2021/636/full => network_error; https://doi.org/10.24963/ijcai.2021/636?download=1 => too_short_html; https://doi.org/10.24963/ijcai.2021/636.pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -199,7 +263,63 @@
       "score": 48,
       "score_details": "引用64(一般); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "too_short_html",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.24963/ijcai.2021/636",
+          "final_url": "https://www.ijcai.org/proceedings/2021/636",
+          "reason": "too_short_html",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 1382,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.24963/ijcai.2021/636/pdf",
+          "final_url": "https://doi.org/10.24963/ijcai.2021/636/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.24963/ijcai.2021/636/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.24963/ijcai.2021/636/full",
+          "final_url": "https://doi.org/10.24963/ijcai.2021/636/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.24963/ijcai.2021/636/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.24963/ijcai.2021/636?download=1",
+          "final_url": "https://www.ijcai.org/proceedings/2021/636",
+          "reason": "too_short_html",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 1382,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.24963/ijcai.2021/636.pdf",
+          "final_url": "https://doi.org/10.24963/ijcai.2021/636.pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.24963/ijcai.2021/636.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Device-dependent click-through rate estimation in Google organic search results based on clicks and impressions data",
@@ -223,9 +343,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.1108/ajim-04-2023-0107"
+        "https://doi.org/10.1108/ajim-04-2023-0107",
+        "https://doi.org/10.1108/ajim-04-2023-0107/pdf",
+        "https://doi.org/10.1108/ajim-04-2023-0107/full",
+        "https://doi.org/10.1108/ajim-04-2023-0107?download=1",
+        "https://doi.org/10.1108/ajim-04-2023-0107.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.1108/ajim-04-2023-0107 => 403 Client Error: Forbidden for url: https://www.emerald.com/ajim/article/77/3/513-529/1246224",
+      "fulltext_error": "https://doi.org/10.1108/ajim-04-2023-0107 => network_error; https://doi.org/10.1108/ajim-04-2023-0107/pdf => network_error; https://doi.org/10.1108/ajim-04-2023-0107/full => network_error; https://doi.org/10.1108/ajim-04-2023-0107?download=1 => network_error; https://doi.org/10.1108/ajim-04-2023-0107.pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -234,7 +358,61 @@
       "score": 48,
       "score_details": "引用6(新/少); 非顶会; 1年内; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.1108/ajim-04-2023-0107",
+          "final_url": "https://doi.org/10.1108/ajim-04-2023-0107",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://www.emerald.com/ajim/article/77/3/513-529/1246224"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1108/ajim-04-2023-0107/pdf",
+          "final_url": "https://doi.org/10.1108/ajim-04-2023-0107/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1108/ajim-04-2023-0107/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1108/ajim-04-2023-0107/full",
+          "final_url": "https://doi.org/10.1108/ajim-04-2023-0107/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1108/ajim-04-2023-0107/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1108/ajim-04-2023-0107?download=1",
+          "final_url": "https://doi.org/10.1108/ajim-04-2023-0107?download=1",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://www.emerald.com/ajim/article/77/3/513-529/1246224"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1108/ajim-04-2023-0107.pdf",
+          "final_url": "https://doi.org/10.1108/ajim-04-2023-0107.pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1108/ajim-04-2023-0107.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "A Review of Click-Through Rate Prediction Using Deep Learning",
@@ -258,9 +436,11 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404"
+        "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404",
+        "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1",
+        "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1.pdf"
       ],
-      "fulltext_error": "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404 => too_short",
+      "fulltext_error": "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404 => landing_page_only; https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1 => landing_page_only; https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -269,7 +449,46 @@
       "score": 48,
       "score_details": "引用3(新/少); 非顶会; 1年内; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404",
+          "final_url": "https://www.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 1627,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1",
+          "final_url": "https://www.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 1627,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1.pdf",
+          "final_url": "https://www.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Research on Mobile Advertising Click-Through Rate Prediction Algorithm Based on Differential Privacy",
@@ -297,9 +516,9 @@
       ],
       "fulltext_error": "",
       "has_fulltext_markdown": true,
-      "paper_markdown_slug": "18-research-on-mobile-advertising-click-through-rate-prediction-algorithm-based-on-",
-      "paper_markdown_path": "paper_notes/18-research-on-mobile-advertising-click-through-rate-prediction-algorithm-based-on-.md",
-      "paper_markdown_filename": "18-research-on-mobile-advertising-click-through-rate-prediction-algorithm-based-on-.md",
+      "paper_markdown_slug": "Research on Mobile Advertising Click-Through Rate Prediction Algorithm Based on Differential Privacy",
+      "paper_markdown_path": "paper_notes/Research on Mobile Advertising Click-Through Rate Prediction Algorithm Based on Differential Privacy.md",
+      "paper_markdown_filename": "Research on Mobile Advertising Click-Through Rate Prediction Algorithm Based on Differential Privacy.md",
       "fulltext_analysis": {
         "detailed_interpretation": "该论文聚焦于“移动广告点击率（CTR）预测”中的隐私保护问题。正文明确指出，移动广告是数字营销中的关键收入来源，而其效果“主要由个性化内容驱动”，同时又“高度依赖基于用户行为的CTR预测模型”。因此，这篇论文讨论的不是一般性的推荐问题，而是以移动广告CTR预测为核心，并将用户行为数据的隐私保护作为关键约束。\n\n从研究动机看，论文认为，随着隐私担忧上升以及数据保护法规愈发严格，在CTR预测中保障用户隐私已经成为“必要要求”。也就是说，论文将隐私保护视为CTR建模中的现实前提，而不是附加功能。正文没有展开说明具体法规名称、具体风险类型、具体数据字段或隐私泄露场景，因此这些内容论文未明确说明。\n\n从方法层面看，论文提出了“基于差分隐私的机制”，且是“专门为先进机器学习模型设计”的。正文能明确支持的要点有三项：第一，方法采用“自适应噪声注入策略”；第二，这一策略的目标是在“预测准确率与隐私之间实现有效平衡”；第三，方法会“优化CTR估计中的隐私预算分配”，同时“保持用户匿名性”。这说明论文的方法重点不是单纯加噪，而是强调自适应加噪和隐私预算配置优化。至于所针对的“先进机器学习模型”究竟是哪些模型、噪声加入在训练阶段还是推断阶段、预算分配的具体形式、数学定义和优化算法，正文片段均未明确说明。\n\n从结果表述看，论文称实验结果表明：所提出算法在提供“强隐私保障”的同时，能够达到“与传统方法相当的预测准确率”。这意味着作者声称其方法没有明显牺牲CTR预测效果，并且兼顾了隐私保护目标。不过，正文没有给出实验数据、评价指标、对比基线、数据集规模、显著性检验或性能提升/损失的具体数值，因此这些细节论文未明确说明。\n\n从应用价值看，论文认为该框架可为移动广告平台提供“实用解决方案”，使其在“不牺牲广告表现”的前提下“遵守隐私法规”。据此可见，该研究的落脚点是面向移动广告平台的可部署型隐私保护CTR预测框架。至于适用的平台类型、部署架构、线上服务流程、实时性要求、与联邦学习是否结合，正文片段未明确说明。",
         "practical_usage": "结合“电商点击率影响因素”这一用户研究主题，这篇论文可提供的实际支持主要体现在以下方面，但都必须限定在正文已明确的范围内：\n\n1. 可用于构建“隐私保护型CTR预测”方案。\n正文明确讨论的是基于用户行为的CTR预测，并提出差分隐私机制，因此对于电商广告或移动端营销场景，可将其作为“在保护用户隐私前提下进行点击率预测”的方法参考。\n\n2. 可用于在业务中平衡“预测效果”与“隐私要求”。\n正文明确指出其方法采用自适应噪声注入，并优化隐私预算分配，以平衡预测准确率和隐私。这意味着在需要兼顾CTR效果与合规要求的业务中，该论文可支持“准确率—隐私”双目标优化这一思路。\n\n3. 可用于面向移动广告平台的合规化建模。\n论文明确声称，该框架能帮助移动广告平台在不牺牲广告表现的情况下遵守隐私法规。因此，在电商投放、移动广告推荐或个性化广告展示中，可将其理解为一种合规导向的CTR预测技术路径。\n\n4. 对“点击率影响因素”的直接解释能力有限。\n用户主题是“电商点击率影响因素”，但该论文正文更侧重“如何在隐私保护条件下做CTR预测”，并没有枚举或分析哪些具体因素会影响CTR，也没有给出特征重要性、用户属性、商品属性、上下文因素等内容。因此，若要用它直接回答“CTR受哪些因素影响”，论文未明确说明。\n\n5. 对电商专属场景的适配细节有限。\n虽然用户研究主题是电商CTR，但正文只明确写“mobile advertising（移动广告）”场景，没有具体说明电商商品广告、搜索广告、信息流广告、活动页广告等细分业务，因此具体应用到哪类电商广告形态，论文未明确说明。",
@@ -315,7 +534,8 @@
       "score": 48,
       "score_details": "引用7(新/少); 非顶会; 1年内; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "paper_markdown_title": "Research on Mobile Advertising Click-Through Rate Prediction Algorithm Based on Differential Privacy"
     },
     {
       "title": "Learning to Retrieve User Behaviors for Click-through Rate Estimation",
@@ -339,9 +559,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4313828922"
+        "https://openalex.org/W4313828922",
+        "https://openalex.org/W4313828922.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W4313828922 => too_short",
+      "fulltext_error": "https://openalex.org/W4313828922 => landing_page_only; https://openalex.org/W4313828922.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -350,7 +571,35 @@
       "score": 47,
       "score_details": "引用18(较少); 非顶会; 3年内; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W4313828922",
+          "final_url": "https://openalex.org/W4313828922",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W4313828922.pdf",
+          "final_url": "https://openalex.org/W4313828922.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Fusion of GBDT and neural network for click-through rate estimation",
@@ -374,9 +623,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.3233/jifs-234713"
+        "https://doi.org/10.3233/jifs-234713",
+        "https://doi.org/10.3233/jifs-234713/pdf",
+        "https://doi.org/10.3233/jifs-234713/full",
+        "https://doi.org/10.3233/jifs-234713?download=1",
+        "https://doi.org/10.3233/jifs-234713.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.3233/jifs-234713 => 403 Client Error: Forbidden for url: https://content.iospress.com/doi/10.3233/JIFS-234713",
+      "fulltext_error": "https://doi.org/10.3233/jifs-234713 => network_error; https://doi.org/10.3233/jifs-234713/pdf => network_error; https://doi.org/10.3233/jifs-234713/full => network_error; https://doi.org/10.3233/jifs-234713?download=1 => network_error; https://doi.org/10.3233/jifs-234713.pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -385,7 +638,61 @@
       "score": 45,
       "score_details": "引用0(新/少); 非顶会; 2年内; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.3233/jifs-234713",
+          "final_url": "https://doi.org/10.3233/jifs-234713",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://content.iospress.com/doi/10.3233/JIFS-234713"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.3233/jifs-234713/pdf",
+          "final_url": "https://doi.org/10.3233/jifs-234713/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.3233/jifs-234713/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.3233/jifs-234713/full",
+          "final_url": "https://doi.org/10.3233/jifs-234713/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.3233/jifs-234713/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.3233/jifs-234713?download=1",
+          "final_url": "https://doi.org/10.3233/jifs-234713?download=1",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://content.iospress.com/doi/10.3233/JIFS-234713"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.3233/jifs-234713.pdf",
+          "final_url": "https://doi.org/10.3233/jifs-234713.pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.3233/jifs-234713.pdf"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Towards click-through rate prediction in online advertising",
@@ -409,9 +716,13 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://pm-mm.dp.ua/index.php/pmmm/article/view/369"
+        "https://pm-mm.dp.ua/index.php/pmmm/article/view/369",
+        "https://pm-mm.dp.ua/index.php/pmmm/article/view/369/pdf",
+        "https://pm-mm.dp.ua/index.php/pmmm/article/view/369/full",
+        "https://pm-mm.dp.ua/index.php/pmmm/article/view/369?download=1",
+        "https://pm-mm.dp.ua/index.php/pmmm/article/view/369.pdf"
       ],
-      "fulltext_error": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369 => too_short",
+      "fulltext_error": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369 => landing_page_only; https://pm-mm.dp.ua/index.php/pmmm/article/view/369/pdf => network_error; https://pm-mm.dp.ua/index.php/pmmm/article/view/369/full => network_error; https://pm-mm.dp.ua/index.php/pmmm/article/view/369?download=1 => landing_page_only; https://pm-mm.dp.ua/index.php/pmmm/article/view/369.pdf => too_short_html",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -420,7 +731,64 @@
       "score": 42,
       "score_details": "引用3(新/少); 非顶会; 3年内; 完整度15/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369",
+          "final_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 2131,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369/pdf",
+          "final_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://pm-mm.dp.ua/index.php/pmmm/article/view/369/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369/full",
+          "final_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://pm-mm.dp.ua/index.php/pmmm/article/view/369/full"
+          }
+        },
+        {
+          "candidate_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369?download=1",
+          "final_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369?download=1",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 2131,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://pm-mm.dp.ua/index.php/pmmm/article/view/369.pdf",
+          "final_url": "https://pm-mm.dp.ua/index.php/pmmm/search",
+          "reason": "too_short_html",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 246,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "An Advertising Click through Rate Estimation Model AGCN that Integrates Temporal Information and Attention Mechanism",
@@ -444,9 +812,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.1109/eiect64462.2024.10867104"
+        "https://doi.org/10.1109/eiect64462.2024.10867104",
+        "https://doi.org/10.1109/eiect64462.2024.10867104/pdf",
+        "https://doi.org/10.1109/eiect64462.2024.10867104/full",
+        "https://doi.org/10.1109/eiect64462.2024.10867104?download=1"
       ],
-      "fulltext_error": "https://doi.org/10.1109/eiect64462.2024.10867104 => too_short",
+      "fulltext_error": "https://doi.org/10.1109/eiect64462.2024.10867104 => landing_page_only; https://doi.org/10.1109/eiect64462.2024.10867104/pdf => network_error; https://doi.org/10.1109/eiect64462.2024.10867104/full => network_error; https://doi.org/10.1109/eiect64462.2024.10867104?download=1 => landing_page_only",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -455,7 +826,53 @@
       "score": 41,
       "score_details": "引用1(新/少); 非顶会; 2年内; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.1109/eiect64462.2024.10867104",
+          "final_url": "https://ieeexplore.ieee.org/document/10867104/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/eiect64462.2024.10867104/pdf",
+          "final_url": "https://doi.org/10.1109/eiect64462.2024.10867104/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/eiect64462.2024.10867104/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/eiect64462.2024.10867104/full",
+          "final_url": "https://doi.org/10.1109/eiect64462.2024.10867104/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/eiect64462.2024.10867104/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/eiect64462.2024.10867104?download=1",
+          "final_url": "https://ieeexplore.ieee.org/document/10867104/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Merlin HugeCTR: GPU-accelerated Recommender System Training and Inference",
@@ -479,9 +896,10 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4296591840"
+        "https://openalex.org/W4296591840",
+        "https://openalex.org/W4296591840.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W4296591840 => too_short",
+      "fulltext_error": "https://openalex.org/W4296591840 => landing_page_only; https://openalex.org/W4296591840.pdf => non_text_pdf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -490,7 +908,35 @@
       "score": 40,
       "score_details": "引用27(较少); 非顶会; 4年前; 完整度12/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://openalex.org/W4296591840",
+          "final_url": "https://openalex.org/W4296591840",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 0,
+            "content_type_header": "text/html; charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://openalex.org/W4296591840.pdf",
+          "final_url": "https://openalex.org/W4296591840.pdf",
+          "reason": "non_text_pdf",
+          "content_type": "pdf",
+          "error": "",
+          "details": {
+            "page_count": 0,
+            "non_empty_pages": 0,
+            "text_length": 0,
+            "error": "EOF marker not found"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "An Investigation of the Effects of the Numerical Missing Value Imputation Methods for Click-through Rate Estimation Performances",
@@ -514,9 +960,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.1109/isdfs58141.2023.10131678"
+        "https://doi.org/10.1109/isdfs58141.2023.10131678",
+        "https://doi.org/10.1109/isdfs58141.2023.10131678/pdf",
+        "https://doi.org/10.1109/isdfs58141.2023.10131678/full",
+        "https://doi.org/10.1109/isdfs58141.2023.10131678?download=1"
       ],
-      "fulltext_error": "https://doi.org/10.1109/isdfs58141.2023.10131678 => too_short",
+      "fulltext_error": "https://doi.org/10.1109/isdfs58141.2023.10131678 => landing_page_only; https://doi.org/10.1109/isdfs58141.2023.10131678/pdf => network_error; https://doi.org/10.1109/isdfs58141.2023.10131678/full => network_error; https://doi.org/10.1109/isdfs58141.2023.10131678?download=1 => landing_page_only",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -525,7 +974,53 @@
       "score": 38,
       "score_details": "引用1(新/少); 非顶会; 3年内; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.1109/isdfs58141.2023.10131678",
+          "final_url": "https://ieeexplore.ieee.org/document/10131678/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/isdfs58141.2023.10131678/pdf",
+          "final_url": "https://doi.org/10.1109/isdfs58141.2023.10131678/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/isdfs58141.2023.10131678/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/isdfs58141.2023.10131678/full",
+          "final_url": "https://doi.org/10.1109/isdfs58141.2023.10131678/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/isdfs58141.2023.10131678/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/isdfs58141.2023.10131678?download=1",
+          "final_url": "https://ieeexplore.ieee.org/document/10131678/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "The FFCP Model for Predicting Click-Through Rate",
@@ -549,9 +1044,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.1109/iisec59749.2023.10391022"
+        "https://doi.org/10.1109/iisec59749.2023.10391022",
+        "https://doi.org/10.1109/iisec59749.2023.10391022/pdf",
+        "https://doi.org/10.1109/iisec59749.2023.10391022/full",
+        "https://doi.org/10.1109/iisec59749.2023.10391022?download=1"
       ],
-      "fulltext_error": "https://doi.org/10.1109/iisec59749.2023.10391022 => too_short",
+      "fulltext_error": "https://doi.org/10.1109/iisec59749.2023.10391022 => landing_page_only; https://doi.org/10.1109/iisec59749.2023.10391022/pdf => network_error; https://doi.org/10.1109/iisec59749.2023.10391022/full => network_error; https://doi.org/10.1109/iisec59749.2023.10391022?download=1 => landing_page_only",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -560,7 +1058,53 @@
       "score": 38,
       "score_details": "引用3(新/少); 非顶会; 3年内; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.1109/iisec59749.2023.10391022",
+          "final_url": "https://ieeexplore.ieee.org/document/10391022/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/iisec59749.2023.10391022/pdf",
+          "final_url": "https://doi.org/10.1109/iisec59749.2023.10391022/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/iisec59749.2023.10391022/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/iisec59749.2023.10391022/full",
+          "final_url": "https://doi.org/10.1109/iisec59749.2023.10391022/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/iisec59749.2023.10391022/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1109/iisec59749.2023.10391022?download=1",
+          "final_url": "https://ieeexplore.ieee.org/document/10391022/",
+          "reason": "landing_page_only",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     },
     {
       "title": "Time-aware Attentive Click Sequence Network for Click-Through Rate Prediction",
@@ -584,9 +1128,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.1145/3538950.3538968"
+        "https://doi.org/10.1145/3538950.3538968",
+        "https://doi.org/10.1145/3538950.3538968/pdf",
+        "https://doi.org/10.1145/3538950.3538968/full",
+        "https://doi.org/10.1145/3538950.3538968?download=1"
       ],
-      "fulltext_error": "https://doi.org/10.1145/3538950.3538968 => 403 Client Error: Forbidden for url: https://dl.acm.org/doi/10.1145/3538950.3538968",
+      "fulltext_error": "https://doi.org/10.1145/3538950.3538968 => network_error; https://doi.org/10.1145/3538950.3538968/pdf => network_error; https://doi.org/10.1145/3538950.3538968/full => network_error; https://doi.org/10.1145/3538950.3538968?download=1 => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -595,7 +1142,51 @@
       "score": 34,
       "score_details": "引用2(新/少); 非顶会; 4年前; 完整度11/15; 高度相关",
       "level": "D",
-      "level_desc": "参考"
+      "level_desc": "参考",
+      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_details": [
+        {
+          "candidate_url": "https://doi.org/10.1145/3538950.3538968",
+          "final_url": "https://doi.org/10.1145/3538950.3538968",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://dl.acm.org/doi/10.1145/3538950.3538968"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1145/3538950.3538968/pdf",
+          "final_url": "https://doi.org/10.1145/3538950.3538968/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1145/3538950.3538968/pdf"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1145/3538950.3538968/full",
+          "final_url": "https://doi.org/10.1145/3538950.3538968/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doi.org/10.1145/3538950.3538968/full"
+          }
+        },
+        {
+          "candidate_url": "https://doi.org/10.1145/3538950.3538968?download=1",
+          "final_url": "https://doi.org/10.1145/3538950.3538968?download=1",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://dl.acm.org/doi/10.1145/3538950.3538968"
+          }
+        }
+      ],
+      "paper_markdown_title": ""
     }
   ]
 }

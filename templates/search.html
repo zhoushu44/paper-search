@@ -28,7 +28,7 @@
             </div>
             <div class="summary-item">
                 <span class="summary-label">顶会论文</span>
-                <span class="summary-value highlight">{% set top_count = [] %}{% for r in results %}{% for p in r.data.papers %}{% if is_top_venue(p.get('venue','')) %}{% set _ = top_count.append(1) %}{% endif %}{% endfor %}{% endfor %}{{ top_count|length }}</span>
+                <span class="summary-value highlight">{% set top_count = [] %}{% for r in results %}{% for p in r.data.papers %}{% if is_top_venue(p.get('venue',''))[0] %}{% set _ = top_count.append(1) %}{% endif %}{% endfor %}{% endfor %}{{ top_count|length }}</span>
             </div>
             <div class="summary-item">
                 <span class="summary-label">搜索记录</span>
@@ -37,9 +37,9 @@
         </div>
         <div class="filter-bar">
             <div class="filter-left">
-                <button class="filter-btn active" onclick="filterPapers('all')">全部</button>
-                <button class="filter-btn" onclick="filterPapers('top')">顶会</button>
-                <button class="filter-btn" onclick="filterPapers('high')">高分</button>
+                <button class="filter-btn active" onclick="filterPapers('all', this)">全部</button>
+                <button class="filter-btn" onclick="filterPapers('top', this)">顶会</button>
+                <button class="filter-btn" onclick="filterPapers('high', this)">高分</button>
             </div>
             <div class="filter-right">
                 <label class="checkbox-label">
@@ -65,7 +65,7 @@
 
             <div class="papers-list">
                 {% for paper in result.data.papers %}
-                <article class="paper-card" data-is-top="{{ 'true' if is_top_venue(paper.get('venue', '')) else 'false' }}" data-score="{{ paper.score|replace('D','')|replace('C','')|replace('B','')|replace('A','')|replace('S','')|replace('(','')|replace(')','') }}" data-filename="{{ result.filename }}" data-project-id="{{ result.project_id }}" data-index="{{ loop.index0 }}">
+                <article class="paper-card" data-is-top="{{ 'true' if is_top_venue(paper.get('venue', ''))[0] else 'false' }}" data-score="{{ paper.score|replace('D','')|replace('C','')|replace('B','')|replace('A','')|replace('S','')|replace('(','')|replace(')','') }}" data-filename="{{ result.filename }}" data-project-id="{{ result.project_id }}" data-index="{{ loop.index0 }}">
                     <div class="paper-select">
                         <input type="checkbox" class="paper-checkbox" onchange="updateSelectedCount()" data-filename="{{ result.filename }}" data-project-id="{{ result.project_id }}" data-index="{{ loop.index0 }}">
                     </div>
@@ -151,12 +151,12 @@
 </div>
 
 <script>
-function filterPapers(type) {
+function filterPapers(type, button) {
     const cards = document.querySelectorAll('.paper-card');
     const buttons = document.querySelectorAll('.filter-btn');
 
     buttons.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    if (button) button.classList.add('active');
 
     cards.forEach(card => {
         const isTop = card.dataset.isTop === 'true';

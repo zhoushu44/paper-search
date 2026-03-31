@@ -11,6 +11,8 @@ import markdown
 import requests
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify, send_from_directory, send_file, abort, url_for
+import subprocess
+import threading
 from pathlib import Path
 
 app = Flask(__name__)
@@ -401,10 +403,48 @@ def save_projects(projects):
         json.dump(projects, f, ensure_ascii=False, indent=2)
 
 
+def save_project_meta(project_id, project_data):
+    """同步保存单个项目元数据"""
+    project_dir = PROJECTS_DIR / project_id
+    if not project_dir.exists():
+        return
+    with open(project_dir / 'meta.json', 'w', encoding='utf-8') as f:
+        json.dump(project_data, f, ensure_ascii=False, indent=2)
+
+
+def compute_project_stats(project_id):
+    """根据项目目录中的实际文件计算项目统计信息"""
+    papers = get_project_papers(project_id)
+    return {
+        'total_papers': len(papers),
+        'top_papers': sum(1 for p in papers if is_top_venue(p.get('venue', ''))[0])
+    }
+
+
+def update_project_registry(project_id, status=None, persist=True):
+    """根据项目实际内容更新 projects.json 与 meta.json 中的项目状态"""
+    projects = load_projects()
+    if project_id not in projects:
+        return None
+
+    stats = compute_project_stats(project_id)
+    projects[project_id]['total_papers'] = stats['total_papers']
+    projects[project_id]['top_papers'] = stats['top_papers']
+    if status is not None:
+        projects[project_id]['status'] = status
+
+    if persist:
+        save_projects(projects)
+        save_project_meta(project_id, projects[project_id])
+
+    return projects[project_id]
+
+
 def create_project(keyword):
     """创建新项目"""
     projects = load_projects()
-    project_id = f"proj_{keyword}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    safe_keyword = re.sub(r'[\\/:*?"<>|]+', '_', keyword).strip(' ._') or 'project'
+    project_id = f"proj_{safe_keyword}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
     # 翻译关键词
     translation = translate_keyword(keyword)
@@ -424,8 +464,7 @@ def create_project(keyword):
     project_dir.mkdir(exist_ok=True)
 
     # 保存项目元数据
-    with open(project_dir / 'meta.json', 'w', encoding='utf-8') as f:
-        json.dump(projects[project_id], f, ensure_ascii=False, indent=2)
+    save_project_meta(project_id, projects[project_id])
 
     return project_id, translation['expanded'][:5]
 
@@ -447,11 +486,44 @@ def get_project_papers(project_id):
     # 按评分排序
     def get_score(p):
         s = p.get('score', 'D(0)')
+        if isinstance(s, (int, float)):
+            return int(s)
+        s = str(s or 'D(0)')
         match = re.search(r'\((\d+)\)', s)
         return int(match.group(1)) if match else 0
 
     all_papers.sort(key=get_score, reverse=True)
     return all_papers
+
+
+def format_failure_reason(reason):
+    reason_map = {
+        'network_error': '网络请求失败',
+        'non_text_pdf': 'PDF 可下载但无法提取正文',
+        'landing_page_only': '仅获取到摘要/落地页',
+        'too_short_pdf': 'PDF 正文过短',
+        'too_short_html': 'HTML 正文过短',
+        'no_candidates': '缺少可尝试的全文链接'
+    }
+    return reason_map.get(reason, reason or '')
+
+
+def summarize_failure_detail(detail):
+    if not isinstance(detail, dict):
+        return ''
+    reason = format_failure_reason(detail.get('reason')) or detail.get('reason', '')
+    final_url = detail.get('final_url') or detail.get('candidate_url') or ''
+    extra = detail.get('error') or ''
+    summary = reason
+    if final_url:
+        summary += f' | {final_url}'
+    if extra:
+        summary += f' | {extra}'
+    return summary
+
+
+app.jinja_env.globals.update(format_failure_reason=format_failure_reason)
+app.jinja_env.globals.update(is_top_venue=is_top_venue)
 
 
 def build_project_paper_note_path(project_id, paper):
@@ -593,6 +665,14 @@ def parse_markdown_file(filepath):
                 if fulltext_status_match:
                     paper['fulltext_markdown_status'] = fulltext_status_match.group(1).strip()
 
+                failure_reason_match = re.search(r'\*\*全文失败原因\*\*:\s*(.+?)\n', detail)
+                if failure_reason_match:
+                    paper['fulltext_failure_reason'] = failure_reason_match.group(1).strip()
+
+                last_attempt_match = re.search(r'\*\*最后尝试来源\*\*:\s*(.+?)\n', detail)
+                if last_attempt_match:
+                    paper['fulltext_last_attempt'] = last_attempt_match.group(1).strip()
+
                 paper['full_detail'] = detail.strip()
                 break
 
@@ -676,6 +756,10 @@ def project_detail(project_id):
 
     project = projects[project_id]
     papers = get_project_papers(project_id)
+    for paper in papers:
+        paper['fulltext_failure_reason_display'] = format_failure_reason(paper.get('fulltext_failure_reason', ''))
+        failure_details = paper.get('fulltext_failure_details') or []
+        paper['fulltext_last_attempt'] = summarize_failure_detail(failure_details[0]) if failure_details else paper.get('fulltext_last_attempt', '')
 
     return render_template('project_detail.html',
                           project_id=project_id,
@@ -755,15 +839,7 @@ def api_create_project():
             except Exception as e:
                 print(f"搜索错误 [{kw}]: {e}")
 
-        # 更新项目状态和论文计数
-        projects = load_projects()
-        if project_id in projects:
-            projects[project_id]['status'] = 'completed'
-            # 统计论文数量
-            papers = get_project_papers(project_id)
-            projects[project_id]['total_papers'] = len(papers)
-            projects[project_id]['top_papers'] = sum(1 for p in papers if is_top_venue(p.get('venue', ''))[0])
-            save_projects(projects)
+        update_project_registry(project_id, status='completed')
 
         update_search_status(
             searching=False,
@@ -802,7 +878,90 @@ def api_delete_project():
         del projects[project_id]
         save_projects(projects)
 
+    # 如果当前全局状态指向该项目，同时清空进度状态，避免前端残留
+    if search_status_store.get('project_id') == project_id:
+        update_search_status(
+            searching=False,
+            progress=0,
+            status='',
+            logs=[],
+            reset_logs=True,
+            task_id=None,
+            original_keyword='',
+            project_id=None
+        )
+
     return jsonify({'success': True})
+
+
+def run_project_backfill(project_id):
+    project_dir = PROJECTS_DIR / project_id
+    projects = load_projects()
+    if project_id in projects:
+        projects[project_id]['status'] = 'searching'
+        save_projects(projects)
+        save_project_meta(project_id, projects[project_id])
+
+    update_search_status(
+        searching=True,
+        progress=5,
+        status='正在补生成缺失全文解读...',
+        reset_logs=True,
+        log_message=f'开始回填项目 {project_id}',
+        project_id=project_id,
+        task_id=f'backfill:{project_id}'
+    )
+
+    try:
+        cmd = [
+            sys.executable,
+            str(DATA_DIR / 'paper_search.py'),
+            f'--backfill-project={project_dir}'
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+        output = '\n'.join([part for part in [result.stdout.strip(), result.stderr.strip()] if part]).strip()
+
+        update_project_registry(project_id, status='completed')
+
+        if result.returncode == 0:
+            update_search_status(
+                searching=False,
+                progress=100,
+                status='缺失全文解读补生成完成',
+                log_message=output or '补生成完成，正在刷新结果',
+                project_id=project_id,
+                task_id=f'backfill:{project_id}'
+            )
+        else:
+            update_search_status(
+                searching=False,
+                progress=100,
+                status='补生成失败',
+                log_message=output or '补生成失败',
+                project_id=project_id,
+                task_id=f'backfill:{project_id}'
+            )
+    except Exception as e:
+        update_search_status(
+            searching=False,
+            progress=100,
+            status='补生成失败',
+            log_message=str(e),
+            project_id=project_id,
+            task_id=f'backfill:{project_id}'
+        )
+
+
+@app.route('/api/project/<project_id>/backfill_fulltext', methods=['POST'])
+def api_project_backfill_fulltext(project_id):
+    projects = load_projects()
+    if project_id not in projects:
+        return jsonify({'success': False, 'error': '项目不存在'})
+
+    thread = threading.Thread(target=run_project_backfill, args=(project_id,))
+    thread.daemon = True
+    thread.start()
+    return jsonify({'success': True, 'message': '已开始补生成缺失全文解读'})
 
 
 @app.route('/api/continue_search', methods=['POST'])
@@ -849,6 +1008,7 @@ def api_continue_search():
     projects[project_id]['search_keywords'].extend(new_keywords)
     projects[project_id]['status'] = 'searching'
     save_projects(projects)
+    save_project_meta(project_id, projects[project_id])
 
     # 更新搜索状态
     update_search_status(
@@ -906,13 +1066,7 @@ def api_continue_search():
                 print(f"搜索错误 [{kw}]: {e}")
 
         # 更新状态和论文计数
-        projects = load_projects()
-        if project_id in projects:
-            projects[project_id]['status'] = 'completed'
-            papers = get_project_papers(project_id)
-            projects[project_id]['total_papers'] = len(papers)
-            projects[project_id]['top_papers'] = sum(1 for p in papers if is_top_venue(p.get('venue', ''))[0])
-            save_projects(projects)
+        update_project_registry(project_id, status='completed')
 
         update_search_status(
             searching=False,
@@ -1255,12 +1409,24 @@ def project_paper_note_file(project_id, filename):
 def index():
     """主页 - 显示项目列表"""
     projects = load_projects()
+    registry_changed = False
 
     # 更新每个项目的论文统计
-    for pid in projects:
-        papers = get_project_papers(pid)
-        projects[pid]['total_papers'] = len(papers)
-        projects[pid]['top_papers'] = sum(1 for p in papers if is_top_venue(p.get('venue', ''))[0])
+    for pid in list(projects.keys()):
+        project = projects[pid]
+        synced = update_project_registry(pid, status=project.get('status'), persist=False)
+        if synced and (
+            project.get('total_papers') != synced.get('total_papers')
+            or project.get('top_papers') != synced.get('top_papers')
+            or project.get('status') != synced.get('status')
+        ):
+            projects[pid] = synced
+            registry_changed = True
+
+    if registry_changed:
+        save_projects(projects)
+        for pid, project in projects.items():
+            save_project_meta(pid, project)
 
     total_papers = sum(p.get('total_papers', 0) for p in projects.values())
     total_top = sum(p.get('top_papers', 0) for p in projects.values())
@@ -1285,6 +1451,9 @@ def paper_detail(project_id, filename, index):
         return "论文不存在", 404
 
     paper = data['papers'][index]
+    paper['fulltext_failure_reason_display'] = format_failure_reason(paper.get('fulltext_failure_reason', ''))
+    failure_details = paper.get('fulltext_failure_details') or []
+    paper['fulltext_last_attempt'] = summarize_failure_detail(failure_details[0]) if failure_details else paper.get('fulltext_last_attempt', '')
 
     full_content = ''
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -1343,7 +1512,7 @@ def api_papers():
                 'authors': paper.get('authors', ''),
                 'year': paper.get('year', ''),
                 'venue': paper.get('venue', ''),
-                'is_top': is_top_venue(paper.get('venue', '')),
+                'is_top': is_top_venue(paper.get('venue', ''))[0],
                 'score': paper.get('score', ''),
                 'summary': paper.get('summary', ''),
                 'chinese_detail': paper.get('chinese_detail', ''),

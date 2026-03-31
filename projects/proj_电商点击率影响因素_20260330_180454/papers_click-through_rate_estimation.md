@@ -2,7 +2,7 @@
 
 **关键词**: click-through rate estimation
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 01:22
+**日期**: 2026-03-31 09:39
 **总数**: 16 篇 (顶会: 2)
 
 ---
@@ -13,12 +13,12 @@
 |------|------|------|------|------|------|------|--------|----------|----------|
 | 1 | B(63) | [[Implementation of Short Video Click]] | Ying Feng, Guis | 2022 | Computationa | [Science] | 4星 | 缺全文 | 论文研究短视频CTR预测，引入图像、音频与行为特征建模，可为电商内容点击率影响因素识别与特征设计提供 |
 | 2 | C(59) | [[Fast Click-Through Rate Estimation ]] | R. Wiatr, Renat | 2021 | Lecture note | [Science] | 4星 | 缺全文 | 论文讨论利用数据聚合实现快速点击率估计，可帮助电商研究更高效评估商品、广告、位置等因素对点击率的影响 |
-| 3 | C(53) | [[A comprehensive survey on advertisi]] | J Bai, X Geng,  | 2025 | cambridge.or | -- | 5星 | 已生成 | 该文梳理CTR预测任务、特征建模与主流算法，可帮助识别电商场景中用户、商品、广告位等点击影响因素及其 |
-| 4 | C(50) | [[Predicting ad click-through rates i]] | T Sangsawang | 2024 | jdmdc.com | -- | 4星 | 已生成 | 论文研究数字营销中CTR预测，采用支持向量机建模，可为电商点击率影响因素识别、特征筛选与预测效果评估 |
+| 3 | C(53) | [[A comprehensive survey on advertising click-through rate prediction algorithm]] | J Bai, X Geng,  | 2025 | cambridge.or | -- | 5星 | 已生成 | 该文梳理CTR预测任务、特征建模与主流算法，可帮助识别电商场景中用户、商品、广告位等点击影响因素及其 |
+| 4 | C(50) | [[Predicting ad click-through rates in digital marketing with support vector machines]] | T Sangsawang | 2024 | jdmdc.com | -- | 4星 | 已生成 | 论文研究数字营销中CTR预测，采用支持向量机建模，可为电商点击率影响因素识别、特征筛选与预测效果评估 |
 | 5 | D(48) | [[Deep Learning for Click-Through Rat]] | Weinan Zhang, J | 2021 | Proceedings  | -- | 5星 | 缺全文 | 该文系统综述深度CTR模型，可帮助识别商品、用户、场景与交互特征对电商点击率的影响，并为特征建模与预 |
 | 6 | D(48) | [[Device-dependent click-through rate]] | Artur Strzeleck | 2025 | Aslib Journa | -- | 3星 | 缺全文 | 论文聚焦Google自然搜索在不同设备上的CTR估计，虽非电商场景，但可为研究设备类型、曝光位次等对 |
 | 7 | D(48) | [[A Review of Click-Through Rate Pred]] | A Shuaa, A Band | 2025 | search.proqu | -- | 5星 | 缺全文 | 该文综述深度学习CTR预测方法，可帮助梳理用户行为、广告内容与实时预测机制对电商点击率的影响。 |
-| 8 | D(48) | [[Research on Mobile Advertising Clic]] | X Lu | 2025 | sagespress.c | -- | ★★★★☆ | 已生成 | 论文研究移动广告CTR预测，在保护用户隐私前提下提升预测效果，可为电商识别影响点击率的用户、广告与行 |
+| 8 | D(48) | [[Research on Mobile Advertising Click-Through Rate Prediction Algorithm Based on Differential Privacy]] | X Lu | 2025 | sagespress.c | -- | ★★★★☆ | 已生成 | 论文研究移动广告CTR预测，在保护用户隐私前提下提升预测效果，可为电商识别影响点击率的用户、广告与行 |
 | 9 | D(47) | [[Learning to Retrieve User Behaviors]] | Jiarui Qin, Wei | 2023 | ACM Transact | -- | 5星 | 缺全文 | 论文聚焦CTR预测中的用户行为影响，提出从长历史中检索关键行为，帮助识别短期、周期性和长期兴趣对电商 |
 | 10 | D(45) | [[Fusion of GBDT and neural network f]] | Bin Zhao, Wei C | 2024 | Journal of I | -- | ★★★★☆ | 缺全文 | 论文提出融合GBDT与IFM的点击率预测方法，可挖掘特征重要性与交互作用，帮助分析电商点击率受用户、 |
 | 11 | D(42) | [[Towards click-through rate predicti]] | OS Bratus, PI B | 2023 | pm-mm.dp.ua | -- | ★★★★★ | 缺全文 | 论文聚焦在线广告点击率预测，引入类别特征CTR统计值等方法，可为识别电商场景中商品、用户与展示因素对 |
@@ -73,7 +73,9 @@ OpenAlex       : **** (4)
 - **作者**: Ying Feng, Guisheng Zhao
 - **引用**: 1
 - **链接**: [https://openalex.org/W4281657079](https://openalex.org/W4281657079)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W4281657079
 
 **评分详情**: 引用1(新/少); 顶会:Science; 4年前; 完整度15/15; 高度相关
 
@@ -98,7 +100,9 @@ OpenAlex       : **** (4)
 - **作者**: R. Wiatr, Renata Słota, Jacek Kitowski
 - **引用**: 2
 - **链接**: [https://openalex.org/W3172503718](https://openalex.org/W3172503718)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3172503718
 
 **评分详情**: 引用2(新/少); 顶会:Science; 5年前; 完整度11/15; 高度相关
 
@@ -124,6 +128,8 @@ OpenAlex       : **** (4)
 - **引用**: 18
 - **链接**: [https://www.cambridge.org/core/journals/knowledge-engineering-review/article/comprehensive-survey-on-advertising-clickthrough-rate-prediction-algorithm/C11C54F5D365D280A58CE051D9B52DE6](https://www.cambridge.org/core/journals/knowledge-engineering-review/article/comprehensive-survey-on-advertising-clickthrough-rate-prediction-algorithm/C11C54F5D365D280A58CE051D9B52DE6)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用18(较少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -149,6 +155,8 @@ OpenAlex       : **** (4)
 - **引用**: 16
 - **链接**: [http://jdmdc.com/index.php/JDMDC/article/view/20](http://jdmdc.com/index.php/JDMDC/article/view/20)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用16(较少); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -173,7 +181,9 @@ OpenAlex       : **** (4)
 - **作者**: Weinan Zhang, Jiarui Qin, Wei Guo, Ruiming Tang, Xiuqiang He
 - **引用**: 64
 - **链接**: [https://doi.org/10.24963/ijcai.2021/636](https://doi.org/10.24963/ijcai.2021/636)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（too_short_html）
+- **全文失败原因**: too_short_html
+- **最后尝试来源**: https://www.ijcai.org/proceedings/2021/636
 
 **评分详情**: 引用64(一般); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -198,7 +208,9 @@ OpenAlex       : **** (4)
 - **作者**: Artur Strzelecki, Andrej Miklosik
 - **引用**: 6
 - **链接**: [https://doi.org/10.1108/ajim-04-2023-0107](https://doi.org/10.1108/ajim-04-2023-0107)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.1108/ajim-04-2023-0107
 
 **评分详情**: 引用6(新/少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -223,7 +235,9 @@ OpenAlex       : **** (4)
 - **作者**: A Shuaa, A Bandar
 - **引用**: 3
 - **链接**: [https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404](https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://www.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404
 
 **评分详情**: 引用3(新/少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -249,6 +263,8 @@ OpenAlex       : **** (4)
 - **引用**: 7
 - **链接**: [http://sagespress.com/index.php/JSISI/article/view/40](http://sagespress.com/index.php/JSISI/article/view/40)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用7(新/少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -273,7 +289,9 @@ OpenAlex       : **** (4)
 - **作者**: Jiarui Qin, Weinan Zhang, Rong Su, Zhirong Liu, Weiwen Liu
 - **引用**: 18
 - **链接**: [https://openalex.org/W4313828922](https://openalex.org/W4313828922)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W4313828922
 
 **评分详情**: 引用18(较少); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -298,7 +316,9 @@ OpenAlex       : **** (4)
 - **作者**: Bin Zhao, Wei Cao, Jiqun Zhang, Yilong Gao, Bin Li
 - **引用**: 0
 - **链接**: [https://doi.org/10.3233/jifs-234713](https://doi.org/10.3233/jifs-234713)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.3233/jifs-234713
 
 **评分详情**: 引用0(新/少); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -323,7 +343,9 @@ OpenAlex       : **** (4)
 - **作者**: OS Bratus, PI Bidyuk
 - **引用**: 3
 - **链接**: [https://pm-mm.dp.ua/index.php/pmmm/article/view/369](https://pm-mm.dp.ua/index.php/pmmm/article/view/369)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://pm-mm.dp.ua/index.php/pmmm/article/view/369
 
 **评分详情**: 引用3(新/少); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -348,7 +370,9 @@ OpenAlex       : **** (4)
 - **作者**: Shuwei Wang
 - **引用**: 1
 - **链接**: [https://doi.org/10.1109/eiect64462.2024.10867104](https://doi.org/10.1109/eiect64462.2024.10867104)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://ieeexplore.ieee.org/document/10867104/
 
 **评分详情**: 引用1(新/少); 非顶会; 2年内; 完整度11/15; 高度相关
 
@@ -373,7 +397,9 @@ OpenAlex       : **** (4)
 - **作者**: Zehuan Wang, Yingcan Wei, Minseok Lee, Matthias Langer, Fan Yu
 - **引用**: 27
 - **链接**: [https://openalex.org/W4296591840](https://openalex.org/W4296591840)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W4296591840
 
 **评分详情**: 引用27(较少); 非顶会; 4年前; 完整度12/15; 高度相关
 
@@ -398,7 +424,9 @@ OpenAlex       : **** (4)
 - **作者**: Ekin Can Erkuş, Müslüm Ersel Er, Alper Yıldız, Mustafa Gencer
 - **引用**: 1
 - **链接**: [https://doi.org/10.1109/isdfs58141.2023.10131678](https://doi.org/10.1109/isdfs58141.2023.10131678)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://ieeexplore.ieee.org/document/10131678/
 
 **评分详情**: 引用1(新/少); 非顶会; 3年内; 完整度11/15; 高度相关
 
@@ -423,7 +451,9 @@ OpenAlex       : **** (4)
 - **作者**: Ergun Biçici
 - **引用**: 3
 - **链接**: [https://doi.org/10.1109/iisec59749.2023.10391022](https://doi.org/10.1109/iisec59749.2023.10391022)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://ieeexplore.ieee.org/document/10391022/
 
 **评分详情**: 引用3(新/少); 非顶会; 3年内; 完整度11/15; 高度相关
 
@@ -448,7 +478,9 @@ OpenAlex       : **** (4)
 - **作者**: Shoujian Yu, Changhui Yang, Zhenchi Jie, Xiujin Shi
 - **引用**: 2
 - **链接**: [https://doi.org/10.1145/3538950.3538968](https://doi.org/10.1145/3538950.3538968)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.1145/3538950.3538968
 
 **评分详情**: 引用2(新/少); 非顶会; 4年前; 完整度11/15; 高度相关
 

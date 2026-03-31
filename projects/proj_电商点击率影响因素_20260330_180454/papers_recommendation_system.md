@@ -2,7 +2,7 @@
 
 **关键词**: recommendation system
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 00:57
+**日期**: 2026-03-31 09:41
 **总数**: 17 篇 (顶会: 6)
 
 ---
@@ -74,7 +74,9 @@ Semantic Schola: *** (3)
 - **作者**: Qing Ye, Chang‐Yu Hsieh, Ziyi Yang, Yu Kang, Jiming Chen
 - **引用**: 242
 - **链接**: [https://openalex.org/W3217681006](https://openalex.org/W3217681006)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3217681006
 
 **评分详情**: 引用242(中); 顶会:Nature; 5年前; 完整度15/15; 高度相关
 
@@ -99,7 +101,9 @@ Semantic Schola: *** (3)
 - **作者**: Pooja Selvarajan, Poovizhi Selvan, Vidhushavarshini Sureshkumar, Sathiyabhama Balasubramaniam
 - **引用**: 0
 - **链接**: [https://doi.org/10.2174/9789815136746123010013](https://doi.org/10.2174/9789815136746123010013)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.2174/9789815136746123010013
 
 **评分详情**: 引用0(新/少); 顶会:Science; 3年内; 完整度15/15; 高度相关
 
@@ -124,7 +128,9 @@ Semantic Schola: *** (3)
 - **作者**: Jihong Yu, Lin Wang
 - **引用**: 0
 - **链接**: [https://doi.org/10.1109/icsece61636.2024.10729508](https://doi.org/10.1109/icsece61636.2024.10729508)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://ieeexplore.ieee.org/document/10729508/
 
 **评分详情**: 引用0(新/少); 顶会:ICSE; 2年内; 完整度11/15; 高度相关
 
@@ -149,7 +155,9 @@ Semantic Schola: *** (3)
 - **作者**: Dayana Anefiyayeva, Nurdaulet Anefiyayeva, Assem Talasbek
 - **引用**: 0
 - **链接**: [https://doi.org/10.47344/sdubnts.v58i1.693](https://doi.org/10.47344/sdubnts.v58i1.693)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.47344/sdubnts.v58i1.693
 
 **评分详情**: 引用0(新/少); 顶会:Science; 4年前; 完整度15/15; 高度相关
 
@@ -175,6 +183,8 @@ Semantic Schola: *** (3)
 - **引用**: 0
 - **链接**: [https://doi.org/10.21275/sr21524230547](https://doi.org/10.21275/sr21524230547)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用0(新/少); 顶会:Science; 5年前; 完整度11/15; 高度相关
 
@@ -199,7 +209,9 @@ Semantic Schola: *** (3)
 - **作者**: Pushkar Pramod Wani
 - **引用**: 0
 - **链接**: [https://doi.org/10.21275/sr22130223310](https://doi.org/10.21275/sr22130223310)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://www.ijsr.net/getabstract.php?paperid=SR22130223310
 
 **评分详情**: 引用0(新/少); 顶会:Science; 4年前; 完整度11/15; 高度相关
 
@@ -224,7 +236,9 @@ Semantic Schola: *** (3)
 - **作者**: Hyeyoung Ko, Suyeon Lee, Yoonseo Park, Anna Choi
 - **引用**: 582
 - **链接**: [https://openalex.org/W4205390421](https://openalex.org/W4205390421)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W4205390421
 
 **评分详情**: 引用582(高); 非顶会; 4年前; 完整度15/15; 高度相关
 
@@ -249,7 +263,9 @@ Semantic Schola: *** (3)
 - **作者**: DHANANJAYA G M, R. H. Goudar, Anjanabhargavi A. Kulkarni, Vijayalaxmi N. Rathod, Geetabai S. Hukkeri
 - **引用**: 95
 - **链接**: [https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f](https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f
 
 **评分详情**: 引用95(一般); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -274,7 +290,9 @@ Semantic Schola: *** (3)
 - **作者**: A. Yashudas, Dinesh Gupta, G. Prashant, Amita Dua, Dokhyl Alqahtani, A. Siva, Senior Member Ieee Krishna Reddy
 - **引用**: 64
 - **链接**: [https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03](https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03
 
 **评分详情**: 引用64(一般); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -299,7 +317,9 @@ Semantic Schola: *** (3)
 - **作者**: Umair Javed, Kamran Shaukat, Ibrahim A. Hameed, Farhat Iqbal, Talha Mahboob Alam
 - **引用**: 336
 - **链接**: [https://openalex.org/W3130481949](https://openalex.org/W3130481949)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3130481949
 
 **评分详情**: 引用336(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -324,7 +344,9 @@ Semantic Schola: *** (3)
 - **作者**: María Cora Urdaneta-Ponte, Amaia Méndez Zorrilla, Ibon Ruiz
 - **引用**: 163
 - **链接**: [https://openalex.org/W3179424508](https://openalex.org/W3179424508)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3179424508
 
 **评分详情**: 引用163(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -349,7 +371,9 @@ Semantic Schola: *** (3)
 - **作者**: Paromita Nitu, Joseph Coelho, Praveen Madiraju
 - **引用**: 150
 - **链接**: [https://openalex.org/W3162663167](https://openalex.org/W3162663167)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3162663167
 
 **评分详情**: 引用150(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -374,7 +398,9 @@ Semantic Schola: *** (3)
 - **作者**: Zahra Zamanzadeh Darban, Mohammad Hadi Valipour
 - **引用**: 145
 - **链接**: [https://openalex.org/W4220818090](https://openalex.org/W4220818090)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W4220818090
 
 **评分详情**: 引用145(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -399,7 +425,9 @@ Semantic Schola: *** (3)
 - **作者**: Tejaswini Bhoye, A. Mane, Vandana Navale, Sangeeta Mohapatra, Pooja Mohbansi, Vishal Borate
 - **引用**: 17
 - **链接**: [https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7](https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7
 
 **评分详情**: 引用17(较少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -424,7 +452,9 @@ Semantic Schola: *** (3)
 - **作者**: Bei Hui, Lizong Zhang, Xue Zhou, Wen Xiao, Yuhui Nian
 - **引用**: 148
 - **链接**: [https://openalex.org/W3163731277](https://openalex.org/W3163731277)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3163731277
 
 **评分详情**: 引用148(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -449,7 +479,9 @@ Semantic Schola: *** (3)
 - **作者**: Allu Uma Maheswara Rao
 - **引用**: 0
 - **链接**: [https://doi.org/10.55248/gengpi.6.0825.32103](https://doi.org/10.55248/gengpi.6.0825.32103)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.55248/gengpi.6.0825.32103
 
 **评分详情**: 引用0(新/少); 非顶会; 1年内; 完整度11/15; 高度相关
 
@@ -474,7 +506,9 @@ Semantic Schola: *** (3)
 - **作者**: Vishweshwar Reddy Veerannagari
 - **引用**: 0
 - **链接**: [https://doi.org/10.31274/cc-20250502-81](https://doi.org/10.31274/cc-20250502-81)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://dr.lib.iastate.edu/handle/20.500.12876/105891
 
 **评分详情**: 引用0(新/少); 非顶会; 2年内; 完整度8/15; 高度相关
 

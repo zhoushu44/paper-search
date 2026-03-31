@@ -2,7 +2,7 @@
 
 **关键词**: e-commerce
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 01:16
+**日期**: 2026-03-31 09:40
 **总数**: 14 篇 (顶会: 2)
 
 ---
@@ -21,9 +21,9 @@
 | 8 | D(49) | [[The adoption and impact of E-commer]] | Min Liu, Shi Mi | 2021 | Journal of R | -- | ★★☆☆☆ | 缺全文 | 论文更关注农村地区电商采用行为及其经济影响，可为点击率研究提供用户采纳、平台使用环境与外部条件等背景 |
 | 9 | D(49) | [[Resources and digital export: An RB]] | Stefano Elia, M | 2021 | Journal of B | -- | ★★☆☆☆ | 缺全文 | 文章从资源基础观讨论数字技术与能力如何提升跨境电商出口表现，可为分析平台流量获取与用户点击前置条件提 |
 | 10 | D(49) | [[E-Commerce and Consumer Protection ]] | Neelam Chawla,  | 2021 | Journal of B | -- | 2星 | 缺全文 | 文章可能讨论印度电商中的消费者保护、平台责任与监管趋势，可为研究信任、安全感等间接影响点击率的因素提 |
-| 11 | D(48) | [[Methods and Applications of Quick C]] | S. Kavitha, K.  | 2025 | Methods and  | -- | ★★☆☆☆ | 已生成 | 文章讨论Q-commerce在疫情后印度零售中的兴起、需求驱动与可持续性，可为研究配送时效、品类特征 |
-| 12 | D(44) | [[Q-COMMERCE AND E-COMMERCE IN GHANA:]] | , Ekaterina Evg | 2025 | Q-COMMERCE A | -- | 2星 | 已生成 | 文章可能讨论加纳电商与Q-commerce的发展趋势、数字基础设施和市场前景，可为分析点击率中的地区 |
-| 13 | D(44) | [[Call for Metaverse e-commerce: futu]] | Gengxin Sun, Da | 2025 | Electronic C | -- | ★★☆☆☆ | 已生成 | 文章可能讨论元宇宙电商的发展机会、用户交互与平台挑战，可为研究沉浸式场景下影响点击率的新因素提供背景 |
+| 11 | D(48) | [[Methods and Applications of Quick Commerce (Q-Commerce)]] | S. Kavitha, K.  | 2025 | Methods and  | -- | ★★☆☆☆ | 已生成 | 文章讨论Q-commerce在疫情后印度零售中的兴起、需求驱动与可持续性，可为研究配送时效、品类特征 |
+| 12 | D(44) | [[Q-COMMERCE AND E-COMMERCE IN GHANA DIGITAL DEVELOPMENT TRENDS AND PROSPECTS]] | , Ekaterina Evg | 2025 | Q-COMMERCE A | -- | 2星 | 已生成 | 文章可能讨论加纳电商与Q-commerce的发展趋势、数字基础设施和市场前景，可为分析点击率中的地区 |
+| 13 | D(44) | [[Call for Metaverse e-commerce future challenges and opportunities for electronic commerce]] | Gengxin Sun, Da | 2025 | Electronic C | -- | ★★☆☆☆ | 已生成 | 文章可能讨论元宇宙电商的发展机会、用户交互与平台挑战，可为研究沉浸式场景下影响点击率的新因素提供背景 |
 | 14 | D(35) | [[Connectivité numérique, commerce él]] |  | 2023 | Examen globa | -- | ★★☆☆☆ | 缺全文 | 论文可能讨论数字连接基础设施如何促进电商与可持续商业发展，可为分析流量获取环境、用户触达条件等点击率 |
 
 ## 数据可视化
@@ -70,7 +70,9 @@ CrossRef       : **** (4)
 - **作者**: Nabilla Farah Raissa Maharani, Novandra Rhezza Pratama, M. Dachyar
 - **引用**: 1547
 - **链接**: [https://openalex.org/W4398182172](https://openalex.org/W4398182172)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W4398182172
 
 **评分详情**: 引用1547(顶级); 顶会:Science; 2年内; 完整度15/15; 高度相关
 
@@ -95,7 +97,9 @@ CrossRef       : **** (4)
 - **作者**: Ghada Taher
 - **引用**: 143
 - **链接**: [https://openalex.org/W3158590217](https://openalex.org/W3158590217)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3158590217
 
 **评分详情**: 引用143(中); 顶会:Science; 5年前; 完整度15/15; 高度相关
 
@@ -120,7 +124,9 @@ CrossRef       : **** (4)
 - **作者**: Albérico Travassos Rosário, Ricardo Raimundo
 - **引用**: 274
 - **链接**: [https://openalex.org/W3208801535](https://openalex.org/W3208801535)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3208801535
 
 **评分详情**: 引用274(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -145,7 +151,9 @@ CrossRef       : **** (4)
 - **作者**: Victor Couture, Benjamin Faber, Yizhen Gu, Lizhi Liu
 - **引用**: 248
 - **链接**: [https://openalex.org/W2970889537](https://openalex.org/W2970889537)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W2970889537
 
 **评分详情**: 引用248(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -170,7 +178,9 @@ CrossRef       : **** (4)
 - **作者**: Chao Peng, Biao Ma, Chen Zhang
 - **引用**: 253
 - **链接**: [https://openalex.org/W3146911727](https://openalex.org/W3146911727)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3146911727
 
 **评分详情**: 引用253(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -195,7 +205,9 @@ CrossRef       : **** (4)
 - **作者**: Ransome Epie Bawack, Samuel Fosso Wamba, Kévin Carillo, Shahriar Akter
 - **引用**: 314
 - **链接**: [https://openalex.org/W4220923293](https://openalex.org/W4220923293)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W4220923293
 
 **评分详情**: 引用314(中); 非顶会; 4年前; 完整度11/15; 高度相关
 
@@ -220,7 +232,9 @@ CrossRef       : **** (4)
 - **作者**: Harikumar Pallathadka, Edwin Ramirez-Asís, Telmo Pablo Loli-Poma, Karthikeyan Kaliyaperumal, Randy Joy Magno Ventayen
 - **引用**: 239
 - **链接**: [https://openalex.org/W3182797139](https://openalex.org/W3182797139)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3182797139
 
 **评分详情**: 引用239(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -245,7 +259,9 @@ CrossRef       : **** (4)
 - **作者**: Min Liu, Shi Min, Wanglin Ma, Tianjun Liu
 - **引用**: 262
 - **链接**: [https://openalex.org/W3135109632](https://openalex.org/W3135109632)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3135109632
 
 **评分详情**: 引用262(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -270,7 +286,9 @@ CrossRef       : **** (4)
 - **作者**: Stefano Elia, Maria Grazia Giuffrida, Marcello M. Mariani, Stefano Bresciani
 - **引用**: 366
 - **链接**: [https://openalex.org/W3159274234](https://openalex.org/W3159274234)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3159274234
 
 **评分详情**: 引用366(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -295,7 +313,9 @@ CrossRef       : **** (4)
 - **作者**: Neelam Chawla, Basanta Kumar
 - **引用**: 183
 - **链接**: [https://openalex.org/W3177694727](https://openalex.org/W3177694727)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://openalex.org/W3177694727
 
 **评分详情**: 引用183(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -321,6 +341,8 @@ CrossRef       : **** (4)
 - **引用**: 1
 - **链接**: [https://doi.org/10.4018/979-8-3373-1712-0.ch010](https://doi.org/10.4018/979-8-3373-1712-0.ch010)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用1(新/少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -334,7 +356,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 12. [[Q-COMMERCE AND E-COMMERCE IN GHANA: DIGITAL DEVELOPMENT TRENDS AND PROSPECTS]]
+### 12. [[Q-COMMERCE AND E-COMMERCE IN GHANA DIGITAL DEVELOPMENT TRENDS AND PROSPECTS]]
 
 **评分**: D级 (44分) - 参考
 
@@ -346,6 +368,8 @@ CrossRef       : **** (4)
 - **引用**: 0
 - **链接**: [https://doi.org/10.46916/22082025-2-978-5-00215-844-7](https://doi.org/10.46916/22082025-2-978-5-00215-844-7)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用0(新/少); 非顶会; 1年内; 完整度11/15; 高度相关
 
@@ -359,7 +383,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 13. [[Call for Metaverse e-commerce: future challenges and opportunities for electronic commerce]]
+### 13. [[Call for Metaverse e-commerce future challenges and opportunities for electronic commerce]]
 
 **评分**: D级 (44分) - 参考
 
@@ -371,6 +395,8 @@ CrossRef       : **** (4)
 - **引用**: 6
 - **链接**: [https://doi.org/10.1007/s10660-023-09704-6](https://doi.org/10.1007/s10660-023-09704-6)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用6(新/少); 非顶会; 1年内; 完整度11/15; 高度相关
 
@@ -395,7 +421,9 @@ CrossRef       : **** (4)
 - **作者**: 
 - **引用**: 0
 - **链接**: [https://doi.org/10.30875/9789287073327c006](https://doi.org/10.30875/9789287073327c006)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://www.wto-ilibrary.org/content/books/9789287073327c006
 
 **评分详情**: 引用0(新/少); 非顶会; 3年内; 完整度8/15; 高度相关
 

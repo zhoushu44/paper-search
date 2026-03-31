@@ -2,7 +2,7 @@
 
 **关键词**: user behavior modeling
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 01:09
+**日期**: 2026-03-31 09:41
 **总数**: 9 篇 (顶会: 0)
 
 ---
@@ -13,13 +13,13 @@
 |------|------|------|------|------|------|------|--------|----------|----------|
 | 1 | B(63) | [[User behavior simulation with large]] | L Wang, J Zhang | 2025 | dl.acm.org | -- | 4星 | 缺全文 | 论文研究基于大语言模型的用户代理行为模拟，可用于刻画不同用户在推荐场景中的点击反应，为分析电商CTR |
 | 2 | C(57) | [[TWIN: TWo-stage interest network fo]] | J Chang, C Zhan | 2023 | dl.acm.org | -- | 4星 | 缺全文 | 论文研究长期与短期用户兴趣建模对CTR预测的作用，可为分析电商场景中用户历史行为、兴趣演化等点击影响 |
-| 3 | C(53) | [[A survey for user behavior analysis]] | A G. Martín, A  | 2021 | Springer | -- | ★★★☆☆ | 已生成 | 该文综述机器学习用户行为分析模型，可为电商CTR研究提供特征设计、行为序列建模与预测方法参考，但不直 |
-| 4 | C(52) | [[A survey on user behavior modeling ]] | Z He, W Liu, W  | 2023 | arxiv.org | -- | ★★★★☆ | 已生成 | 该综述系统梳理推荐系统中的用户行为建模方法，可为电商点击率研究提供行为序列、交互模式和特征设计思路。 |
+| 3 | C(53) | [[A survey for user behavior analysis based on machine learning techniques current models and applications]] | A G. Martín, A  | 2021 | Springer | -- | ★★★☆☆ | 已生成 | 该文综述机器学习用户行为分析模型，可为电商CTR研究提供特征设计、行为序列建模与预测方法参考，但不直 |
+| 4 | C(52) | [[A survey on user behavior modeling in recommender systems]] | Z He, W Liu, W  | 2023 | arxiv.org | -- | ★★★★☆ | 已生成 | 该综述系统梳理推荐系统中的用户行为建模方法，可为电商点击率研究提供行为序列、交互模式和特征设计思路。 |
 | 5 | D(48) | [[Contrastive curriculum learning for]] | S Bian, WX Zhao | 2021 | dl.acm.org | -- | 4星 | 缺全文 | 论文通过对比学习与课程学习增强序列行为建模能力，可提升对用户兴趣演化的刻画，为电商点击率预测中的用户 |
 | 6 | D(45) | [[User Behavior Analysis-based Person]] | J Ling | 2024 | ieeexplore.i | -- | 3星 | 缺全文 | 论文围绕用户行为建模、动态更新和协同过滤推荐，可为分析用户兴趣、推荐曝光与点击率关系提供方法参考。 |
 | 7 | D(45) | [[E-Commerce User Behavior Analysis a]] | H Wang, L Wang, | 2024 | ieeexplore.i | -- | 4星 | 缺全文 | 论文用人工神经网络与数据挖掘分析电商用户行为，可为点击率研究提供特征提取、行为预测和营销优化的方法参 |
 | 8 | D(43) | [[Behavioral modeling and prediction ]] | Z Lv, C Cheng,  | 2022 | ieeexplore.i | -- | ★★★☆☆ | 缺全文 | 论文综述社会感知计算中的行为建模与预测方法，对提炼用户兴趣、行为特征及推荐机制有帮助，可间接支持电商 |
-| 9 | D(42) | [[Changes in consumer behavior and pr]] | B Kordecki | 2024 | managementpa | -- | ★★★☆☆ | 已生成 | 论文讨论数字化转型中消费者行为与偏好的变化，虽不直接研究点击率，但可为分析流量入口、用户兴趣与购买路 |
+| 9 | D(42) | [[Changes in consumer behavior and preferences amid digital transformation presentation and comparison of research results 2022-2024]] | B Kordecki | 2024 | managementpa | -- | ★★★☆☆ | 已生成 | 论文讨论数字化转型中消费者行为与偏好的变化，虽不直接研究点击率，但可为分析流量入口、用户兴趣与购买路 |
 
 ## 数据可视化
 
@@ -64,7 +64,9 @@ SerpAPI        : ********* (9)
 - **作者**: L Wang, J Zhang, H Yang, ZY Chen, J Tang
 - **引用**: 217
 - **链接**: [https://dl.acm.org/doi/abs/10.1145/3708985](https://dl.acm.org/doi/abs/10.1145/3708985)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://dl.acm.org/doi/abs/10.1145/3708985
 
 **评分详情**: 引用217(中); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -89,7 +91,9 @@ SerpAPI        : ********* (9)
 - **作者**: J Chang, C Zhang, Z Fu, X Zang, L Guan, J Lu
 - **引用**: 155
 - **链接**: [https://dl.acm.org/doi/abs/10.1145/3580305.3599922](https://dl.acm.org/doi/abs/10.1145/3580305.3599922)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://dl.acm.org/doi/abs/10.1145/3580305.3599922
 
 **评分详情**: 引用155(中); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -103,7 +107,7 @@ SerpAPI        : ********* (9)
 
 ---
 
-### 3. [[A survey for user behavior analysis based on machine learning techniques: current models and applications]]
+### 3. [[A survey for user behavior analysis based on machine learning techniques current models and applications]]
 
 **评分**: C级 (53分) - 一般
 
@@ -115,6 +119,8 @@ SerpAPI        : ********* (9)
 - **引用**: 120
 - **链接**: [https://link.springer.com/article/10.1007/s10489-020-02160-x](https://link.springer.com/article/10.1007/s10489-020-02160-x)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用120(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -140,6 +146,8 @@ SerpAPI        : ********* (9)
 - **引用**: 64
 - **链接**: [https://arxiv.org/abs/2302.11087](https://arxiv.org/abs/2302.11087)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用64(一般); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -164,7 +172,9 @@ SerpAPI        : ********* (9)
 - **作者**: S Bian, WX Zhao, K Zhou, J Cai, Y He, C Yin
 - **引用**: 63
 - **链接**: [https://dl.acm.org/doi/abs/10.1145/3459637.3481905](https://dl.acm.org/doi/abs/10.1145/3459637.3481905)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://dl.acm.org/doi/abs/10.1145/3459637.3481905
 
 **评分详情**: 引用63(一般); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -189,7 +199,9 @@ SerpAPI        : ********* (9)
 - **作者**: J Ling
 - **引用**: 1
 - **链接**: [https://ieeexplore.ieee.org/abstract/document/10898571/](https://ieeexplore.ieee.org/abstract/document/10898571/)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://ieeexplore.ieee.org/abstract/document/10898571/
 
 **评分详情**: 引用1(新/少); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -214,7 +226,9 @@ SerpAPI        : ********* (9)
 - **作者**: H Wang, L Wang, F Zhu
 - **引用**: 3
 - **链接**: [https://ieeexplore.ieee.org/abstract/document/10733243/](https://ieeexplore.ieee.org/abstract/document/10733243/)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://ieeexplore.ieee.org/abstract/document/10733243/
 
 **评分详情**: 引用3(新/少); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -239,7 +253,9 @@ SerpAPI        : ********* (9)
 - **作者**: Z Lv, C Cheng, A Guerrieri
 - **引用**: 10
 - **链接**: [https://ieeexplore.ieee.org/abstract/document/9999214/](https://ieeexplore.ieee.org/abstract/document/9999214/)
-- **单篇全文解读**: 未生成（未获取到可解析全文）
+- **单篇全文解读**: 未生成（landing_page_only）
+- **全文失败原因**: landing_page_only
+- **最后尝试来源**: https://ieeexplore.ieee.org/abstract/document/9999214/
 
 **评分详情**: 引用10(较少); 非顶会; 4年前; 完整度15/15; 高度相关
 
@@ -253,7 +269,7 @@ SerpAPI        : ********* (9)
 
 ---
 
-### 9. [[Changes in consumer behavior and preferences amid digital transformation: presentation and comparison of research results 2022-2024]]
+### 9. [[Changes in consumer behavior and preferences amid digital transformation presentation and comparison of research results 2022-2024]]
 
 **评分**: D级 (42分) - 参考
 
@@ -265,6 +281,8 @@ SerpAPI        : ********* (9)
 - **引用**: 2
 - **链接**: [https://managementpapers.polsl.pl/wp-content/uploads/2024/11/206-Kordecki.pdf](https://managementpapers.polsl.pl/wp-content/uploads/2024/11/206-Kordecki.pdf)
 - **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用2(新/少); 非顶会; 2年内; 完整度15/15; 相关
 
