@@ -59,7 +59,26 @@ python paper_search.py "large language model" 100
 
 ## Docker 部署
 
-### 构建镜像
+### 拉取已发布镜像
+
+```bash
+docker pull zhoushu1/paper-search:latest
+```
+
+如果拉取时出现类似下面的错误：
+
+```text
+Error response from daemon: Get "https://registry-1.docker.io/v2/": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+```
+
+这通常是本机到 Docker Hub 的网络连接超时，不是镜像名错误。可以优先检查：
+
+- 本机网络是否能访问 `https://registry-1.docker.io`
+- Docker Desktop / Docker daemon 是否正常联网
+- 是否需要代理或镜像加速器
+- 防火墙、公司网络或地区网络是否拦截 Docker Hub
+
+### 本地构建镜像
 
 ```bash
 docker build -t paper-search2 .
@@ -91,13 +110,13 @@ docker run --rm -p 5055:5055 \
 
 ### 需要的 Secrets
 
-- `DOCKER_USERNAME`
-- `DOCKER_TOKEN`
+- `DOCKER_HUB_USERNAME`
+- `DOCKER_HUB_TOKEN`
 
 ### 可选的 Repository Variables
 
 - `DOCKER_REGISTRY`：默认 `docker.io`
-- `DOCKER_IMAGE_NAME`：默认使用 `github.repository`
+- `DOCKER_IMAGE_NAME`：默认使用 `${DOCKER_HUB_USERNAME}/paper-search`
 
 ## 说明
 
