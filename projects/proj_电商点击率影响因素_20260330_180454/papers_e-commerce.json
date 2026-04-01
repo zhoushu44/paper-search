@@ -1,7 +1,7 @@
 {
   "keyword": "e-commerce",
   "original_keyword": "电商点击率影响因素",
-  "timestamp": "2026-03-31T09:40:12.326742",
+  "timestamp": "2026-03-31T17:59:31.417160",
   "count": 14,
   "papers": [
     {
@@ -26,10 +26,9 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4398182172",
-        "https://openalex.org/W4398182172.pdf"
+        "https://doi.org/10.38124/ijisrt/ijisrt24apr2676"
       ],
-      "fulltext_error": "https://openalex.org/W4398182172 => landing_page_only; https://openalex.org/W4398182172.pdf => non_text_pdf",
+      "fulltext_error": "https://doi.org/10.38124/ijisrt/ijisrt24apr2676 => too_short_html",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -39,30 +38,22 @@
       "score_details": "引用1547(顶级); 顶会:Science; 2年内; 完整度15/15; 高度相关",
       "level": "S",
       "level_desc": "强烈推荐",
-      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_reason": "too_short_html",
       "fulltext_failure_details": [
         {
-          "candidate_url": "https://openalex.org/W4398182172",
-          "final_url": "https://openalex.org/W4398182172",
-          "reason": "landing_page_only",
+          "candidate_url": "https://doi.org/10.38124/ijisrt/ijisrt24apr2676",
+          "final_url": "https://www.ijisrt.com/ecommerce-promotional-products-selection-using-swara-and-topsis",
+          "reason": "too_short_html",
           "content_type": "html",
           "error": "",
           "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W4398182172.pdf",
-          "final_url": "https://openalex.org/W4398182172.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
+            "text_length": 2910,
+            "content_type_header": "text/html; charset=utf-8",
+            "second_hop_candidates": [
+              "https://ijisrt.com/download",
+              "https://ijisrt.com/images/download"
+            ],
+            "hop_depth": 0
           }
         }
       ],
@@ -86,51 +77,37 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "论文聚焦电商总体优劣，未直接研究点击率，但可提供平台环境与用户行为背景。",
       "link": "https://openalex.org/W3158590217",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://hrmars.com/IJARAFMS/article/view/8987/E-Commerce-Advantages-and-Limitations",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W3158590217",
-        "https://openalex.org/W3158590217.pdf"
+        "https://doi.org/10.6007/ijarafms/v11-i1/8987",
+        "https://hrmars.com/papers_submitted/8987/e-commerce-advantages-and-limitations.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3158590217 => landing_page_only; https://openalex.org/W3158590217.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "E-Commerce Advantages and Limitations",
+      "paper_markdown_path": "paper_notes/E-Commerce Advantages and Limitations.md",
+      "paper_markdown_filename": "E-Commerce Advantages and Limitations.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "从给定正文看，这篇论文讨论的核心是电子商务（e-commerce）的总体价值与局限，而不是专门研究“电商点击率影响因素”。就用户主题而言，论文只能提供非常间接的背景性支持，不能直接得出点击率的决定变量。\n\n基于正文，可作如下解读：\n1. 论文将电子商务置于信息技术、通信技术与经济全球化背景下理解。正文明确指出，电子商务在推进信息技术与通信方面具有重要作用，尤其体现在经济领域。这说明作者将电商视为一种依托技术进步而发展的商业形态。\n\n2. 论文强调电子商务兴起的宏观条件。正文提到：互联网改进、信息技术进步、物流与配送发展，使几乎所有企业都能够在全球范围内进行购买、销售和联络。也就是说，作者认为电商发展与技术基础设施和履约能力提升密切相关。\n\n3. 论文指出疫情与全球贸易受阻的背景下，电子商务仍可在地方经济层面发挥作用。正文提到，尽管新冠疫情导致部分地区产业向本地生产回流、全球贸易受阻，但电子商务仍能帮助地方经济。这表明作者认为电商具有一定的经济韧性或替代性价值。\n\n4. 论文的重点在于“优势与局限并存”。正文明确说，尽管电子商务已主导市场、在线服务和贸易，但它同时带来各种好处和关键缺点。论文旨在阐明电商的关键特征，以及它对组织和顾客两方带来的不足。\n\n5. 论文特别提醒：同一现象对顾客和企业的影响可能不同。正文指出，对顾客而言的好处，可能会转化为企业组织的缺点。因此，作者主张企业在做业务决策前，应充分理解电商的优势与劣势。\n\n6. 论文结论总体偏正向。正文最后指出，尽管电子商务存在缺点，但其众多优势仍足以成功吸引企业和顾客的关注；同时，随着技术快速演进，某些技术缺陷未来可能被避免或缓解。\n\n7. 对“电商点击率影响因素”的对应关系：论文未明确说明点击率、流量转化、页面元素、推荐机制、价格展示、促销文案、用户行为路径、平台算法等内容。因此，若要直接分析CTR影响因素，这篇论文提供的证据非常有限。它最多只能作为一个高层背景文献，说明电子商务为什么重要、为什么企业和顾客会被其吸引，以及企业需要平衡顾客收益与组织成本，但不能直接支持具体CTR变量分析。",
+        "practical_usage": "结合“电商点击率影响因素”这一用户主题，这篇论文可支持的实际运用非常有限，主要是提供电商业务决策的背景性含义，而非点击率模型本身：\n\n1. 可用于说明研究背景：企业之所以关注电商中的点击、流量与用户吸引，是因为电子商务已经在市场、在线服务和交易中占据重要地位，并且能够吸引企业和顾客。这个用途有正文支撑。\n\n2. 可用于支持“不能只看单一用户指标”的业务提醒。正文指出，对顾客的好处可能是企业的缺点，因此在优化电商表现时，企业应同时评估客户侧收益与组织侧代价。若将其用于CTR场景，只能得出非常谨慎的含义：提升用户吸引力时，也要考虑企业层面的限制与代价。但正文未明确说明CTR优化方法。\n\n3. 可用于支持电商基础条件建设的重要性。正文强调互联网、信息技术、物流与配送进步推动了电商发展。因此在业务实践中，可将技术与履约能力视为电商运行的重要基础背景。至于这些因素是否直接影响点击率，论文未明确说明。\n\n4. 可用于宏观层面论证电商在疫情或贸易受阻条件下仍具有经济价值，适合作为企业继续投入线上渠道的背景理由。至于这种投入如何提升点击率，论文未明确说明。\n\n5. 不能用于以下任务：识别CTR直接驱动因素、建立点击率预测模型、设计A/B测试指标、判断标题/图片/价格/评论对点击率的影响、分析不同用户群体点击行为。上述内容论文未明确说明。",
+        "evidence_excerpt": [
+          "“Electronic commerce plays an essential role in advancing information technology as well as communication. This is particularly true in the realm of the economy.”",
+          "“even as the covid-19 pandemic further leads industries in heavily impacted areas to insource towards local production as global trade was blocked, e-commerce can aid the economy on a local scale.”",
+          "“improvements on the internet, along with advancements in information technology, and the progress in logistics and deliveries have enabled nearly every business to buy, sell and liaise on a global scale.”",
+          "“although e-commerce has dominated the marketplace, online services and trade, bring on various benefits as well as major key drawbacks.”",
+          "“understanding the benefits and drawbacks is essential as a benefit for the customer might be translated into a drawback for the business organization.”"
+        ],
+        "evidence_note": "“中文详细解读”中的第1、2、3点分别由正文关于电子商务推动信息技术与通信、疫情下仍可帮助地方经济、互联网/信息技术/物流配送进步支撑；第4、5、6点由正文关于电商既有优势也有重大缺点、顾客收益可能转化为企业缺点、尽管有缺点但仍吸引企业与顾客且技术缺陷未来可能被避免等表述支撑。关于点击率、CTR具体影响因素、页面与内容变量、算法机制、用户行为指标等内容，正文未明确说明。\n\n“实际运用”中第1、2、3、4点分别由正文关于电商的重要性、企业应理解顾客与组织两侧利弊、技术与物流进步支撑电商、疫情与贸易受阻时电商仍有经济作用这些内容支撑。涉及CTR预测、A/B测试、价格/图片/标题/评论对点击率影响等具体应用，论文未明确说明。"
+      },
       "score": 78,
       "score_details": "引用143(中); 顶会:Science; 5年前; 完整度15/15; 高度相关",
       "level": "A",
       "level_desc": "推荐阅读",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3158590217",
-          "final_url": "https://openalex.org/W3158590217",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3158590217.pdf",
-          "final_url": "https://openalex.org/W3158590217.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "E-Commerce Advantages and Limitations"
     },
     {
       "title": "Consumer Marketing Strategy and E-Commerce in the Last Decade: A Literature Review",
@@ -154,10 +131,17 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3208801535",
-        "https://openalex.org/W3208801535.pdf"
+        "https://doi.org/10.3390/jtaer16070164",
+        "https://mdpi.com/0718-1876/16/7/164/pdf?version=1635755673",
+        "https://mdpi.com/0718-1876/16/7/164/pdf",
+        "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37",
+        "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37/pdf",
+        "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37/full",
+        "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37?download=1",
+        "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37.pdf",
+        "https://dx.doi.org/10.3390/jtaer16070164"
       ],
-      "fulltext_error": "https://openalex.org/W3208801535 => landing_page_only; https://openalex.org/W3208801535.pdf => non_text_pdf",
+      "fulltext_error": "https://doi.org/10.3390/jtaer16070164 => network_error; https://mdpi.com/0718-1876/16/7/164/pdf?version=1635755673 => network_error; https://mdpi.com/0718-1876/16/7/164/pdf => network_error; https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37 => too_short_html; https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37/pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -167,30 +151,67 @@
       "score_details": "引用274(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_reason": "too_short_html",
       "fulltext_failure_details": [
         {
-          "candidate_url": "https://openalex.org/W3208801535",
-          "final_url": "https://openalex.org/W3208801535",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
+          "candidate_url": "https://doi.org/10.3390/jtaer16070164",
+          "final_url": "https://doi.org/10.3390/jtaer16070164",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
           "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
+            "error": "403 Client Error: Forbidden for url: https://www.mdpi.com/0718-1876/16/7/164",
+            "hop_depth": 0,
+            "second_hop_candidates": []
           }
         },
         {
-          "candidate_url": "https://openalex.org/W3208801535.pdf",
-          "final_url": "https://openalex.org/W3208801535.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
+          "candidate_url": "https://mdpi.com/0718-1876/16/7/164/pdf?version=1635755673",
+          "final_url": "https://mdpi.com/0718-1876/16/7/164/pdf?version=1635755673",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://mdpi.com/0718-1876/16/7/164/pdf?version=1635755673",
+            "hop_depth": 0,
+            "second_hop_candidates": []
+          }
+        },
+        {
+          "candidate_url": "https://mdpi.com/0718-1876/16/7/164/pdf",
+          "final_url": "https://mdpi.com/0718-1876/16/7/164/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://mdpi.com/0718-1876/16/7/164/pdf",
+            "hop_depth": 0,
+            "second_hop_candidates": []
+          }
+        },
+        {
+          "candidate_url": "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37",
+          "final_url": "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37",
+          "reason": "too_short_html",
+          "content_type": "html",
           "error": "",
           "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
+            "text_length": 2131,
+            "content_type_header": "text/html; charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
+          }
+        },
+        {
+          "candidate_url": "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37/pdf",
+          "final_url": "https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doaj.org/article/999d7cf74c9545bc9dc2b2a354a12c37/pdf",
+            "hop_depth": 0,
+            "second_hop_candidates": []
           }
         }
       ],
@@ -214,51 +235,44 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "论文聚焦电商下乡与消费福利，对点击率仅提供市场环境层面的间接启发。",
       "link": "https://openalex.org/W2970889537",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://www.aeaweb.org/articles?id=10.1257/aeri.20190382",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W2970889537",
-        "https://openalex.org/W2970889537.pdf"
+        "https://doi.org/10.1257/aeri.20190382",
+        "https://aeaweb.org/articles/pdf/doi/10.1257/aeri.20190382",
+        "https://aeaweb.org/articles/pdf/doi/10.1257/aeri.20190382/pdf",
+        "https://aeaweb.org/articles/pdf/doi/10.1257/aeri.20190382/full",
+        "https://aeaweb.org/articles/pdf/doi/10.1257/aeri.20190382?download=1",
+        "https://aeaweb.org/doi/10.1257/aeri.20190382",
+        "https://aeaweb.org/doi/10.1257/aeri.20190382/pdf",
+        "https://aeaweb.org/doi/10.1257/aeri.20190382/full",
+        "https://aeaweb.org/doi/10.1257/aeri.20190382?download=1"
       ],
-      "fulltext_error": "https://openalex.org/W2970889537 => landing_page_only; https://openalex.org/W2970889537.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Connecting the Countryside via E-Commerce Evidence from China",
+      "paper_markdown_path": "paper_notes/Connecting the Countryside via E-Commerce Evidence from China.md",
+      "paper_markdown_filename": "Connecting the Countryside via E-Commerce Evidence from China.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "这篇论文基于“首个全国性电商扩张项目”来评估其对中国农村家庭的影响。按照正文摘要，作者使用了“随机对照试验”并结合“新的调查数据和行政微观数据”进行估计，因此其研究设计强调因果识别，而不仅仅是描述性案例分析。\n\n从研究结论看，论文指出：与既有案例研究不同，他们“几乎没有发现农村生产者和劳动者收入增长的证据”。这意味着，至少在该项目背景下，电商进入农村并没有在正文中表现为广泛、明显的增收效应。\n\n论文进一步指出，收益主要不是来自收入上升，而是来自“生活成本下降”。不过，这种收益并不是覆盖所有农村家庭，而是发生在“少数农村家庭”身上。摘要还明确了这部分受益者的特征：他们往往“更年轻、更富裕，并且处于更偏远的市场”。因此，从正文可直接解读出，电商扩张的效果存在明显异质性，不同人群获得的收益并不相同。\n\n关于机制，摘要明确说，这些效果“主要源于克服电商的物流障碍”，而不是“为了让农村人口适应电商而进行的额外投资”。也就是说，在这篇论文给出的证据中，更关键的作用点是物流可达性和配送障碍的改善，而不是针对农村用户的额外适配措施。\n\n如果将其放到“电商点击率影响因素”的用户研究主题下，这篇论文正文能够提供的是一个比较间接的启发：论文讨论的是电商扩张的总体福利效应、受益人群以及物流机制，而不是点击率本身。正文没有分析点击率、曝光、转化漏斗、页面设计、推荐算法、价格展示、商品标题或营销文案等因素，因此对“点击率影响因素”的直接证据非常有限。就正文所示，最多只能说：在农村电商场景中，物流障碍是否被克服、市场是否偏远、用户是否较年轻和较富裕，可能与电商收益覆盖范围有关；但这些并不是论文明确识别的“点击率因素”，论文未明确说明它们如何作用于点击率。",
+        "practical_usage": "基于正文，这篇论文可支持的实际运用主要有以下几类：\n\n1. 用于评估农村电商项目的业务目标设定：正文表明，该全国性电商扩张项目带来的主要收益是部分农村家庭生活成本下降，而不是普遍的收入增长。因此，如果企业或政策方在农村推进电商，不应仅以“帮助农村生产者和劳动者增收”作为唯一预期结果；至少根据该论文摘要，这一点证据较弱。\n\n2. 用于识别更可能受益的人群与市场：正文指出，收益集中在“更年轻、更富裕、且位于更偏远市场”的少数农村家庭。这可用于业务上做受益人群识别、试点对象筛选、市场优先级排序。但这种应用仅限于“谁更可能从电商扩张中获益”的层面。\n\n3. 用于确定基础设施或运营优先级：正文明确提出，效果主要来自“克服物流障碍”，而不是额外的农村适配投资。因此，在农村电商推进中，物流相关环节可能比其他适配性投入更关键。可支持的应用包括：优先评估物流打通、配送触达、偏远地区连接等方面的投入价值。\n\n4. 对“电商点击率影响因素”研究的可用性边界：这篇论文并未直接研究点击率，因此不能据此得出“哪些因素提升或降低点击率”的结论。若用户要做点击率建模、广告创意优化、商品卡片优化、搜索排序优化、推荐位点击分析等，论文未明确说明。\n\n5. 可作为更高层面的背景证据：如果业务问题是“农村电商扩张究竟主要通过什么渠道创造价值”，这篇论文可提供摘要层面的支持，即价值更可能体现在部分家庭的生活成本下降，并与物流障碍改善有关；但对具体平台指标、用户点击行为、转化路径，论文未明确说明。",
+        "evidence_excerpt": [
+          "“This paper estimates the impact of the first nationwide e-commerce expansion program on rural households.”",
+          "“To do so, we combine a randomized control trial with new survey and administrative microdata.”",
+          "“In contrast to existing case studies, we find little evidence for income gains to rural producers and workers.”",
+          "“Instead, the gains are driven by a reduction in cost of living for a minority of rural households that tend to be younger, richer, and in more remote markets.”",
+          "“These effects are mainly due to overcoming logistical barriers to e-commerce rather than additional investments to adapt e-commerce to the rural population.”"
+        ],
+        "evidence_note": "“中文详细解读”中的研究对象、研究方法、收入效应较弱、生活成本下降、受益者特征、物流障碍机制，分别直接由摘要中的五句核心表述支撑。关于“该论文并未直接研究点击率、曝光、推荐、页面设计等”的判断，依据是所给正文片段中只出现了项目影响、收入、生活成本、受益人群和物流机制，未出现任何点击率相关分析，因此相应部分应理解为‘论文未明确说明’。\n\n“实际运用”中的前3点，分别由摘要关于项目影响对象、主要收益形式、受益人群特征和物流机制的表述支撑。涉及点击率建模、广告优化、商品展示优化、推荐排序等场景时，正文片段没有给出任何直接证据，因此这些方面均为‘论文未明确说明’。"
+      },
       "score": 53,
       "score_details": "引用248(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W2970889537",
-          "final_url": "https://openalex.org/W2970889537",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W2970889537.pdf",
-          "final_url": "https://openalex.org/W2970889537.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Connecting the Countryside via E-Commerce Evidence from China"
     },
     {
       "title": "Poverty alleviation through e-commerce: Village involvement and demonstration policies in rural China",
@@ -282,10 +296,14 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3146911727",
-        "https://openalex.org/W3146911727.pdf"
+        "https://doi.org/10.1016/s2095-3119(20)63422-0",
+        "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015",
+        "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/pdf",
+        "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/full",
+        "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015?download=1",
+        "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3146911727 => landing_page_only; https://openalex.org/W3146911727.pdf => non_text_pdf",
+      "fulltext_error": "https://doi.org/10.1016/s2095-3119(20)63422-0 => landing_page_only; https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015 => too_short_html; https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/pdf => network_error; https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/full => network_error; https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015?download=1 => too_short_html",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -298,27 +316,68 @@
       "fulltext_failure_reason": "landing_page_only",
       "fulltext_failure_details": [
         {
-          "candidate_url": "https://openalex.org/W3146911727",
-          "final_url": "https://openalex.org/W3146911727",
+          "candidate_url": "https://doi.org/10.1016/s2095-3119(20)63422-0",
+          "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S2095311920634220",
           "reason": "landing_page_only",
           "content_type": "html",
           "error": "",
           "details": {
             "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [
+              "https://linkinghub.elsevier.com/retrieve/articleSelectSinglePerm?Redirect=https%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS2095311920634220%3Fvia%253Dihub&key=e98274a2df54168b64657ba4734b39bc3991840b"
+            ],
+            "hop_depth": 0
           }
         },
         {
-          "candidate_url": "https://openalex.org/W3146911727.pdf",
-          "final_url": "https://openalex.org/W3146911727.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
+          "candidate_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015",
+          "final_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015",
+          "reason": "too_short_html",
+          "content_type": "html",
           "error": "",
           "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
+            "text_length": 1511,
+            "content_type_header": "text/html; charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
+          }
+        },
+        {
+          "candidate_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/pdf",
+          "final_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/pdf",
+            "hop_depth": 0,
+            "second_hop_candidates": []
+          }
+        },
+        {
+          "candidate_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/full",
+          "final_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/full",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015/full",
+            "hop_depth": 0,
+            "second_hop_candidates": []
+          }
+        },
+        {
+          "candidate_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015?download=1",
+          "final_url": "https://doaj.org/article/9fd56a5670ec4d2baad5d46bbebaf015?download=1",
+          "reason": "too_short_html",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 1511,
+            "content_type_header": "text/html; charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
           }
         }
       ],
@@ -342,51 +401,46 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "聚焦电商AI综述，间接涉及CTR研究背景，非直接因素分析。",
       "link": "https://openalex.org/W4220923293",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://link.springer.com/article/10.1007/s12525-022-00537-z",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W4220923293",
-        "https://openalex.org/W4220923293.pdf"
+        "https://doi.org/10.1007/s12525-022-00537-z",
+        "https://link.springer.com/content/pdf/10.1007/s12525-022-00537-z.pdf",
+        "https://link.springer.com/content/pdf/10.1007/s12525-022-00537-z.pdf/pdf",
+        "https://link.springer.com/content/pdf/10.1007/s12525-022-00537-z.pdf/full",
+        "https://link.springer.com/content/pdf/10.1007/s12525-022-00537-z.pdf?download=1",
+        "https://pubmed.ncbi.nlm.nih.gov/35600916",
+        "https://ro.uow.edu.au/test2021/4451",
+        "https://hal.science/hal-03636970",
+        "https://audencia.hal.science/hal-03951231",
+        "http://link.springer.com/10.1007/s12525-022-00537-z",
+        "https://ncbi.nlm.nih.gov/pmc/articles/8932684"
       ],
-      "fulltext_error": "https://openalex.org/W4220923293 => landing_page_only; https://openalex.org/W4220923293.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Artificial intelligence in E-Commerce a bibliometric study and literature review",
+      "paper_markdown_path": "paper_notes/Artificial intelligence in E-Commerce a bibliometric study and literature review.md",
+      "paper_markdown_filename": "Artificial intelligence in E-Commerce a bibliometric study and literature review.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "这篇论文的性质是对“AI在电子商务中的研究”进行综合梳理，而不是一篇直接研究“电商点击率影响因素”的实证论文。根据摘要，作者采用了“文献计量分析 + 广泛文献综述”的组合方法：分析了4335篇文献的计量数据，并进一步回顾了229篇发表在主要信息系统（IS）期刊上的文章。由此可见，该论文更适合用来理解AI在电商领域的研究重点、核心主题和研究版图，而不是直接给出点击率的因果模型或具体影响变量。\n\n从正文可明确提炼出的核心结论有四点。\n\n第一，AI电商研究的重心主要放在推荐系统上。摘要明确指出，文献计量分析发现该领域“primarily on recommender systems”。这意味着，在AI与电商交叉研究中，推荐系统是最主要的研究对象。对于“点击率影响因素”这一用户主题而言，这至少说明：若只依据本文，点击相关行为研究很可能更多地嵌入在推荐、个性化展示和用户匹配等议题中，而不是被单独作为一个独立主轴展开。至于推荐系统具体通过哪些机制影响点击率，论文片段未明确说明。\n\n第二，论文识别出了四个核心研究主题：情感分析、信任、个性化、优化。摘要中将这四者明确列为“core research themes”。如果将其与用户关注的“电商点击率影响因素”相联系，那么本文能提供的是一个研究主题层面的启发：在AI电商研究中，用户情感信息、系统信任、内容/商品个性化以及优化方法，是被反复研究的关键方向。但论文片段并没有明确说这四者就是“点击率”的直接影响因素，也没有给出它们对点击率的方向、强弱或作用机制，因此只能谨慎表述为：这些是AI电商研究中的核心主题，可能构成点击相关研究的上位背景，但论文未明确说明其对点击率的具体影响。\n\n第三，论文说明了该研究领域的地域与发表阵地分布。摘要指出，中国机构在这一研究领域处于领先地位；同时，大多数相关论文发表在计算机科学、人工智能、商业与管理类期刊或渠道中。这一结论反映的是研究生态，而不是业务变量本身。它能说明AI电商研究的知识生产主要集中在哪些国家/机构和学科出口，但不能直接推出任何关于点击率的实务规律。若进一步追问为什么中国机构领先、不同学科发表有何差异，论文片段未明确说明。\n\n第四，文献综述部分总结了信息系统学者关注的主要研究主题、研究风格和研究主线，并据此提出未来研究建议。也就是说，这篇文章的价值更多在于“整合已有研究”和“提出研究议程”。对用户主题而言，它可作为识别潜在点击相关研究入口的导航性文献，例如从推荐系统、情感分析、信任、个性化、优化这些主题入手进一步拆解。但论文片段并未展示这些未来研究建议的具体内容，也未直接围绕CTR构建框架。\n\n结合给出的参考文献片段，还能看到一些与点击、购买、广告和选择概率相关的题目，例如“search advertising performance”“product-choice probabilities from clickstream data”“current purchase intent of anonymous visitors”“optimizing display advertising campaigns”等。这些文献标题说明被综述或纳入研究版图的AI电商文献中，确实涉及广告表现、点击流、购买意图、展示广告优化、产品选择概率等问题，因此从侧面表明AI电商研究与点击、转化、推荐和广告优化存在联系。但必须强调：这些只是参考文献或纳入样本中的单篇题目，当前给出的正文片段并未对它们的研究发现进行展开，因此不能据此断言具体的点击率影响机制。\n\n总体来说，只基于当前正文片段，这篇论文对“电商点击率影响因素”的贡献主要是提供一个高层研究地图：AI电商研究重点集中在推荐系统，核心主题包括情感分析、信任、个性化和优化。至于CTR究竟受哪些变量影响、这些变量如何测量、在哪些场景中显著、影响方向如何、是否存在异质性，论文未明确说明。",
+        "practical_usage": "基于正文，这篇论文对用户主题“电商点击率影响因素”的实际运用价值主要体现在研究选题聚焦和业务分析框架搭建上，而不是直接提供CTR预测公式或明确因果结论。\n\n1. 可用于确定CTR相关分析的优先方向：正文指出AI电商研究主要聚焦推荐系统，因此如果企业要分析点击率，可优先从推荐场景切入，例如推荐内容呈现、商品匹配、个性化推荐机制等。但推荐系统如何具体影响CTR，论文未明确说明。\n\n2. 可用于搭建点击相关的候选因素清单：正文明确给出四个核心主题——情感分析、信任、个性化、优化。因而在业务上，可以把这四类主题视为开展点击率分析时的重点排查方向，例如评估用户情感信息、平台/推荐可信度、个性化程度、优化策略是否与点击表现相关。但这些主题与CTR之间的具体关系、指标定义和效果大小，论文未明确说明。\n\n3. 可用于识别AI在电商中的重点应用场景：从文中及参考文献标题可见，相关研究涉及推荐、搜索广告表现、展示广告优化、点击流数据下的产品选择概率、匿名访客购买意图推断、客户服务聊天机器人等。因此在实际业务中，若企业关心点击行为，可将CTR分析放在推荐系统、广告投放优化、点击流分析等AI应用场景中统筹考虑。不过这些场景是否直接提升点击率、提升多少，论文未明确说明。\n\n4. 可用于学术或行业情报定位：正文指出中国机构在该研究领域处于领先地位，相关成果多发表在计算机科学、AI、商业与管理 outlets。对于企业做技术跟踪、合作搜寻或竞品研究时，这可作为识别知识来源和研究前沿分布的依据。但这对CTR业务优化的直接操作方法，论文未明确说明。\n\n5. 可作为后续深挖文献的入口：由于本文本身是综合性研究，适合帮助研究者或业务团队先定位“哪些AI主题与电商行为研究最相关”，再去延伸阅读其中与点击流、广告、推荐、购买意图更直接相关的单篇研究。至于应优先阅读哪几篇、如何构建点击率模型，论文未明确说明。",
+        "evidence_excerpt": [
+          "Bibliometric data from 4335 documents were analysed, and 229 articles published in leading IS journals were reviewed.",
+          "The bibliometric analysis revealed that research on AI in e-commerce focuses primarily on recommender systems.",
+          "Sentiment analysis, trust, personalisation, and optimisation were identified as the core research themes.",
+          "It also places China-based institutions as leaders in this researcher area.",
+          "Also, most research papers on AI in e-commerce were published in computer science, AI, business, and management outlets."
+        ],
+        "evidence_note": "“详细解读”中关于论文研究性质、方法与定位，主要由第一条证据支撑；关于AI电商研究重点在推荐系统、以及可将点击相关研究优先放入推荐场景理解，由第二条证据支撑；关于情感分析、信任、个性化、优化是核心主题，并可作为点击率分析的候选方向，由第三条证据支撑；关于中国机构领先和发表阵地分布，分别由第四、第五条证据支撑。至于这些核心主题对CTR的具体影响方向、作用机制、变量定义、效应大小、场景差异、推荐系统如何具体改变点击率，以及业务上应采取的具体优化动作，正文未明确说明。文中参考文献标题能够显示相关研究版图涉及广告表现、点击流、购买意图、展示广告优化等，但由于当前正文片段未呈现这些研究的具体发现，因此相关应用只能作为场景层面的谨慎归纳，不能扩展为确定性结论。"
+      },
       "score": 49,
       "score_details": "引用314(中); 非顶会; 4年前; 完整度11/15; 高度相关",
       "level": "D",
       "level_desc": "参考",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W4220923293",
-          "final_url": "https://openalex.org/W4220923293",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W4220923293.pdf",
-          "final_url": "https://openalex.org/W4220923293.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Artificial intelligence in E-Commerce a bibliometric study and literature review"
     },
     {
       "title": "Applications of artificial intelligence in business management, e-commerce and finance",
@@ -410,10 +464,9 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W3182797139",
-        "https://openalex.org/W3182797139.pdf"
+        "https://doi.org/10.1016/j.matpr.2021.06.419"
       ],
-      "fulltext_error": "https://openalex.org/W3182797139 => landing_page_only; https://openalex.org/W3182797139.pdf => non_text_pdf",
+      "fulltext_error": "https://doi.org/10.1016/j.matpr.2021.06.419 => landing_page_only",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -426,27 +479,18 @@
       "fulltext_failure_reason": "landing_page_only",
       "fulltext_failure_details": [
         {
-          "candidate_url": "https://openalex.org/W3182797139",
-          "final_url": "https://openalex.org/W3182797139",
+          "candidate_url": "https://doi.org/10.1016/j.matpr.2021.06.419",
+          "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S2214785321048136",
           "reason": "landing_page_only",
           "content_type": "html",
           "error": "",
           "details": {
             "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3182797139.pdf",
-          "final_url": "https://openalex.org/W3182797139.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [
+              "https://linkinghub.elsevier.com/retrieve/articleSelectSinglePerm?Redirect=https%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS2214785321048136%3Fvia%253Dihub&key=a7d59ff8c5cae7fda90bc7767f5b16e7bb025efc"
+            ],
+            "hop_depth": 0
           }
         }
       ],
@@ -470,51 +514,37 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "聚焦农村电商采纳与效果，非直接研究点击率驱动因素。",
       "link": "https://openalex.org/W3135109632",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://researcharchive.lincoln.ac.nz/entities/publication/c38f5de6-80ef-4cc4-adf3-efea2d798fcd",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W3135109632",
-        "https://openalex.org/W3135109632.pdf"
+        "https://doi.org/10.1016/j.jrurstud.2021.02.021",
+        "https://hdl.handle.net/10182/13584"
       ],
-      "fulltext_error": "https://openalex.org/W3135109632 => landing_page_only; https://openalex.org/W3135109632.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "The adoption and impact of E-commerce in rural China Application of an endogenous switching regression model",
+      "paper_markdown_path": "paper_notes/The adoption and impact of E-commerce in rural China Application of an endogenous switching regression model.md",
+      "paper_markdown_filename": "The adoption and impact of E-commerce in rural China Application of an endogenous switching regression model.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "这篇论文关注的核心不是“电商点击率”本身，而是中国农村农户“是否采用电商”以及采用后的收益与成本变化。根据正文片段，研究使用的是2019年中国山东、河南、陕西三省的农村家庭数据，并采用内生转换回归（ESR）模型处理自选择偏差问题，因此其重点是解释农户采用电商的影响因素和采用结果，而不是平台流量、页面曝光、点击率或转化漏斗等指标；这些内容论文未明确说明。\n\n从采用决定因素看，正文明确指出：教育水平、智能手机使用、非农就业和社会资本，会显著影响农户是否采用电商。这意味着论文识别出的“影响因素”是偏向农户能力、数字工具使用条件、就业经历和社会关系资源等维度，而不是商品标题、图片、促销方式、排序机制或消费者点击行为等点击率因素；后者论文未明确说明。\n\n从采用后的经济影响看，论文发现采用电商会显著提高销售价格，但同时也会大幅提高营销成本。正文进一步解释，原因在于：在传统交易中由中间商承担的一部分成本，在电商经营下转由农户自己承担。因此，论文提供的是一种‘收益增加—成本也增加’的双重影响框架，而不是单纯强调电商带来净正面效果。\n\n尽管营销成本明显上升，论文仍指出农户总体上是受益的，因为总收益（gross return）增加了。也就是说，论文的结论不是“电商一定降低成本”，而是“电商提高售价，同时增加营销投入，最终总收益上升”。至于净利润、利润率、复购、用户留存、点击后的购买转化等更细的经营指标，正文片段未明确说明。\n\n在方法上，论文使用倾向得分匹配（PSM）进行了稳健性检验，并得到与ESR模型一致的结果。这说明作者认为其主要结论在不同识别方法下具有一致性。至于变量的具体定义、系数大小、显著性水平、样本量、模型设定细节，正文片段未明确说明。\n\n在异质性分析方面，论文指出：距离当地乡镇更近的农村家庭，从采用电商中获得的收益更多。这说明电商收益并非对所有农村家庭都相同，区位条件会影响收益大小。但更具体的原因机制，例如物流便利性、信息获取差异、交易配套条件等，正文片段未明确说明。\n\n总体而言，这篇论文可被解读为：在中国农村情境下，电商采用受人力资本、数字使用能力、就业背景和社会资本影响；采用电商能够提高销售价格，但也把原本由中间商承担的部分营销成本转移给农户；在此基础上，农户总体总收益仍增加；而且离乡镇更近的农户获益更大。若将其用于“电商点击率影响因素”研究，需要注意这篇论文并未直接研究点击率，相关联系只能停留在电商采用条件与经营结果层面，点击率机制论文未明确说明。",
+        "practical_usage": "就用户的研究主题“电商点击率影响因素”而言，这篇论文不能直接支持点击率建模、广告投放优化、商品详情页优化、流量获取策略或消费者点击行为分析，因为正文没有讨论点击率、消费者端行为数据或平台运营指标，这些内容论文未明确说明。\n\n但基于正文，这篇论文可以支持以下更接近“电商经营影响因素”的实际运用：\n1. 可用于识别农村主体采用电商的关键前置条件：教育水平、智能手机使用、非农就业和社会资本是显著影响因素。对于面向农村商家的电商推广、培训、招募或服务覆盖策略，这些变量可以作为重点关注对象。\n2. 可用于评估农村电商经营的收益—成本结构：采用电商可能提高销售价格，但会显著提高营销成本，因此在业务规划中不能只看售价提升，还要同步核算营销投入。\n3. 可用于判断中间环节替代带来的经营责任转移：正文指出，电商经营要求农户承担原本由中间商承担的相当一部分成本。这可用于解释为什么部分主体即使看到更高售价，也未必轻易进入电商。\n4. 可用于做区域差异化支持：距离当地乡镇更近的农户受益更多，因此在推进农村电商时，可优先关注区位更优的家庭，或对区位较远家庭设计补充支持措施。至于具体措施形式，论文未明确说明。\n5. 可用于研究设计上的方法借鉴：如果要分析“是否采用某种电商经营方式”的影响，可借鉴论文使用ESR处理自选择偏差，并用PSM进行稳健性检验。至于点击率研究是否适合同样方法，正文未明确说明。\n\n如果强行与“点击率影响因素”建立联系，最多只能说：论文提示‘电商采用与经营结果’受到教育、手机使用、就业经历和社会资本影响，但这些是否会进一步影响商品点击率、店铺曝光或消费者点击决策，论文未明确说明。",
+        "evidence_excerpt": [
+          "The empirical results show that education level, smartphone use, off-farm employment and social capital significantly impact farmers' decisions to adopt e-commerce.",
+          "E-commerce adoption drives a significant increase in selling price; yet simultaneously causes a tremendous increase in marketing costs for farmers.",
+          "The operation of e-commerce requires farmers to pay considerable costs that were formerly undertaken by intermediaries in conventional exchange transactions.",
+          "Still, farmers are seen to benefit from adopting e-commerce, as the gross return shows an increase.",
+          "The results of the heterogeneous analysis show that the rural households that are located closer to the local township benefit more from the adoption of e-commerce."
+        ],
+        "evidence_note": "“详细解读”中关于采用影响因素的判断，直接由正文中 education level、smartphone use、off-farm employment、social capital 显著影响采用决策这句话支撑；关于采用后‘售价上升但营销成本大增’，由 selling price increase 与 marketing costs increase 这两句支撑；关于‘原由中间商承担的成本转移给农户’，由 intermediaries 相关表述支撑；关于‘总体仍受益’，由 gross return shows an increase 支撑；关于‘离乡镇更近者获益更多’，由 heterogeneous analysis 的结论支撑。对于点击率、消费者点击行为、平台流量机制、广告优化、页面设计、转化率等内容，正文片段没有涉及，因此相关部分均应视为“论文未明确说明”。“practical_usage”中可支持的应用，均来自上述采用因素、成本收益变化和区位异质性结论；若涉及点击率直接应用或具体运营动作细节，则论文未明确说明。"
+      },
       "score": 49,
       "score_details": "引用262(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
       "level_desc": "参考",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3135109632",
-          "final_url": "https://openalex.org/W3135109632",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3135109632.pdf",
-          "final_url": "https://openalex.org/W3135109632.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "The adoption and impact of E-commerce in rural China Application of an endogenous switching regression model"
     },
     {
       "title": "Resources and digital export: An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce",
@@ -534,51 +564,43 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "论文聚焦跨境电商数字能力与出口绩效，对点击率影响因素仅有间接参考价值。",
       "link": "https://openalex.org/W3159274234",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://re.public.polimi.it/handle/11311/1207110",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W3159274234",
-        "https://openalex.org/W3159274234.pdf"
+        "https://doi.org/10.1016/j.jbusres.2021.04.010",
+        "https://sciencedirect.com/science/article/pii/S0148296321002484",
+        "https://sciencedirect.com/science/article/pii/S0148296321002484/pdf",
+        "https://sciencedirect.com/science/article/pii/S0148296321002484/full",
+        "https://sciencedirect.com/science/article/pii/S0148296321002484?download=1",
+        "https://sciencedirect.com/science/article/pii/S0148296321002484.pdf",
+        "https://centaur.reading.ac.uk/view/creators/90008095.html>",
+        "http://hdl.handle.net/11311/1207110"
       ],
-      "fulltext_error": "https://openalex.org/W3159274234 => landing_page_only; https://openalex.org/W3159274234.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Resources and digital export An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce",
+      "paper_markdown_path": "paper_notes/Resources and digital export An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce.md",
+      "paper_markdown_filename": "Resources and digital export An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "论文基于资源基础观（RBV）与企业竞争能力视角，讨论企业在B2C数字营销活动中，如何利用数字技术所带来的机会来推动“数字出口”。研究对象是102家意大利企业，覆盖小型、中型和大型企业，行业包括设计与家具、时尚、食品与饮料。基于正文片段，论文的核心结论有三点：第一，中小企业（SMEs）虽然存在资源约束，但其参与数字出口的倾向并不更弱。这意味着，至少在该研究样本中，企业规模较小并不必然导致更低的数字出口参与意愿或倾向。第二，使用数字技术的企业更有可能提升数字出口，而且这一关系不受企业规模影响。换言之，数字技术的运用本身与更强的数字出口表现或更高的数字出口推进概率相关。第三，数字能力非常关键：配备电子商务经理（e-commerce manager）的企业，相比依赖传统出口经理（traditional export manager）的企业，更倾向于开展数字出口，而且这一点同样不受企业规模影响。由此可见，论文强调的不只是一般资源数量，而是与数字化相关的资源和能力，尤其是数字技术应用与专门的电商管理能力。就用户关注的“电商点击率影响因素”而言，这篇论文正文并未直接研究点击率，也未讨论点击率的决定变量、广告创意、页面设计、推荐机制、价格、促销、评价、流量来源等问题，因此不能将其直接解释为点击率影响研究。更准确地说，这篇论文可提供的是企业层面、跨境电商层面的数字化驱动因素解释，而不是用户点击行为层面的直接证据。关于变量的具体定义、测量方法、因果识别方式、统计模型、数字技术具体包括哪些工具、电子商务经理的职责边界，以及“提升数字出口”具体指销售额、出口强度还是其他指标，正文片段均未明确说明。",
+        "practical_usage": "基于正文，这篇论文可支持的实际运用主要集中在跨境电商与数字出口经营层面，而不是直接用于解释点击率。可支持的应用包括：1）企业在制定跨境电商发展策略时，可以把“是否系统性利用数字技术”作为一个重要抓手，因为正文指出，利用数字技术的企业更可能提升数字出口，且不受企业规模影响。2）中小企业在跨境电商布局中，不必仅因自身资源有限而预设为劣势，因为正文表明，中小企业参与数字出口的倾向并不更弱。这可用于支持中小企业推进跨境线上业务的资源配置与战略信心。3）企业在组织设计和岗位设置上，可考虑强化数字能力建设，尤其是配备电子商务经理，而不是仅依赖传统出口经理，因为正文显示前者与更高的数字出口倾向相关。4）如果用户的业务主题是“电商点击率影响因素”，该论文只能提供间接启发：企业层面的数字技术运用和电商管理能力可能是数字业务表现的重要基础条件。但是否会影响点击率、影响路径是什么、适用于哪些点击场景，论文未明确说明。5）对于跨境B2C数字营销活动的管理，这篇论文可作为论据支持“技术采用+专门电商能力”比单纯传统出口经验更重要的判断；但若要落地到点击率优化、广告投放、搜索排序、商品详情页改版等具体任务，论文未明确说明。",
+        "evidence_excerpt": [
+          "“this study examines the digital export drivers as means for firms to exploit opportunities brought about by digital technologies in their B2C digital marketing activities.”",
+          "“By leveraging a unique dataset covering 102 Italy-based firms of different sizes (small, medium, and large), active in three different sectors (design and furniture, fashion, and food and beverage)”",
+          "“SMEs do not suffer from a weaker propensity to engage with digital export despite resources constraints”",
+          "“firms leveraging digital technologies are more likely to enhance their digital export, regardless of firm size”",
+          "“digital capabilities are critical as firms employing an e-commerce manager have a higher propensity to undertake digital export than firms relying on a traditional export manager, regardless of firm size”"
+        ],
+        "evidence_note": "“详细解读”中的研究背景、样本范围与理论视角，来自正文关于RBV、B2C数字营销活动、102家意大利企业及三类行业的描述；关于中小企业并不更弱、数字技术促进数字出口、电子商务经理比传统出口经理更有利于数字出口的判断，直接来自正文列出的三项研究发现。关于该论文‘未直接研究点击率’、‘不能直接解释点击率影响因素’、‘未说明具体变量定义、测量方法、统计模型、数字技术具体内容、岗位职责边界、数字出口具体指标’等说明，是因为正文片段中未提供相关信息，因此均应视为‘论文未明确说明’。在“实际运用”部分，关于跨境电商战略、数字技术采用、岗位设置和中小企业推进数字出口的应用，均由上述三条核心发现支撑；凡涉及点击率优化、广告创意、页面设计、推荐、价格、促销、评价、流量来源等具体业务任务，正文没有提供证据，因此对应部分均属于‘论文未明确说明’。"
+      },
       "score": 49,
       "score_details": "引用366(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
       "level_desc": "参考",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3159274234",
-          "final_url": "https://openalex.org/W3159274234",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3159274234.pdf",
-          "final_url": "https://openalex.org/W3159274234.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Resources and digital export An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce"
     },
     {
       "title": "E-Commerce and Consumer Protection in India: The Emerging Trend",
@@ -598,51 +620,43 @@
       "relevance_stars": "2星",
       "relevance_reason": "论文聚焦印度电商消费者保护与监管，对点击率影响因素仅有间接参考价值。",
       "link": "https://openalex.org/W3177694727",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://link.springer.com/article/10.1007/s10551-021-04884-3",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W3177694727",
-        "https://openalex.org/W3177694727.pdf"
+        "https://doi.org/10.1007/s10551-021-04884-3",
+        "https://link.springer.com/content/pdf/10.1007/s10551-021-04884-3.pdf",
+        "https://link.springer.com/content/pdf/10.1007/s10551-021-04884-3.pdf/pdf",
+        "https://link.springer.com/content/pdf/10.1007/s10551-021-04884-3.pdf/full",
+        "https://link.springer.com/content/pdf/10.1007/s10551-021-04884-3.pdf?download=1",
+        "https://pubmed.ncbi.nlm.nih.gov/34257470",
+        "http://link.springer.com/10.1007/s10551-021-04884-3",
+        "https://ncbi.nlm.nih.gov/pmc/articles/8267237"
       ],
-      "fulltext_error": "https://openalex.org/W3177694727 => landing_page_only; https://openalex.org/W3177694727.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "E-Commerce and Consumer Protection in India The Emerging Trend",
+      "paper_markdown_path": "paper_notes/E-Commerce and Consumer Protection in India The Emerging Trend.md",
+      "paper_markdown_filename": "E-Commerce and Consumer Protection in India The Emerging Trend.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "该论文基于对印度电商消费者保护法律框架的分析，并结合290名在线消费者的分析结果，讨论了影响在线消费者信任与忠诚的一些关键因素。就正文明确给出的结论来看，论文重点不是直接研究“点击率”，而是研究在线消费中的信任形成及其与消费者保护之间的关系。\n\n从论文摘要可明确提炼出以下几点：\n1. 安全且可靠的系统被视为电子商务企业成功运作的必要条件。正文明确写到“a secure and reliable system is essential for e-business firms to work successfully”，说明在该研究中，系统安全性与可靠性是核心条件之一。\n2. 货到付款是在线购物中的优先选项。正文明确指出“cash on delivery is the priority option for online shopping”，这说明消费者在支付方式上具有明显偏好，而这种偏好与其信任感可能有关。\n3. 网站信息与有效的客户服务能够建立顾客信任。正文直接说明“website information and effective customer care services build a customer's trust”，表明信息呈现质量和客服有效性是信任形成的重要因素。\n4. 除安全、隐私、保修、客户服务、网站信息等因素外，电商消费者权利保护相关法律也会影响顾客信任。正文明确指出“laws governing consumer rights protection in e-commerce influence customers’ trust”，说明消费者对平台或交易的信任，不仅受运营层面因素影响，也受制度与法律环境影响。\n5. 论文认为新的监管规则总体上足以保护在线消费者权利，并促进印度电商增长。这里的“new regulations are arguably strong enough to protect and safeguard online consumers' rights and boost India’s e-commerce growth”说明作者将健全监管视为推动电商发展的支持因素。\n\n若结合“电商点击率影响因素”这一用户研究主题来理解，这篇论文并未直接讨论CTR、曝光、转化漏斗、页面点击行为模型或广告创意变量。它更接近于提供“影响消费者信任及线上购物接受度”的因素框架。因此，能够从中抽取的、与点击率研究可能间接相关的内容，仅限于：网站信息、客户服务、安全、隐私、支付方式偏好以及消费者保护法律环境可能影响用户信任；但这些因素如何具体作用于点击率，论文未明确说明。\n\n此外，论文摘要提到研究贡献在于“阐明影响客户信任和忠诚的关键因素，并从印度情境下提供电商消费者保护视角”，因此其核心价值更偏向信任、忠诚与保护机制，而非点击行为本身。关于各因素的具体作用强度、变量测量方式、统计显著性细节、不同因素之间的因果关系路径，给定正文片段未明确说明。",
+        "practical_usage": "基于正文，这篇论文可支持的实际运用主要集中在电商平台信任建设与消费者保护合规，而不是直接用于点击率优化模型。\n\n1. 可用于电商平台的信任建设策略设计\n正文支持平台优先完善以下方面：系统安全与可靠性、网站信息呈现、客户服务能力。这些内容可被用于制定提升消费者信任的产品与运营检查清单。\n\n2. 可用于支付方式策略判断\n正文明确指出货到付款是优先选项，因此可支持在目标市场中保留或强化货到付款选项，以贴合消费者偏好。至于货到付款是否提高点击率，论文未明确说明。\n\n3. 可用于网站内容与客服流程优化\n由于正文指出网站信息和有效客户服务能够建立顾客信任，因此可用于指导商品页信息完整性、售后入口清晰度、客服响应机制等运营工作。至于这些优化对CTR的具体提升幅度，论文未明确说明。\n\n4. 可用于消费者保护与合规建设\n论文强调消费者保护相关法律会影响顾客信任，因此可用于支持平台在页面、规则、交易流程中突出消费者权益保护机制，以增强用户信任。至于合规展示是否提升点击率，论文未明确说明。\n\n5. 可用于研究“点击率的上游变量”而非直接指标\n若用户研究主题是“电商点击率影响因素”，该论文可作为较间接的参考：它提示信任相关因素可能是消费者线上行为的重要前置条件。但论文没有直接研究点击、浏览、推荐位吸引力、广告素材、标题价格促销等CTR常见变量，因此不能直接据此得出CTR结论。\n\n6. 可用于印度电商市场情境下的研究背景构建\n正文明确以印度的法律框架和在线消费者为背景，因此适合用于印度电商消费者信任、保护与平台治理相关研究的背景说明。若要推广到其他国家或一般化电商点击率场景，论文未明确说明。",
+        "evidence_excerpt": [
+          "“a secure and reliable system is essential for e-business firms to work successfully”",
+          "“cash on delivery is the priority option for online shopping”",
+          "“website information and effective customer care services build a customer's trust”",
+          "“Besides factors such as security, privacy, warranty, customer service, and website information, laws governing consumer rights protection in e-commerce influence customers’ trust.”",
+          "“The new regulations are arguably strong enough to protect and safeguard online consumers' rights and boost India’s e-commerce growth.”"
+        ],
+        "evidence_note": "“详细解读”中的安全可靠系统、货到付款优先、网站信息与客户服务建立信任、消费者保护法律影响信任、监管促进电商增长，均直接由摘要中的明确表述支撑。关于论文样本为290名在线消费者，也由摘要中“analysis of 290 online consumers”支撑。关于论文核心更偏向信任、忠诚和消费者保护而非点击率，由摘要中“key factors that affect customer trust and loyalty”支撑。 \n\n“实际运用”中关于信任建设、支付方式保留、网站信息与客服优化、合规与消费者保护建设，均由上述摘要结论直接支持。关于这些因素是否会直接影响点击率、提升幅度如何、是否可推广到CTR模型、是否适用于其他国家或一般化电商场景，给定正文片段未明确说明。"
+      },
       "score": 49,
       "score_details": "引用183(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
       "level_desc": "参考",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3177694727",
-          "final_url": "https://openalex.org/W3177694727",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3177694727.pdf",
-          "final_url": "https://openalex.org/W3177694727.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "E-Commerce and Consumer Protection in India The Emerging Trend"
     },
     {
       "title": "Methods and Applications of Quick Commerce (Q-Commerce)",
@@ -807,13 +821,9 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.30875/9789287073327c006",
-        "https://doi.org/10.30875/9789287073327c006/pdf",
-        "https://doi.org/10.30875/9789287073327c006/full",
-        "https://doi.org/10.30875/9789287073327c006?download=1",
-        "https://doi.org/10.30875/9789287073327c006.pdf"
+        "https://doi.org/10.30875/9789287073327c006"
       ],
-      "fulltext_error": "https://doi.org/10.30875/9789287073327c006 => landing_page_only; https://doi.org/10.30875/9789287073327c006/pdf => network_error; https://doi.org/10.30875/9789287073327c006/full => network_error; https://doi.org/10.30875/9789287073327c006?download=1 => landing_page_only; https://doi.org/10.30875/9789287073327c006.pdf => network_error",
+      "fulltext_error": "https://doi.org/10.30875/9789287073327c006 => landing_page_only",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -833,48 +843,9 @@
           "error": "",
           "details": {
             "text_length": 775,
-            "content_type_header": "text/html;charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.30875/9789287073327c006/pdf",
-          "final_url": "https://doi.org/10.30875/9789287073327c006/pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.30875/9789287073327c006/pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.30875/9789287073327c006/full",
-          "final_url": "https://doi.org/10.30875/9789287073327c006/full",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.30875/9789287073327c006/full"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.30875/9789287073327c006?download=1",
-          "final_url": "https://www.wto-ilibrary.org/content/books/9789287073327c006",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 775,
-            "content_type_header": "text/html;charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.30875/9789287073327c006.pdf",
-          "final_url": "https://doi.org/10.30875/9789287073327c006.pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.30875/9789287073327c006.pdf"
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
           }
         }
       ],

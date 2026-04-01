@@ -2,7 +2,7 @@
 
 **关键词**: e-commerce deep learning
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 09:40
+**日期**: 2026-03-31 17:59
 **总数**: 17 篇 (顶会: 7)
 
 ---
@@ -11,21 +11,21 @@
 
 | 排名 | 评分 | 论文 | 作者 | 年份 | 会议 | 顶会 | 相关性 | 全文解读 | 核心观点 |
 |------|------|------|------|------|------|------|--------|----------|----------|
-| 1 | A(73) | [[DEEP LEARNING FOR E‑COMMERCE RECOMM]] | , Qi Xin | 2025 | Internationa | [CHI] | 4星 | 缺全文 | 论文用深度学习结合用户长期偏好与短期会话兴趣建模点击/购买行为，可为分析电商点击率的用户行为、时序兴 |
+| 1 | A(73) | [[DEEP LEARNING FOR E‑COMMERCE RECOMMENDATIONS CAPTURING LONG- AND SHORT-TERM USER PREFERENCES WITH CNN-BASED REPRESENTATION LEARNING]] | , Qi Xin | 2025 | Internationa | [CHI] | 4星 | 已生成 | 论文用深度学习结合用户长期偏好与短期会话兴趣建模点击/购买行为，可为分析电商点击率的用户行为、时序兴 |
 | 2 | A(73) | [[E-Commerce Fraud Detection Using Behavioral Analytics and Deep Reinforcement Learning]] | Kavitha G, Yukt | 2025 | Artificial I | [CHI] | ★★☆☆☆ | 已生成 | 论文研究电商欺诈识别，利用行为分析与深度强化学习建模用户交互，可为点击行为特征提取与异常点击过滤提供 |
 | 3 | A(73) | [[Deep Learning Architectures and Neural Networks for Financial and E-Commerce Intelligence]] | Sayantan Sinha, | 2025 | Artificial I | [CHI] | 4星 | 已生成 | 论文综述深度学习在电商智能中的应用，含推荐、需求预测等，可为点击率影响因素建模提供特征融合与神经网络 |
 | 4 | A(73) | [[Developing an Intelligent System wi]] | Mohammad Eid Al | 2022 | Computationa | [Science] | ★★★☆☆ | 缺全文 | 研究电商评论的情感分析与虚假评论识别，可作为解释商品口碑如何影响用户点击率与转化行为的辅助依据。 |
 | 5 | A(73) | [[Issues and Solutions in Deep Learni]] | Rand Jawad Kadh | 2022 | Applied Scie | [Science] | ★★★★☆ | 缺全文 | 论文讨论电商中基于深度学习的推荐系统问题与方案，可为分析推荐排序、个性化匹配等对点击率的影响提供方法 |
-| 6 | B(68) | [[Dynamic Pricing Model of E-Commerce]] | Chunli Yin, Jin | 2021 | Computer Mod | [Science] | ★★☆☆☆ | 缺全文 | 论文提出基于深度强化学习的电商动态定价模型，可为研究价格因素如何影响商品曝光后点击率提供间接参考。 |
+| 6 | B(68) | [[Dynamic Pricing Model of E-Commerce Platforms Based on Deep Reinforcement Learning]] | Chunli Yin, Jin | 2021 | Computer Mod | [Science] | ★★☆☆☆ | 已生成 | 论文提出基于深度强化学习的电商动态定价模型，可为研究价格因素如何影响商品曝光后点击率提供间接参考。 |
 | 7 | B(63) | [[Multi-Objective Optimization Using Deep Reinforcement Learning for Food E-Commerce Industry]] | Guru Kiran H M | 2023 | Internationa | [Science] | 3星 | 已生成 | 论文或研究食品电商中的多目标优化，借助深度强化学习提升推荐或排序策略，可为点击率与转化率联动分析提供 |
 | 8 | C(52) | [[A Brief Survey of Machine Learning ]] | Xue Zhang, Fuse | 2023 | Journal of t | -- | 3星 | 缺全文 | 论文系统梳理2018-2023年电商机器学习与深度学习方法，可为点击率预测的模型选择、特征设计和研究 |
 | 9 | C(52) | [[E-Commerce Enterprises Financial Ri]] | Xiangzhou Chen, | 2023 | Sustainabili | -- | ★★☆☆☆ | 缺全文 | 论文研究电商企业财务风险预警，主要贡献在深度学习建模方法，对点击率研究仅可借鉴特征降维与时序预测思路 |
 | 10 | C(51) | [[Predicting E-commerce customer sati]] | Maha Zaghloul,  | 2024 | Journal of R | -- | 2星 | 缺全文 | 论文比较传统机器学习与深度学习在电商满意度预测中的表现，可为点击率研究提供特征工程、模型选择与效果评 |
-| 11 | D(49) | [[Study on early warning of E-commerc]] | Yali Cao, Yue S | 2021 | Electronic C | -- | ★☆☆☆☆ | 缺全文 | 该文主要研究电商企业财务风险预警，对点击率因素无直接分析，仅可参考深度学习建模思路。 |
+| 11 | D(49) | [[Study on early warning of E-commerce enterprise financial risk based on deep learning algorithm]] | Yali Cao, Yue S | 2021 | Electronic C | -- | ★☆☆☆☆ | 已生成 | 该文主要研究电商企业财务风险预警，对点击率因素无直接分析，仅可参考深度学习建模思路。 |
 | 12 | D(44) | [[Enhancing Customer Purchasing Behaviour Prediction in E- Commerce A Deep Learning Perspective]] | Rekulara Sharat | 2025 | Proceedings  | -- | ★★★★☆ | 已生成 | 该文或从深度学习角度预测电商购买行为，可为点击率研究提供用户特征、商品特征与行为序列建模思路。 |
 | 13 | D(44) | [[PRICE VISION : WEB SCRAPING AND DEE]] | P. Devika, Mrs. | 2025 | Internationa | -- | ★★★☆☆ | 缺全文 | 论文可能通过网页抓取与深度学习分析商品价格特征，可为研究价格敏感度、价格展示方式对点击率的影响提供间 |
-| 14 | D(43) | [[Deep Learning for Customer Churn Pr]] | Maciej Pondel,  | 2021 | Business Inf | -- | ★★☆☆☆ | 缺全文 | 论文用深度学习预测电商客户流失，虽不直接分析点击率，但可为用户行为建模、特征构建与转化链路研究提供参 |
-| 15 | D(43) | [[The Impact of SIPOC on Process Reen]] | Hui Zhang, Liju | 2022 | Journal of O | -- | ★☆☆☆☆ | 缺全文 | 文章研究电商环境下企业采购管理流程优化，借助SIPOC与深度学习提升采购效率，对点击率研究仅有方法层 |
+| 14 | D(43) | [[Deep Learning for Customer Churn Prediction in E-Commerce Decision Support]] | Maciej Pondel,  | 2021 | Business Inf | -- | ★★☆☆☆ | 已生成 | 论文用深度学习预测电商客户流失，虽不直接分析点击率，但可为用户行为建模、特征构建与转化链路研究提供参 |
+| 15 | D(43) | [[The Impact of SIPOC on Process Reengineering and Sustainability of Enterprise Procurement Management in E-Commerce Environments Using Deep Learning]] | Hui Zhang, Liju | 2022 | Journal of O | -- | ★☆☆☆☆ | 已生成 | 文章研究电商环境下企业采购管理流程优化，借助SIPOC与深度学习提升采购效率，对点击率研究仅有方法层 |
 | 16 | D(41) | [[Recommendation algorithm for agricu]] | Lisi Chen | 2024 | 2024 Interna | -- | ★★★☆☆ | 缺全文 | 论文可能围绕电商平台农副产品推荐的深度学习方法展开，可为研究点击率中的推荐位、商品匹配度、用户兴趣建 |
 | 17 | D(31) | [[Deep Learning in E-commerce Retail]] |  | 2022 | Internationa | -- | ★★★☆☆ | 已生成 | 该文可能综述深度学习在电商零售中的应用，如推荐、排序与用户行为建模，可为分析点击率影响因素提供方法参 |
 
@@ -62,7 +62,7 @@ CrossRef       : ******** (8)
 
 ## 论文详情
 
-### 1. [[DEEP LEARNING FOR E‑COMMERCE RECOMMENDATIONS: CAPTURING LONG- AND SHORT-TERM USER PREFERENCES WITH CNN-BASED REPRESENTATION LEARNING]]
+### 1. [[DEEP LEARNING FOR E‑COMMERCE RECOMMENDATIONS CAPTURING LONG- AND SHORT-TERM USER PREFERENCES WITH CNN-BASED REPRESENTATION LEARNING]]
 
 **评分**: A级 (73分) - 推荐阅读
 
@@ -73,9 +73,9 @@ CrossRef       : ******** (8)
 - **作者**: , Qi Xin
 - **引用**: 0
 - **链接**: [https://doi.org/10.55640/ijidml-v02i08-02](https://doi.org/10.55640/ijidml-v02i08-02)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://aimjournals.com/index.php/ijidml/article/view/266/242
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用0(新/少); 顶会:CHI; 1年内; 完整度15/15; 高度相关
 
@@ -154,9 +154,9 @@ CrossRef       : ******** (8)
 - **作者**: Mohammad Eid Alzahrani, Theyazn H. H. Aldhyani, Saleh Nagi Alsubari, Maha M. Althobaiti, Adil Fahad
 - **引用**: 75
 - **链接**: [https://openalex.org/W4281987038](https://openalex.org/W4281987038)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4281987038
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
+- **最后尝试来源**: https://doi.org/10.1155/2022/3840071
 
 **评分详情**: 引用75(一般); 顶会:Science; 4年前; 完整度15/15; 高度相关
 
@@ -181,9 +181,9 @@ CrossRef       : ******** (8)
 - **作者**: Rand Jawad Kadhim Almahmood, Adem Tekerek
 - **引用**: 52
 - **链接**: [https://openalex.org/W4308441097](https://openalex.org/W4308441097)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4308441097
+- **单篇全文解读**: 未生成（too_short_html）
+- **全文失败原因**: too_short_html
+- **最后尝试来源**: https://doi.org/10.3390/app122111256
 
 **评分详情**: 引用52(一般); 顶会:Science; 4年前; 完整度15/15; 高度相关
 
@@ -208,9 +208,9 @@ CrossRef       : ******** (8)
 - **作者**: Chunli Yin, Jinglong Han
 - **引用**: 35
 - **链接**: [https://openalex.org/W3149530354](https://openalex.org/W3149530354)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3149530354
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用35(较少); 顶会:Science; 5年前; 完整度15/15; 高度相关
 
@@ -262,9 +262,9 @@ CrossRef       : ******** (8)
 - **作者**: Xue Zhang, Fusen Guo, Tao Chen, Lei Pan, Gleb Beliakov
 - **引用**: 96
 - **链接**: [https://openalex.org/W4389299837](https://openalex.org/W4389299837)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4389299837
+- **单篇全文解读**: 未生成（too_short_html）
+- **全文失败原因**: too_short_html
+- **最后尝试来源**: https://doi.org/10.3390/jtaer18040110
 
 **评分详情**: 引用96(一般); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -289,9 +289,9 @@ CrossRef       : ******** (8)
 - **作者**: Xiangzhou Chen, Zhi Long
 - **引用**: 51
 - **链接**: [https://openalex.org/W4361285825](https://openalex.org/W4361285825)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4361285825
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.3390/su15075882
 
 **评分详情**: 引用51(一般); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -318,7 +318,7 @@ CrossRef       : ******** (8)
 - **链接**: [https://openalex.org/W4395661216](https://openalex.org/W4395661216)
 - **单篇全文解读**: 未生成（landing_page_only）
 - **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4395661216
+- **最后尝试来源**: https://linkinghub.elsevier.com/retrieve/pii/S0969698924001619
 
 **评分详情**: 引用51(一般); 非顶会; 2年内; 完整度11/15; 高度相关
 
@@ -343,9 +343,9 @@ CrossRef       : ******** (8)
 - **作者**: Yali Cao, Yue Shao, Hongxia Zhang
 - **引用**: 104
 - **链接**: [https://openalex.org/W3120831821](https://openalex.org/W3120831821)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3120831821
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用104(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -397,8 +397,8 @@ CrossRef       : ******** (8)
 - **作者**: P. Devika, Mrs. P.Jasmine Lois Ebenezer
 - **引用**: 0
 - **链接**: [https://doi.org/10.55248/gengpi.6.1025.3515](https://doi.org/10.55248/gengpi.6.1025.3515)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://doi.org/10.55248/gengpi.6.1025.3515
 
 **评分详情**: 引用0(新/少); 非顶会; 1年内; 完整度11/15; 高度相关
@@ -424,9 +424,9 @@ CrossRef       : ******** (8)
 - **作者**: Maciej Pondel, Maciej Wuczyński, Wiesława Gryncewicz, Łukasz Łysik, Marcin Hernes
 - **引用**: 33
 - **链接**: [https://openalex.org/W3178120687](https://openalex.org/W3178120687)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3178120687
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用33(较少); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -451,9 +451,9 @@ CrossRef       : ******** (8)
 - **作者**: Hui Zhang, Lijun Fan, Min Chen, Chen Qiu
 - **引用**: 45
 - **链接**: [https://openalex.org/W4283774591](https://openalex.org/W4283774591)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4283774591
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用45(较少); 非顶会; 4年前; 完整度15/15; 高度相关
 
@@ -478,8 +478,8 @@ CrossRef       : ******** (8)
 - **作者**: Lisi Chen
 - **引用**: 0
 - **链接**: [https://doi.org/10.1109/aidlnn65358.2024.00015](https://doi.org/10.1109/aidlnn65358.2024.00015)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/document/10873186/
 
 **评分详情**: 引用0(新/少); 非顶会; 2年内; 完整度11/15; 高度相关

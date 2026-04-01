@@ -1,7 +1,7 @@
 {
   "keyword": "recommendation system",
   "original_keyword": "电商点击率影响因素",
-  "timestamp": "2026-03-31T09:41:46.401192",
+  "timestamp": "2026-03-31T17:59:52.431063",
   "count": 17,
   "papers": [
     {
@@ -22,51 +22,44 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "论文属药物互作预测，虽用推荐系统与知识图谱，但与电商点击率影响因素仅方法层面相关。",
       "link": "https://openalex.org/W3217681006",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://www.nature.com/articles/s41467-021-27137-3",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W3217681006",
-        "https://openalex.org/W3217681006.pdf"
+        "https://doi.org/10.1038/s41467-021-27137-3",
+        "https://nature.com/articles/s41467-021-27137-3.pdf",
+        "https://pubmed.ncbi.nlm.nih.gov/34811351",
+        "https://doaj.org/article/feb43093b20a4dbf8bf7f4189d80feff",
+        "https://doaj.org/article/feb43093b20a4dbf8bf7f4189d80feff/pdf",
+        "https://doaj.org/article/feb43093b20a4dbf8bf7f4189d80feff/full",
+        "https://doaj.org/article/feb43093b20a4dbf8bf7f4189d80feff?download=1",
+        "https://doaj.org/article/feb43093b20a4dbf8bf7f4189d80feff.pdf",
+        "https://ncbi.nlm.nih.gov/pmc/articles/8635420"
       ],
-      "fulltext_error": "https://openalex.org/W3217681006 => landing_page_only; https://openalex.org/W3217681006.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "A unified drug–target interaction prediction framework based on knowledge graph and recommendation system",
+      "paper_markdown_path": "paper_notes/A unified drug–target interaction prediction framework based on knowledge graph and recommendation system.md",
+      "paper_markdown_filename": "A unified drug–target interaction prediction framework based on knowledge graph and recommendation system.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "该论文提出了一个名为 KGE_NFM 的统一框架，用于药物-靶点相互作用（DTI）预测。按照正文描述，这一框架的核心思路是把知识图谱（KG）与推荐系统结合起来：先从知识图谱中学习各类实体的低维表示，再通过神经因子分解机（NFM）整合多模态信息，以实现更准确、更稳健的 DTI 预测。\n\n从论文给出的研究动机看，现有 DTI 方法主要面临两类问题：一是 DTI 数据集高度稀疏，二是冷启动问题，尤其是在新蛋白出现时更难预测。作者明确指出，其方法在这类更贴近真实应用的情境下进行了评估，并且在“蛋白冷启动”场景下表现尤其突出。\n\n正文还说明了该方法相对既有方法的几个特点。第一，它不依赖药物和蛋白的相似性网络，因此避免了对相似性定义和大规模相似度计算的依赖。第二，它可以利用更细粒度的异构多模态信息，例如 KEGG pathway、protein binding domain 等。第三，它把结构信息与生化网络中的关联信息联合起来，提升预测的鲁棒性与可扩展性。\n\n从方法定位上看，KGE_NFM 属于“预训练 KGE + 面向下游任务的预测模型”的整合思路。正文明确说，该方法先通过 KGE 从异构网络中捕捉潜在信息，不使用相似度矩阵；随后使用基于推荐系统的 NFM 来强化特定下游任务的特征表达，这里的下游任务就是 DTI 预测。\n\n论文还分析了知识图谱质量对预测结果的影响。作者选取了一个被错误预测的药物-靶点样本进行追踪，发现一阶 KG 中几乎没有能连接该药物和靶点的“桥接”节点；扩展到二阶 KG 后，虽然出现了支持性路径，但也引入了大量噪声。进一步分析显示，某些用于节点类型描述的高连接节点（如 KEGG_GENE、KEGG_Drug、KEGG_PATHWAY）在网络中占主导地位，带来了额外噪声。将这些节点移除并重新训练后，该样本的预测概率从 0.14 提升到 0.95，且整体测试集的 AUPR 也从 0.69 提高到 0.73，而 AUROC 维持在 0.93。这说明论文认为，去除噪声节点可能改善 KG 对下游预测任务的支持效果。\n\n不过，作者也明确给出了限制。首先，去除噪声节点这一策略只在特定案例中证明有效，并“不保证在所有情况下都能带来显著收益”。其次，KGE_NFM 对参数调整较为敏感，因此训练过程需要更加谨慎。再次，作者认为 KG 构建流程本身仍有改进空间，未来会进一步关注知识组织方式与 KG 构建管线，以提升下游任务表现。\n\n如果把这篇论文放到“推荐系统”视角下理解，正文明确使用了推荐系统的基本抽象：用户—物品—偏好评分。在 DTI 任务中，药物被建模为用户，靶点被建模为物品，模型目标是给尚未观测到的药物-靶点对打分并排序。但对于“电商点击率影响因素”这一具体主题，论文正文并未讨论点击率、曝光、转化、用户行为日志或电商特征因素，因此这些内容论文未明确说明。",
+        "practical_usage": "就用户关注的“电商点击率影响因素”而言，论文正文未明确说明其可直接用于电商 CTR 因素分析、点击建模或推荐排序业务。\n\n就论文本身明确支持的实际运用而言，可用于：\n1. 药物-靶点相互作用预测（DTI prediction）；\n2. 虚拟筛选、药物重定位、潜在副作用相关目标识别；\n3. 在更真实的预测场景下进行新蛋白相关的冷启动预测；\n4. 将多源异构生物医学数据整合进统一框架，用于发现新的 DTI；\n5. 通过分析知识图谱中的噪声节点并进行裁剪，改善特定预测样本及整体测试集表现。\n\n如果要求将其直接转化为电商业务含义，论文未明确说明。",
+        "evidence_excerpt": [
+          "“Here, we develop KGE_NFM, a unified framework for DTI prediction by combining knowledge graph (KG) and recommendation system. This framework firstly learns a low-dimensional representation for various entities in the KG, and then integrates the multimodal information via neural factorization machine (NFM).”",
+          "“existing methods still suffer from the high sparsity of DTI datasets and the cold start problem”以及“especially in the scenario of the cold start for proteins.”",
+          "“KGE_NFM doesn’t rely on similarity networks of drugs and proteins, thus simplifying the integration of multiple types of data. Besides, KGE_NFM can utilize fine-grained heterogeneous information from omics data (e.g., KEGG pathway, protein binding domain).”",
+          "“For the DTI prediction that utilize recommendation systems, the users can be modeled as drugs while the items can be modeled as targets.”",
+          "“we removed the nodes for identifier including KEGG_GENE, KEGG_Drug and KEGG_PATHWAY... The results show that the prediction performance of the selected DTI pair is improved and the prediction probability reaches 0.95... the value of AUROC holds steady on 0.93 and the value of AUPR changes from 0.69 to 0.73.”"
+        ],
+        "evidence_note": "上述“详细解读”中，关于 KGE_NFM 的框架组成、先 KGE 后 NFM 的流程，主要由摘要和正文片段4中对方法的描述支撑；关于数据稀疏与冷启动问题、尤其是蛋白冷启动表现好的解读，来自摘要和片段4；关于不依赖相似性网络、可利用细粒度异构信息、适合整合多模态数据，来自片段2和片段4；关于推荐系统中‘药物作为用户、靶点作为物品’的抽象，来自片段4；关于噪声节点移除带来单样本与整体性能提升的分析，来自片段2；关于参数敏感、噪声节点策略不保证普遍有效、未来改进 KG 构建流程，来自片段2。\n\n“practical_usage”中，药物-靶点预测、虚拟筛选、药物重定位、潜在副作用识别等应用，来自摘要和引言部分对 DTI 重要性的描述；新蛋白冷启动场景来自摘要和片段4；通过裁剪噪声节点改善表现来自片段2。至于“电商点击率影响因素”“CTR 建模”“电商排序特征”等内容，论文未明确说明。"
+      },
       "score": 78,
       "score_details": "引用242(中); 顶会:Nature; 5年前; 完整度15/15; 高度相关",
       "level": "A",
       "level_desc": "推荐阅读",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3217681006",
-          "final_url": "https://openalex.org/W3217681006",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3217681006.pdf",
-          "final_url": "https://openalex.org/W3217681006.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "A unified drug–target interaction prediction framework based on knowledge graph and recommendation system"
     },
     {
       "title": "Mobile Tourism Recommendation System for Visually Disabled",
@@ -90,13 +83,9 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.2174/9789815136746123010013",
-        "https://doi.org/10.2174/9789815136746123010013/pdf",
-        "https://doi.org/10.2174/9789815136746123010013/full",
-        "https://doi.org/10.2174/9789815136746123010013?download=1",
-        "https://doi.org/10.2174/9789815136746123010013.pdf"
+        "https://doi.org/10.2174/9789815136746123010013"
       ],
-      "fulltext_error": "https://doi.org/10.2174/9789815136746123010013 => network_error; https://doi.org/10.2174/9789815136746123010013/pdf => network_error; https://doi.org/10.2174/9789815136746123010013/full => network_error; https://doi.org/10.2174/9789815136746123010013?download=1 => network_error; https://doi.org/10.2174/9789815136746123010013.pdf => network_error",
+      "fulltext_error": "https://doi.org/10.2174/9789815136746123010013 => access_barrier: cloudflare_challenge",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -106,56 +95,18 @@
       "score_details": "引用0(新/少); 顶会:Science; 3年内; 完整度15/15; 高度相关",
       "level": "B",
       "level_desc": "值得一看",
-      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_reason": "access_barrier: cloudflare_challenge",
       "fulltext_failure_details": [
         {
           "candidate_url": "https://doi.org/10.2174/9789815136746123010013",
           "final_url": "https://doi.org/10.2174/9789815136746123010013",
-          "reason": "network_error",
+          "reason": "access_barrier: cloudflare_challenge",
           "content_type": "",
-          "error": "network_error: http_403",
+          "error": "access_barrier: cloudflare_challenge",
           "details": {
-            "error": "403 Client Error: Forbidden for url: https://www.eurekaselect.com/node/219823"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.2174/9789815136746123010013/pdf",
-          "final_url": "https://doi.org/10.2174/9789815136746123010013/pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.2174/9789815136746123010013/pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.2174/9789815136746123010013/full",
-          "final_url": "https://doi.org/10.2174/9789815136746123010013/full",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.2174/9789815136746123010013/full"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.2174/9789815136746123010013?download=1",
-          "final_url": "https://doi.org/10.2174/9789815136746123010013?download=1",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_403",
-          "details": {
-            "error": "403 Client Error: Forbidden for url: https://www.eurekaselect.com/node/219823"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.2174/9789815136746123010013.pdf",
-          "final_url": "https://doi.org/10.2174/9789815136746123010013.pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.2174/9789815136746123010013.pdf"
+            "error": "403 Client Error: Forbidden for url: https://www.eurekaselect.com/node/219823",
+            "hop_depth": 0,
+            "second_hop_candidates": []
           }
         }
       ],
@@ -184,11 +135,10 @@
       "fulltext_source_type": "",
       "fulltext_attempts": [
         "https://doi.org/10.1109/icsece61636.2024.10729508",
-        "https://doi.org/10.1109/icsece61636.2024.10729508/pdf",
-        "https://doi.org/10.1109/icsece61636.2024.10729508/full",
-        "https://doi.org/10.1109/icsece61636.2024.10729508?download=1"
+        "https://ieeexplore.ieee.org/document/10729508/",
+        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10729508"
       ],
-      "fulltext_error": "https://doi.org/10.1109/icsece61636.2024.10729508 => landing_page_only; https://doi.org/10.1109/icsece61636.2024.10729508/pdf => network_error; https://doi.org/10.1109/icsece61636.2024.10729508/full => network_error; https://doi.org/10.1109/icsece61636.2024.10729508?download=1 => landing_page_only",
+      "fulltext_error": "https://doi.org/10.1109/icsece61636.2024.10729508 => access_barrier: anti_bot_challenge; https://ieeexplore.ieee.org/document/10729508/ => access_barrier: anti_bot_challenge; https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10729508 => access_barrier: anti_bot_challenge",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -198,48 +148,45 @@
       "score_details": "引用0(新/少); 顶会:ICSE; 2年内; 完整度11/15; 高度相关",
       "level": "B",
       "level_desc": "值得一看",
-      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_reason": "access_barrier: anti_bot_challenge",
       "fulltext_failure_details": [
         {
           "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508",
           "final_url": "https://ieeexplore.ieee.org/document/10729508/",
-          "reason": "landing_page_only",
+          "reason": "access_barrier: anti_bot_challenge",
           "content_type": "html",
           "error": "",
           "details": {
             "text_length": 713,
-            "content_type_header": "text/html;charset=utf-8"
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
           }
         },
         {
-          "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508/pdf",
-          "final_url": "https://doi.org/10.1109/icsece61636.2024.10729508/pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/icsece61636.2024.10729508/pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508/full",
-          "final_url": "https://doi.org/10.1109/icsece61636.2024.10729508/full",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.1109/icsece61636.2024.10729508/full"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.1109/icsece61636.2024.10729508?download=1",
+          "candidate_url": "https://ieeexplore.ieee.org/document/10729508/",
           "final_url": "https://ieeexplore.ieee.org/document/10729508/",
-          "reason": "landing_page_only",
+          "reason": "access_barrier: anti_bot_challenge",
           "content_type": "html",
           "error": "",
           "details": {
             "text_length": 713,
-            "content_type_header": "text/html;charset=utf-8"
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
+          }
+        },
+        {
+          "candidate_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10729508",
+          "final_url": "https://ieeexplore.ieee.org/document/10729508/;jsessionid=D324E13A38BCB1F371F00F31FEDAC1E5",
+          "reason": "access_barrier: anti_bot_challenge",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
           }
         }
       ],
@@ -267,12 +214,9 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.47344/sdubnts.v58i1.693",
-        "https://doi.org/10.47344/sdubnts.v58i1.693/pdf",
-        "https://doi.org/10.47344/sdubnts.v58i1.693/full",
-        "https://doi.org/10.47344/sdubnts.v58i1.693?download=1"
+        "https://doi.org/10.47344/sdubnts.v58i1.693"
       ],
-      "fulltext_error": "https://doi.org/10.47344/sdubnts.v58i1.693 => network_error; https://doi.org/10.47344/sdubnts.v58i1.693/pdf => network_error; https://doi.org/10.47344/sdubnts.v58i1.693/full => network_error; https://doi.org/10.47344/sdubnts.v58i1.693?download=1 => network_error",
+      "fulltext_error": "https://doi.org/10.47344/sdubnts.v58i1.693 => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -291,37 +235,9 @@
           "content_type": "",
           "error": "network_error: http_404",
           "details": {
-            "error": "404 Client Error: Not Found for url: https://jetc.sdu.edu.kz/index.php/nts/article/view/33"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.47344/sdubnts.v58i1.693/pdf",
-          "final_url": "https://doi.org/10.47344/sdubnts.v58i1.693/pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.47344/sdubnts.v58i1.693/pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.47344/sdubnts.v58i1.693/full",
-          "final_url": "https://doi.org/10.47344/sdubnts.v58i1.693/full",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.47344/sdubnts.v58i1.693/full"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.47344/sdubnts.v58i1.693?download=1",
-          "final_url": "https://doi.org/10.47344/sdubnts.v58i1.693?download=1",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://jetc.sdu.edu.kz/index.php/nts/article/view/33"
+            "error": "404 Client Error: Not Found for url: https://jetc.sdu.edu.kz/index.php/nts/article/view/33",
+            "hop_depth": 0,
+            "second_hop_candidates": []
           }
         }
       ],
@@ -392,9 +308,9 @@
       "relevance_stars": "★★★☆☆",
       "relevance_reason": "论文聚焦推荐系统，和电商点击率相关，但未直接研究点击因素",
       "link": "https://doi.org/10.21275/sr22130223310",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://www.ijsr.net/IJSR_PaperFormat.docx",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
         "https://doi.org/10.21275/sr22130223310",
         "https://doi.org/10.21275/sr22130223310/pdf",
@@ -402,72 +318,24 @@
         "https://doi.org/10.21275/sr22130223310?download=1",
         "https://doi.org/10.21275/sr22130223310.pdf"
       ],
-      "fulltext_error": "https://doi.org/10.21275/sr22130223310 => landing_page_only; https://doi.org/10.21275/sr22130223310/pdf => network_error; https://doi.org/10.21275/sr22130223310/full => network_error; https://doi.org/10.21275/sr22130223310?download=1 => landing_page_only; https://doi.org/10.21275/sr22130223310.pdf => network_error",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Analysis of Recommendation System in Cloud Platform",
+      "paper_markdown_path": "paper_notes/Analysis of Recommendation System in Cloud Platform.md",
+      "paper_markdown_filename": "Analysis of Recommendation System in Cloud Platform.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "论文未明确说明",
+        "practical_usage": "论文未明确说明",
+        "evidence_excerpt": [],
+        "evidence_note": "论文未明确说明"
+      },
       "score": 59,
       "score_details": "引用0(新/少); 顶会:Science; 4年前; 完整度11/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://doi.org/10.21275/sr22130223310",
-          "final_url": "https://www.ijsr.net/getabstract.php?paperid=SR22130223310",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 2812,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.21275/sr22130223310/pdf",
-          "final_url": "https://doi.org/10.21275/sr22130223310/pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.21275/sr22130223310/pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.21275/sr22130223310/full",
-          "final_url": "https://doi.org/10.21275/sr22130223310/full",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.21275/sr22130223310/full"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.21275/sr22130223310?download=1",
-          "final_url": "https://www.ijsr.net/getabstract.php?paperid=SR22130223310",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 2812,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.21275/sr22130223310.pdf",
-          "final_url": "https://doi.org/10.21275/sr22130223310.pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.21275/sr22130223310.pdf"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Analysis of Recommendation System in Cloud Platform"
     },
     {
       "title": "A Survey of Recommendation Systems: Recommendation Models, Techniques, and Application Fields",
@@ -491,10 +359,17 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://openalex.org/W4205390421",
-        "https://openalex.org/W4205390421.pdf"
+        "https://doi.org/10.3390/electronics11010141",
+        "https://mdpi.com/2079-9292/11/1/141/pdf?version=1641256804",
+        "https://mdpi.com/2079-9292/11/1/141/pdf",
+        "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398",
+        "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398/pdf",
+        "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398/full",
+        "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398?download=1",
+        "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398.pdf",
+        "https://dx.doi.org/10.3390/electronics11010141"
       ],
-      "fulltext_error": "https://openalex.org/W4205390421 => landing_page_only; https://openalex.org/W4205390421.pdf => non_text_pdf",
+      "fulltext_error": "https://doi.org/10.3390/electronics11010141 => network_error; https://mdpi.com/2079-9292/11/1/141/pdf?version=1641256804 => network_error; https://mdpi.com/2079-9292/11/1/141/pdf => network_error; https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398 => network_error; https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398/pdf => network_error",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -504,30 +379,66 @@
       "score_details": "引用582(高); 非顶会; 4年前; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_reason": "network_error",
       "fulltext_failure_details": [
         {
-          "candidate_url": "https://openalex.org/W4205390421",
-          "final_url": "https://openalex.org/W4205390421",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
+          "candidate_url": "https://doi.org/10.3390/electronics11010141",
+          "final_url": "https://doi.org/10.3390/electronics11010141",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
           "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
+            "error": "403 Client Error: Forbidden for url: https://www.mdpi.com/2079-9292/11/1/141",
+            "hop_depth": 0,
+            "second_hop_candidates": []
           }
         },
         {
-          "candidate_url": "https://openalex.org/W4205390421.pdf",
-          "final_url": "https://openalex.org/W4205390421.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
+          "candidate_url": "https://mdpi.com/2079-9292/11/1/141/pdf?version=1641256804",
+          "final_url": "https://mdpi.com/2079-9292/11/1/141/pdf?version=1641256804",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
           "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
+            "error": "403 Client Error: Forbidden for url: https://mdpi.com/2079-9292/11/1/141/pdf?version=1641256804",
+            "hop_depth": 0,
+            "second_hop_candidates": []
+          }
+        },
+        {
+          "candidate_url": "https://mdpi.com/2079-9292/11/1/141/pdf",
+          "final_url": "https://mdpi.com/2079-9292/11/1/141/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_403",
+          "details": {
+            "error": "403 Client Error: Forbidden for url: https://mdpi.com/2079-9292/11/1/141/pdf",
+            "hop_depth": 0,
+            "second_hop_candidates": []
+          }
+        },
+        {
+          "candidate_url": "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398",
+          "final_url": "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_410",
+          "details": {
+            "error": "410 Client Error: Gone for url: https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398",
+            "hop_depth": 0,
+            "second_hop_candidates": []
+          }
+        },
+        {
+          "candidate_url": "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398/pdf",
+          "final_url": "https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398/pdf",
+          "reason": "network_error",
+          "content_type": "",
+          "error": "network_error: http_404",
+          "details": {
+            "error": "404 Client Error: Not Found for url: https://doaj.org/article/c9216bd3bb154f11a6e242aeaf0fb398/pdf",
+            "hop_depth": 0,
+            "second_hop_candidates": []
           }
         }
       ],
@@ -551,51 +462,45 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "聚焦教育推荐系统，方法可借鉴于电商CTR研究但场景差异较大",
       "link": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://ieeexplore.ieee.org/ielx7/6287639/10380310/10445145.pdf?tp=&arnumber=10445145&isnumber=10380310&ref=",
+      "fulltext_source_type": "pdf",
       "fulltext_attempts": [
-        "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f",
-        "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf"
+        "https://doi.org/10.1109/access.2024.3369901",
+        "https://ieeexplore.ieee.org/document/10445145/",
+        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10445145",
+        "https://ieeexplore.ieee.org/ielx7/6287639/6514899/10445145.pdf",
+        "https://doaj.org/article/0ee318eb0d934267a4e9a81ad4a213da",
+        "https://doaj.org/article/0ee318eb0d934267a4e9a81ad4a213da/pdf",
+        "https://doaj.org/article/0ee318eb0d934267a4e9a81ad4a213da/full",
+        "https://doaj.org/article/0ee318eb0d934267a4e9a81ad4a213da?download=1",
+        "https://doaj.org/article/0ee318eb0d934267a4e9a81ad4a213da.pdf",
+        "https://semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f"
       ],
-      "fulltext_error": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f => landing_page_only; https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "A Digital Recommendation System for Personalized Learning to Enhance Online Education A Review",
+      "paper_markdown_path": "paper_notes/A Digital Recommendation System for Personalized Learning to Enhance Online Education A Review.md",
+      "paper_markdown_filename": "A Digital Recommendation System for Personalized Learning to Enhance Online Education A Review.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "这篇论文是一篇关于“在线教育中个性化推荐系统”的综述，核心关注点是：在教育场景下，推荐系统如何借助数字技术提升个性化学习体验。根据给定正文，论文主要有以下几层含义。\n\n1. 论文的研究对象不是电商点击率，而是在线教育中的个性化推荐系统。\n正文摘要明确指出，作者回顾了60篇文章，讨论了教育推荐系统中使用的方法，包括协同过滤、基于内容的方法，以及“近期转向机器学习”的趋势。因此，这篇论文能提供的是“推荐系统影响效果的因素”在教育场景中的总结，而不是对电商点击率的直接实证分析。论文未明确说明点击率、曝光率、转化率等电商指标。\n\n2. 论文指出，当前个性化推荐系统的效果会受到多种问题制约。\n正文明确列出了若干挑战：对内容理解不足、学生中断/流失、语言障碍、选学习材料时的困惑、基础设施与资金不足。作者还进一步解释了这些问题如何影响推荐：\n- 如果系统无法正确理解内容，就可能推荐与学生知识水平不匹配的材料；\n- 如果学生在获得合适推荐前退出系统，推荐会失效；\n- 语言障碍会妨碍系统理解用户偏好；\n- 如果不考虑个体偏好与具体学习需求，学生会在材料选择上感到混乱；\n- 资源不足会限制系统开发与维护，从而影响推荐质量。\n这些内容表明，论文把“推荐效果”看成由内容理解能力、用户连续性、语言适配、个体偏好建模、系统资源条件等因素共同影响。至于这些因素如何映射到“点击率”，论文未明确说明。\n\n3. 论文强调，新的数字技术可作为增强个性化推荐系统的手段。\n摘要和后文提出了一系列技术：Fluxy AI、Twin technology、AI-powered virtual proctoring、Alter Ego，以及正文详细展开的 Neurosky EEG biosensor、AI-driven chatbots、AI-enabled cameras and sensors、RFID、NFC 等。作者的总体观点是，这些技术可以帮助构建更动态、互动、且能适应个体差异的学习环境，从而提升推荐系统的个性化能力。\n\n4. 在论文给出的技术中，EEG（脑电）相关技术被赋予了较强的个体状态感知作用。\n正文片段2详细描述了 Neurosky EEG biosensor 的用途：通过检测学生脑电信号，分析注意力、冥想状态、认知负荷等，从而帮助教师和系统判断学生在哪些任务中难以保持专注、哪些内容理解较困难。基于这些数据，系统可以：\n- 调整学习材料或教学方式；\n- 提供额外支持；\n- 调整学习节奏；\n- 推荐替代性学习资源；\n- 开发实时适应学生认知状态的个性化学习算法。\n论文还把这类数据用于“个性化推荐系统”，即依据学生认知模式推荐学习材料、学习技巧和资源。也就是说，在这篇论文中，影响推荐效果的重要输入不只是历史行为，还包括实时认知状态。至于这种做法是否提升点击率，论文未明确说明。\n\n5. AI驱动应用在论文中被视为提升个性化和交互性的关键组成。\n正文指出，AI-driven technology 可用于教育领域的智能辅导系统、自动评分与评估、聊天机器人和虚拟助手。虽然给定片段没有把这些应用逐一展开到推荐算法层面，但明确表述了 AI 技术能够提供 personalized and adaptive learning experiences，并改善学习成果。结合后文“Fully Enhanced Student Engagement”可知，论文认为 AI 聊天机器人、Fluxy AI、Alter Ego 等交互技术有助于提高学生参与度，并通过实时反馈、答疑和互动体验让学生更积极地参与学习。这里可以解读为：用户参与度是推荐系统成效的重要关联因素之一，但论文未明确说明它与点击率之间的定量关系。\n\n6. 论文把“数据驱动洞察”视为推荐优化的重要基础。\n在片段3中，作者指出，整合这些数字技术后，系统能够收集大量关于学生行为、偏好和进度的数据，再由高级分析和机器学习处理，以支持教师在教学策略和课程设计上做出更明智的决策。这说明，在该论文的框架里，推荐系统优化依赖于更丰富的数据源，尤其是行为、偏好、进度、认知状态等。论文未明确说明具体特征工程、模型结构或评估指标。\n\n7. 论文对 RFID/NFC 的讨论主要聚焦教育运营与互动支持，而非直接推荐排序。\nRFID 和 NFC 被用于自动考勤、校园安全、图书管理、交互式学习材料、家校实时沟通、移动学习资源共享等。其价值在于提升效率、互动性和学习环境的动态性。虽然这些技术可以丰富教育过程中的数据采集和资源触达方式，但正文没有明确说明 RFID/NFC 如何直接进入推荐模型或直接改变推荐效果指标。\n\n8. 论文给出的“预定义结果与优势”集中在个性化、参与度、支持性和数据化洞察四方面。\n作者总结认为，技术融合可带来：\n- 有效的个性化学习体验；\n- 个性化学习路径；\n- 更高的学生参与度；\n- 基于监测结果的个别化支持；\n- 基于大数据的教学洞察；\n- 对隐私和数据安全的重视。\n因此，若只依据正文，这篇论文最核心的结论是：推荐系统效果会受内容理解、用户连续性、语言、偏好匹配、基础设施等因素影响，而通过脑电、生物传感、AI交互、监测设备和数字化基础设施等技术，可以增强个性化推荐系统的适配能力和互动能力。至于这些因素在电商点击率场景中的作用机制、权重大小和统计显著性，论文未明确说明。",
+        "practical_usage": "结合用户的“电商点击率影响因素”研究主题，这篇论文可提供的支持是有限且间接的，因为正文研究场景是在线教育，不是电商。基于正文，能支持的实际运用或业务含义主要有：\n\n1. 可作为“推荐系统效果受哪些因素影响”的教育场景参考框架。\n正文明确支持的因素包括：内容理解是否充分、用户是否持续留在系统中、语言障碍、是否考虑个体偏好与具体需求、系统基础设施和资金条件。这些可以作为研究“推荐系统表现影响因素”的候选维度来源。但如果要直接用于“电商点击率影响因素”结论，论文未明确说明。\n\n2. 可支持把“用户参与度/专注度相关信号”视为推荐优化的潜在输入。\n论文通过 EEG biosensor 讨论了注意力、参与度、认知负荷等状态如何帮助系统调整内容、节奏和资源推荐。若从业务含义看，这说明作者认为“用户状态数据”有助于提升推荐个性化质量。但在电商中是否能对应为点击率提升，论文未明确说明。\n\n3. 可支持“多源数据融合有助于推荐系统个性化”的思路。\n正文提到可收集学生的行为、偏好、进度、认知状态，并利用高级分析与机器学习处理。这意味着，在推荐业务中，单一历史行为之外的多维数据可能被用于增强推荐。至于哪些数据在电商里最能影响点击率，论文未明确说明。\n\n4. 可支持“实时反馈和交互工具可能提升用户参与”的业务方向。\n论文认为 AI-driven chatbots、Fluxy AI、Alter Ego 等交互技术可提升学生参与度，并提供实时反馈与答疑。从业务上，只能谨慎解读为：更强的交互机制可能改善推荐环境中的参与表现。是否能提升电商CTR，论文未明确说明。\n\n5. 可支持“用户流失/中断会削弱推荐效果”的判断。\n正文明确指出，学生中断会导致推荐在获得合适建议前失效。若迁移到更一般的推荐研究中，可把“用户连续性”视作推荐成效的重要约束条件之一。但电商中断与点击率之间的具体关系，论文未明确说明。\n\n6. 不能直接支持的内容。\n论文未提供电商场景、点击率定义、CTR实验、排序特征权重、A/B测试结果、曝光点击转化链路分析，因此不能据此直接得出“哪些因素影响电商点击率”的结论。",
+        "evidence_excerpt": [
+          "摘要指出：文章审查了60篇文献，识别了推荐系统中使用的不同方法，如协同过滤、基于内容的方法，以及“近期转向机器学习”。",
+          "正文指出：当前个性化推荐系统面临“对内容缺乏理解、学生中断、语言障碍、选择学习材料时的困惑、基础设施和资金不足”等挑战，并说明这些问题会导致推荐不匹配、推荐失效或推荐质量受限。",
+          "关于EEG技术，正文指出：通过测量和分析脑电波模式，可了解学生的注意力、参与度和认知负荷，并据此调整学习材料、教学方法、学习节奏，或提供替代学习资源。",
+          "正文明确写到：EEG采集的数据“can contribute to building a personalized recommendation system for education”，系统可以基于学生的认知模式推荐学习材料、学习技巧和资源。",
+          "在“预定义结果与优势”部分，正文指出：这些技术可收集学生的行为、偏好和进度数据，使推荐系统能够为每个学生定制学习内容、资源和活动，并通过高级分析与机器学习形成数据驱动洞察。"
+        ],
+        "evidence_note": "“详细解读”中的方法综述、挑战因素、技术增强路径，主要由正文片段1的摘要与引言、片段2的EEG与AI-driven applications说明、片段3的‘Pre-defined Results and Advantages’部分支撑。尤其是‘内容理解不足、学生中断、语言障碍、个体偏好未被考虑、基础设施不足’这些因素，直接来自片段1；‘注意力、参与度、认知负荷、实时反馈、个性化学习路径、个性化推荐’来自片段2；‘行为、偏好、进度数据驱动内容定制与洞察’来自片段3。\n\n“practical_usage”里凡是表述为可作为‘推荐系统效果影响因素参考框架’、‘多源数据融合’、‘实时交互提升参与度’、‘用户连续性影响推荐效果’的内容，都能由上述正文直接支持；但凡涉及‘电商点击率’、‘CTR提升’、‘电商排序特征权重’、‘定量因果关系’等内容，正文均未讨论，因此相应部分已明确写为‘论文未明确说明’。"
+      },
       "score": 55,
       "score_details": "引用95(一般); 非顶会; 2年内; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f",
-          "final_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf",
-          "final_url": "https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "A Digital Recommendation System for Personalized Learning to Enhance Online Education A Review"
     },
     {
       "title": "DEEP-CARDIO: Recommendation System for Cardiovascular Disease Prediction Using IoT Network",
@@ -619,10 +524,12 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
-        "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf"
+        "https://doi.org/10.1109/jsen.2024.3373429",
+        "https://ieeexplore.ieee.org/document/10472883/",
+        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10472883",
+        "https://semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03"
       ],
-      "fulltext_error": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03 => landing_page_only; https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf => non_text_pdf",
+      "fulltext_error": "https://doi.org/10.1109/jsen.2024.3373429 => access_barrier: anti_bot_challenge; https://ieeexplore.ieee.org/document/10472883/ => access_barrier: anti_bot_challenge; https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10472883 => access_barrier: anti_bot_challenge; https://semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03 => access_barrier: semanticscholar_waf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -632,30 +539,58 @@
       "score_details": "引用64(一般); 非顶会; 2年内; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_reason": "access_barrier: semanticscholar_waf",
       "fulltext_failure_details": [
         {
-          "candidate_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
-          "final_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
-          "reason": "landing_page_only",
+          "candidate_url": "https://doi.org/10.1109/jsen.2024.3373429",
+          "final_url": "https://ieeexplore.ieee.org/document/10472883/",
+          "reason": "access_barrier: anti_bot_challenge",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
+          }
+        },
+        {
+          "candidate_url": "https://ieeexplore.ieee.org/document/10472883/",
+          "final_url": "https://ieeexplore.ieee.org/document/10472883/",
+          "reason": "access_barrier: anti_bot_challenge",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
+          }
+        },
+        {
+          "candidate_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10472883",
+          "final_url": "https://ieeexplore.ieee.org/document/10472883/;jsessionid=B807ACE9728FF3B0F7510990FEEAA2D7",
+          "reason": "access_barrier: anti_bot_challenge",
+          "content_type": "html",
+          "error": "",
+          "details": {
+            "text_length": 713,
+            "content_type_header": "text/html;charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
+          }
+        },
+        {
+          "candidate_url": "https://semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
+          "final_url": "https://semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03",
+          "reason": "access_barrier: semanticscholar_waf",
           "content_type": "html",
           "error": "",
           "details": {
             "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf",
-          "final_url": "https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
+            "content_type_header": "text/html; charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
           }
         }
       ],
@@ -679,51 +614,41 @@
       "relevance_stars": "★★★☆☆",
       "relevance_reason": "论文聚焦推荐系统与上下文建模，可间接解释电商点击率中的个性化与场景因素影响。",
       "link": "https://openalex.org/W3130481949",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://online-journals.org/index.php/i-jet/article/view/18851",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W3130481949",
-        "https://openalex.org/W3130481949.pdf"
+        "https://doi.org/10.3991/ijet.v16i03.18851",
+        "https://doaj.org/article/7d39550354264636a563636eba21f717",
+        "https://doaj.org/article/7d39550354264636a563636eba21f717/pdf",
+        "https://doaj.org/article/7d39550354264636a563636eba21f717/full",
+        "https://doaj.org/article/7d39550354264636a563636eba21f717?download=1",
+        "https://doaj.org/article/7d39550354264636a563636eba21f717.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3130481949 => landing_page_only; https://openalex.org/W3130481949.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "A Review of Content-Based and Context-Based Recommendation Systems",
+      "paper_markdown_path": "paper_notes/A Review of Content-Based and Context-Based Recommendation Systems.md",
+      "paper_markdown_filename": "A Review of Content-Based and Context-Based Recommendation Systems.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "该论文片段表明，文章综述了两类被广泛使用的推荐系统：内容型推荐系统（content-based recommender system）与上下文相关/上下文感知推荐系统（context-based / context-aware recommender system）。从正文可直接看出，作者强调这两类系统都围绕“用户兴趣”展开，但作用方式有所不同。\n\n第一，关于上下文感知推荐系统，正文指出其作用是“过滤与用户兴趣相关的项目”，并且它会感知用户的地点、时间和陪伴情况（company）。这说明论文将上下文信息视为筛选推荐内容的重要输入，即推荐不只看用户历史兴趣，还会结合用户所处情境进行过滤。不过，正文并未进一步说明这些上下文变量如何量化、如何进入模型、也未明确给出具体算法流程，因此这部分只能解读为：论文强调上下文特征对推荐筛选有作用，但实现细节论文未明确说明。\n\n第二，关于上下文型推荐系统，正文说明其会“基于用户过去的交互，从万维网上检索模式，并提供未来新闻推荐”。这表明论文片段中提到的一个核心应用方向是新闻推荐，且推荐依据之一是用户过去交互行为形成的模式。这里可以理解为，用户历史行为是未来推荐的重要基础。但正文没有说明“过去交互”具体包括点击、浏览、收藏还是其他行为，也没有说明模式提取方法，因此若要进一步推到点击率建模，论文未明确说明。\n\n第三，正文显示作者为实现推荐目标使用了多种技术与范式，包括内容推荐、协同过滤、混合推荐系统，以及Web Ontology Language（OWL）。此外还使用了RDF、JAVA、机器学习、语义映射规则和自然本体语言，用来推荐与搜索相关的用户项目。这说明该论文不是只讨论单一推荐方法，而是把内容、协同、混合、语义本体等方法放在一个较综合的框架下看待。也就是说，影响推荐结果的因素在文中不仅包括用户兴趣和历史交互，还包括语义知识表示与上下文信息。\n\n第四，正文特别提到“语义推理方法”在某种程度上与内容型推荐系统表现相似，因为借助语义方法也可以按照用户兴趣推荐项目。这意味着在作者看来，语义推理可以增强或替代部分内容型推荐的功能，尤其是在“根据用户兴趣给出相关项目”这一点上。对研究“电商点击率影响因素”而言，这能提供的启发是：与用户兴趣匹配程度、以及是否能通过语义方式更好理解用户需求，可能影响推荐展示的相关性。但需要强调，点击率、转化率、排序位置等指标在正文中没有出现，因此这只能停留在“推荐相关性因素”的层面，不能直接等同于点击率因果结论。\n\n第五，正文对内容型推荐系统的定义较为明确：系统提供的附加选项或结果依赖于用户的评分、评价和兴趣。这是片段中最直接涉及“影响推荐结果的输入变量”的描述。若从用户研究主题“电商点击率影响因素”出发，正文能够支持的最稳妥解读是：用户评分、评价、兴趣，以及上下文信息（地点、时间、陪伴情况）和过去交互模式，都是影响推荐内容生成的重要因素。至于这些因素是否会进一步影响电商CTR，正文未明确说明；它只说明这些因素会影响推荐系统输出的项目或结果。\n\n第六，论文片段还提到了若干应用场景：智能手机媒体推荐、上下文感知框架构建、E-learning内容过滤、为用户提供便利新闻，以及使用E-paper向用户提供所需新闻。这说明文章更偏向综述推荐系统方法及其应用场景，而不是专门研究电商场景。正文没有直接提到商品推荐、购物平台、广告点击或电商用户行为，因此如果把结论迁移到电商CTR，需要非常谨慎，且必须明确：电商场景属于本文片段之外的延伸，论文未明确说明。\n\n综上，依据正文片段，论文可被解读为：推荐效果主要围绕用户兴趣、用户过去交互、上下文信息以及语义知识表示来展开；内容型推荐依赖评分、评价和兴趣；上下文感知推荐依赖地点、时间、陪伴情况等情境变量；语义推理在某种程度上可实现与内容推荐相似的按兴趣推荐功能。至于这些因素对“点击率”的具体作用机制、影响大小、适用的电商指标和实验结果，论文未明确说明。",
+        "practical_usage": "结合“电商点击率影响因素”这一用户研究主题，该论文片段可支持的实际运用主要是作为“推荐曝光相关性提升”的参考，而不是直接提供CTR实证结论。\n\n1. 可用于梳理候选影响因素：正文明确支持把用户兴趣、评分、评价、过去交互模式、地点、时间、陪伴情况作为推荐输入因素。这意味着在电商研究中，可以把这些变量视为潜在的推荐影响因素进行整理。但这些变量与CTR之间的直接关系，论文未明确说明。\n\n2. 可用于设计推荐特征框架：若业务希望提升推荐内容与用户需求的匹配度，正文支持从两类信息入手：\n- 内容侧：依据用户评分、评价、兴趣生成附加推荐结果；\n- 上下文侧：结合用户地点、时间、陪伴情况过滤推荐项目。\n这可以作为电商推荐特征设计的启发式框架。但是否能提高点击率，论文未明确说明。\n\n3. 可用于新闻流/信息流类推荐借鉴：正文明确提到基于过去交互从Web中检索模式，并提供未来新闻推荐；还提到E-paper提供所需新闻。如果电商平台存在内容流、导购文章、资讯推荐等模块，该论文片段可支持“依据历史交互+兴趣+上下文”进行内容推荐。对于商品详情页点击、购物车点击等电商核心CTR任务，论文未明确说明。\n\n4. 可用于考虑语义技术在推荐中的作用：正文指出语义推理方法在某种程度上与内容型推荐相似，能够按用户兴趣推荐项目；并提到OWL、RDF、语义映射规则、自然本体语言。由此可支持的业务含义是：当平台希望把搜索词、内容标签、用户兴趣做更结构化的语义关联时，可以考虑语义/本体方式增强推荐相关性。但其在电商点击率优化中的实际效果，论文未明确说明。\n\n5. 可用于混合推荐思路：正文明确提到采用内容推荐、协同过滤和混合推荐系统来实现推荐目标。因此在业务层面，可将该文作为“多方法混合推荐”的文献依据之一，用于支持不是单靠一种算法，而是结合多类信号进行推荐设计。不过混合方式、权重分配、效果评估指标，论文未明确说明。\n\n6. 可支持的具体应用场景仅限正文提到的范围：智能手机媒体推荐、上下文感知框架、E-learning内容过滤、便利新闻推送、E-paper新闻提供。若扩展到电商商品点击率、广告点击率、首页推荐CTR提升等，论文未明确说明。",
+        "evidence_excerpt": [
+          "“We have presented a context-aware recommender system to filter the items associated with user’s interests coupled with a context-based recommender system to prescribe those items.”",
+          "“In this study, context-aware recommender systems perceive the user’s location, time, and company.”",
+          "“The context-based recommender system retrieves patterns from World Wide Web-based on the user’s past interactions and provides future news recommendations.”",
+          "“To achieve this goal, we have used content-based, collaborative filtering, a hybrid recommender system, and implemented a Web ontology language (OWL). We have also used the Resource Description Framework (RDF), JAVA, machine learning, semantic mapping rules...”",
+          "“In a content-based recommender system, the system provides additional options or results that rely on the user’s ratings, appraisals, and interests.”"
+        ],
+        "evidence_note": "“详细解读”中关于推荐系统类型、上下文信息（地点、时间、陪伴情况）、过去交互、新闻推荐、内容推荐依赖评分/评价/兴趣、以及使用OWL/RDF/机器学习/混合推荐等内容，均由上述摘录直接支撑。关于“语义推理在某种程度上类似内容型推荐、可按用户兴趣推荐项目”，支撑来自摘要中的“After applying the semantic reasoning approach... this approach works similarly as a content-based recommender system... recommend items according to the user’s interests.”虽然未单列入摘录，但在正文片段中明确出现。‘practical_usage’中关于可将这些因素作为推荐输入或特征框架的表述，属于对正文已明确方法与变量的应用性转述。凡涉及“电商CTR提升效果”“点击率因果关系”“算法细节”“变量量化方式”“实验结果”“商品推荐场景”等内容，正文均未明确说明，因此相关处已明确标注‘论文未明确说明’。"
+      },
       "score": 53,
       "score_details": "引用336(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3130481949",
-          "final_url": "https://openalex.org/W3130481949",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3130481949.pdf",
-          "final_url": "https://openalex.org/W3130481949.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "A Review of Content-Based and Context-Based Recommendation Systems"
     },
     {
       "title": "Recommendation Systems for Education: Systematic Review",
@@ -743,51 +668,50 @@
       "relevance_stars": "★★☆☆☆",
       "relevance_reason": "聚焦教育推荐系统综述，与电商CTR因素仅在推荐机制层面间接相关。",
       "link": "https://openalex.org/W3179424508",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://deustoteka.deusto.es/server/api/core/bitstreams/f7113996-c72f-45d8-8ba3-eabe51f44649/content",
+      "fulltext_source_type": "pdf",
       "fulltext_attempts": [
-        "https://openalex.org/W3179424508",
-        "https://openalex.org/W3179424508.pdf"
+        "https://doi.org/10.3390/electronics10141611",
+        "https://mdpi.com/2079-9292/10/14/1611/pdf?version=1625563020",
+        "https://mdpi.com/2079-9292/10/14/1611/pdf",
+        "https://hdl.handle.net/20.500.14454/3361",
+        "https://deustoteka.deusto.es/bitstreams/f7113996-c72f-45d8-8ba3-eabe51f44649/download",
+        "https://deustoteka.deusto.es/bitstreams/f7113996-c72f-45d8-8ba3-eabe51f44649/download/pdf",
+        "https://deustoteka.deusto.es/bitstreams/f7113996-c72f-45d8-8ba3-eabe51f44649/download/full",
+        "https://deustoteka.deusto.es/bitstreams/f7113996-c72f-45d8-8ba3-eabe51f44649/download?download=1",
+        "https://deustoteka.deusto.es/bitstreams/f7113996-c72f-45d8-8ba3-eabe51f44649/download.pdf",
+        "https://doaj.org/article/c27c010fee5349499dc1fbae1afa5ace",
+        "https://doaj.org/article/c27c010fee5349499dc1fbae1afa5ace/pdf",
+        "https://doaj.org/article/c27c010fee5349499dc1fbae1afa5ace/full",
+        "https://doaj.org/article/c27c010fee5349499dc1fbae1afa5ace?download=1",
+        "https://doaj.org/article/c27c010fee5349499dc1fbae1afa5ace.pdf",
+        "https://dx.doi.org/10.3390/electronics10141611"
       ],
-      "fulltext_error": "https://openalex.org/W3179424508 => landing_page_only; https://openalex.org/W3179424508.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Recommendation Systems for Education Systematic Review",
+      "paper_markdown_path": "paper_notes/Recommendation Systems for Education Systematic Review.md",
+      "paper_markdown_filename": "Recommendation Systems for Education Systematic Review.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "这篇论文是关于教育领域推荐系统的系统综述，其核心目的不是直接研究电商点击率影响因素，而是系统梳理教育推荐系统的研究现状，包括：面向哪类教育、推荐什么内容、采用什么开发方法，以及未来可能的研究方向。\n\n基于正文片段，可得出以下几点：\n\n1. 论文研究背景：推荐系统用于应对信息过载\n论文指出，随着ICT与互联网服务的发展，在线信息的数量与复杂度显著增加，用户面临搜索耗时长、检索结果过多的问题。推荐系统因此被用于帮助用户找到“真正与其需求相关”的信息。在教育场景中，这种“相关性”被认为会改善学生学习过程。因此，这篇论文强调的是“相关信息筛选”和“个性化推荐”的作用。\n\n2. 研究对象：教育推荐系统，而非电商推荐系统\n论文明确聚焦“支持教育实践的推荐系统”。系统综述共纳入98篇文章，来源于2937篇初始检索结果。研究范围主要是教育场景中的推荐，而不是商业场景。因此，如果用户研究主题是“电商点击率影响因素”，这篇论文只能提供非常有限的间接参考，且正文并未把教育推荐结论直接推广到电商。\n\n3. 教育类型分布：以正规教育为主，尤其是大学教育\n正文显示，98篇中有58篇面向正规教育，33篇面向非正规教育，7篇同时覆盖二者。论文特别指出，大多数正规教育研究集中于大学阶段。这说明教育推荐研究主要发生在高校环境中。\n\n4. 推荐对象与用户：以学生为主，推荐课程和学习资源最多\n论文指出，96%的工作聚焦于为研究生和大学场景提供服务，推荐内容包括学习资源、课程、研究生项目、大学等。用户类型上，78篇明确面向学生；只有1篇面向教师，1篇同时面向学生和教师。推荐元素方面，学习资源和课程占主导：37篇推荐学习资源，33篇推荐课程，此外还有课程序列/教学大纲、选修课、学术建议、职业等。\n\n5. 推荐依据：用户偏好、学习风格、岗位能力等是正文明确提到的因素\n正文明确给出若干推荐依据：\n- 学习资源“多数按用户偏好”进行推荐；\n- 正规教育中，有一些文章“基于学习风格”进行推荐；\n- 其中部分系统使用Felder–Silverman学习风格；\n- 非正规教育中，有终身学习场景；\n- 某些研究使用“岗位能力（job competences）”来推荐课程；\n- 还有个别研究提到使用LinkedIn特征构建用户画像，如地理位置和兴趣活动，并以本体表示。\n这些内容表明，教育推荐中的输入特征多与用户画像、学习特征和行为背景有关。但正文没有对这些因素做统一的因果检验，也没有比较它们对点击率或转化率的具体影响大小。\n\n6. 方法分布：协同过滤、混合方法、机器学习、知识驱动是主流\n论文总结教育推荐系统开发方法时指出：\n- 协同过滤：32篇，占比最高；\n- 混合方法：20篇；\n- 机器学习：19篇；\n- 知识驱动：16篇；\n- 内容驱动：2篇；\n- 情境感知：2篇；\n- 其余还有语义、概率模型、图、模糊逻辑、点击率预测，各1篇。\n结合摘要与正文，可以看出作者认为主流方法是协同、内容、混合，并且近两年机器学习使用呈增长趋势。需要注意的是，表8中内容驱动仅统计为2篇，而摘要中又将其列为主要方法之一；这里应以正文片段呈现为准，不对差异作额外解释，因为论文片段未明确说明原因。\n\n7. 机器学习使用情况：以监督学习为主，神经网络最常见\n在使用机器学习的文章中，79%采用监督学习，17%采用无监督学习。具体技术中，神经网络最常见，占47%；其中有些研究使用深度学习。其他还包括支持向量机、K近邻、K-means，以及多技术组合。这说明在教育推荐研究中，机器学习已成为近年重要路线，但正文没有给出这些方法在效果上的统一优劣比较。\n\n8. 平台实现：在线平台最常见，但多数研究未明确说明平台\n在平台类型上，21篇采用在线平台，1篇采用聊天机器人，1篇采用移动端，75篇未说明。数据来源包括大学/高校平台和学习平台，也提到Moodle、MOOC平台、在线资源等。这表明教育推荐研究已有较多在线场景实现，但大量研究对部署形态没有详细报告。\n\n9. 与“点击率预测”的关系：正文只表明其出现过，但不是主流方向\n表8中“Click-through rate prediction”仅有1篇，占1.03%。这意味着在教育推荐系统研究中，点击率预测并非主流研究方向，只是被作为一种开发方法类别出现。正文并没有说明该点击率预测研究的特征设计、效果、适用范围，也没有给出点击率受哪些因素影响的总结。\n\n10. 对用户主题“电商点击率影响因素”的适配性\n如果严格只依据论文正文，这篇文章不能直接回答“电商点击率受什么因素影响”。它最多只能提供一个非常有限的启发：推荐系统研究通常会围绕用户偏好、用户画像、学习风格、行为数据、岗位能力、上下文或平台行为等信息构建推荐；并且在全部教育推荐研究中，只有极少量工作涉及点击率预测。至于这些因素在电商中的作用、是否提升CTR、提升幅度如何、如何建模，论文未明确说明。",
+        "practical_usage": "基于正文，这篇论文对用户主题“电商点击率影响因素”的实际可支持用途较有限，且应严格限定在“推荐系统研究框架的启发”层面，而不能直接当作电商CTR结论使用。\n\n可支持的实际运用包括：\n\n1. 用于构建“推荐系统因素清单”的参考框架\n正文表明，教育推荐系统常使用的输入或推荐依据包括用户偏好、学习风格、岗位能力、地理位置、兴趣活动、平台行为等。因此，如果你的研究是在更广义的推荐系统场景下梳理“可能影响用户响应的因素类型”，这篇论文可作为分类启发来源之一。但这些因素在电商CTR中的有效性，论文未明确说明。\n\n2. 用于比较不同推荐方法的研究热度\n如果你的任务是做“推荐系统方法选择”的前期调研，这篇论文可支持你知道教育领域常见方法包括协同过滤、混合方法、知识驱动、机器学习等，并且近两年机器学习使用增加。对“方法谱系梳理”有帮助。但哪种方法更适合电商点击率预测，论文未明确说明。\n\n3. 用于识别“点击率预测”在推荐研究中的位置\n正文明确列出“click-through rate prediction”在纳入研究中只出现1篇，占比1.03%。这可用于说明：在该综述覆盖的教育推荐文献中，CTR预测并不是主流方向。如果你的业务需要论证“CTR预测是推荐研究中的一个分支而非唯一主流目标”，该论文可以提供这一事实支撑。但CTR具体影响因素、指标设计和业务策略，论文未明确说明。\n\n4. 用于教育平台而非电商平台的推荐业务设计参考\n若业务场景是教育平台、在线课程平台、MOOC、大学选课/学术建议系统，本论文可直接支持如下任务：\n- 以学生为主要服务对象设计推荐系统；\n- 优先推荐课程、学习资源、课程序列、学术建议等内容；\n- 结合用户偏好、学习风格、能力画像等进行个性化推荐；\n- 在系统实现上考虑在线平台、学习平台、MOOC平台等。\n这些都是正文明确支持的场景。\n\n5. 对电商CTR分析的直接业务含义\n若你的任务是“识别电商点击率影响因素”“建立电商CTR预测模型”“制定电商广告/商品推荐优化策略”，这篇论文基本不能直接支撑，原因是：研究领域是教育推荐，不是电商；CTR预测只占1篇；正文未报告点击率特征、实验指标、效果比较或业务结论。对此只能写：论文未明确说明。",
+        "evidence_excerpt": [
+          "A systematic review was carried out that included 98 articles from a total of 2937 found in main databases ... most are geared towards recommending educational resources for users of formal education ... the main approaches used in recommendation systems are the collaborative approach, the content-based approach, and the hybrid approach, with a tendency to use machine learning in the last two years.",
+          "of the total, 58 RSs referred to formal education—in particular, university studies—33 of the works focused on non-formal education, and 7 both on formal and non-formal education.",
+          "In formal education, there are some articles such as [21,30,31,45] that base their recommendations on learning style ... In non-formal education ... [27,113] ... with the latter using job competences to recommend courses.",
+          "37 works stand out in which RSs offer learning resources, and these recommendations are mostly given in accordance with user preferences; 33 RSs suggest courses...",
+          "Table 8 ... Collaborative 32 ... Hybrid 20 ... Machine Learning 19 ... Knowledge-based 16 ... Click-through rate prediction 1 ..."
+        ],
+        "evidence_note": "“详细解读”中关于论文目的、信息过载背景、教育场景定位，来自摘要与引言中对推荐系统用途和教育推荐意义的描述；关于教育类型分布、用户类型、推荐元素，来自正文片段2中的表5、表6、表7及相邻文字；关于学习风格、岗位能力、用户偏好、LinkedIn特征等推荐依据，来自正文片段2的具体叙述；关于协同过滤、混合方法、机器学习、知识驱动、点击率预测等方法分布，来自正文片段2的表8及其说明；关于机器学习中监督/无监督及神经网络等技术分布，来自正文片段2相关段落；关于平台实现，来自正文片段2表9及相邻文字。\n\n“实际运用”中凡涉及教育平台推荐设计、课程/学习资源推荐、学生为主要服务对象、可参考的方法框架，均由上述正文直接支撑。凡涉及‘电商点击率影响因素’、‘哪种方法更适合电商CTR’、‘CTR具体特征与效果’等内容，正文未明确说明，因此已明确标注为‘论文未明确说明’。"
+      },
       "score": 53,
       "score_details": "引用163(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3179424508",
-          "final_url": "https://openalex.org/W3179424508",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3179424508.pdf",
-          "final_url": "https://openalex.org/W3179424508.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Recommendation Systems for Education Systematic Review"
     },
     {
       "title": "Improvising personalized travel recommendation system with recency effects",
@@ -807,51 +731,42 @@
       "relevance_stars": "★★★☆☆",
       "relevance_reason": "论文聚焦个性化推荐与时间新近性，对电商CTR建模有间接参考价值。",
       "link": "https://openalex.org/W3162663167",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://ieeexplore.ieee.org/ielx7/8254253/9430128/09430131.pdf",
+      "fulltext_source_type": "pdf",
       "fulltext_attempts": [
-        "https://openalex.org/W3162663167",
-        "https://openalex.org/W3162663167.pdf"
+        "https://doi.org/10.26599/bdma.2020.9020026",
+        "https://ieeexplore.ieee.org/ielx7/8254253/9430128/09430131.pdf",
+        "https://doaj.org/article/d6a6b2ee03e3408ca99af299cba5a4b0",
+        "https://doaj.org/article/d6a6b2ee03e3408ca99af299cba5a4b0/pdf",
+        "https://doaj.org/article/d6a6b2ee03e3408ca99af299cba5a4b0/full",
+        "https://doaj.org/article/d6a6b2ee03e3408ca99af299cba5a4b0?download=1",
+        "https://doaj.org/article/d6a6b2ee03e3408ca99af299cba5a4b0.pdf"
       ],
-      "fulltext_error": "https://openalex.org/W3162663167 => landing_page_only; https://openalex.org/W3162663167.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Improvising personalized travel recommendation system with recency effects",
+      "paper_markdown_path": "paper_notes/Improvising personalized travel recommendation system with recency effects.md",
+      "paper_markdown_filename": "Improvising personalized travel recommendation system with recency effects.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "该论文片段主要讨论的是“个性化旅行推荐系统”如何通过加入“时间敏感的近期性（recency）”来改进推荐效果，而不是直接研究电商点击率。若从“推荐系统影响用户响应”的角度理解，这篇论文可提供的核心启发是：用户兴趣会随时间变化，因此推荐模型若能更重视用户近期行为，可能比只看长期历史更贴近用户当下偏好。\n\n具体来看，正文明确提出：用户对旅行目的地的倾向“会随着时间改变”，因此作者不只分析用户自己的 Twitter 数据，还分析其 friends 和 followers 的数据，并且是“及时地（in a timely fashion）”去理解最近的旅行兴趣。也就是说，论文把“近期兴趣”视为个性化推荐中的一个关键因素。\n\n在方法层面，论文先用机器学习分类器识别与旅行相关的 tweets，再用这些 travel tweets 生成个性化旅行推荐。与既有模型相比，这篇论文的主要改进不是简单增加特征，而是把时间敏感的 recency weight 融入模型。正文说明，他们将社交媒体内容划分为不同时间块（time blocks），并对“更当代、更近期”的活动赋予更高权重；而对于社交媒体活跃度较低、信息量不足的时间块，则给予更低权重。这说明该模型不是把所有历史内容等权看待，而是显式地区分“新近信息”和“较旧信息”的价值。\n\n在权重构造上，论文不仅考虑时间，还考虑信息来源与情感。来源上，用户本人、朋友、粉丝三者的重要性不同，因此分别赋权。正文给出的近似归一化结果是：用户权重 U=4，朋友权重 F=3.25，粉丝权重 L=2.75，说明模型中用户自己的内容最重要，其次是朋友，再次是粉丝。情感上，正向、 中性、负向情感也采用不同系数，分别是 1.0、0.65、0.35。最终，各类兴趣分数按照时间权重、来源权重、情感权重综合计算并排序，得到用户偏好的类别列表。\n\n从推荐输出形式看，论文不是直接预测单个地点得分，而是先形成“类别偏好分数”，再按类别分数比例抽取推荐结果。例如给定示例中，park、museum、restaurant、historical building 四类分数分别为 0.44、0.22、0.19、0.15，因此系统给出 15 个推荐时，会按比例分配为 6 个 park、4 个 museum、3 个 restaurant、2 个 historical building。由此可见，该系统首先做的是“用户兴趣结构”的刻画，然后再映射到具体 POI。\n\n关于与既有推荐系统的关系，正文指出该模型同时包含 collaborative filtering 和 content-based filtering 的特征：一方面挖掘朋友和粉丝的 tweets 来识别相似兴趣，具有协同过滤色彩；另一方面又从 tweet 文本和元数据抽取地点类别相关信息，体现内容过滤特征。此外，正文还提到推荐系统在电商中非常流行，但该论文本身的应用领域是旅游/POI 推荐，不是电商商品推荐。\n\n关于效果，正文明确声称：所提模型优于已有的个性化 POI 推荐模型，总体准确率为 75.23%。评价方式采用双盲短问卷，对随机选取的 Twitter 用户进行线上和线下调查。对于“没有或很少活动”的用户，论文将其视为冷启动群体，并说明模型会“基于趋势”来推荐旅行地点。但这个“趋势”如何定义、计算，正文片段未明确说明。\n\n如果将其放到“影响用户点击/选择的推荐因素”这一更宽泛问题下，这篇论文真正被正文明确支持的因素有三类：第一，近期性，即近期行为比久远行为更重要；第二，社交关系信息，即朋友和粉丝的偏好被纳入；第三，情感倾向，即正向、中性、负向内容贡献不同。至于这些因素如何具体影响电商点击率、转化率、曝光效率等指标，论文未明确说明。",
+        "practical_usage": "基于正文，这篇论文可支持的实际运用或业务含义主要有：\n\n1. 可用于个性化旅行推荐场景\n正文明确说明系统目标是根据用户、其朋友、其粉丝的社交媒体活动，生成个性化的 place of interest 推荐，适用于旅游/出行平台中的 POI 推荐任务。\n\n2. 可用于“近期兴趣优先”的推荐排序改进\n论文表明用户兴趣会变化，因此推荐模型可以把用户内容按时间块组织，并对近期内容赋予更高权重，以更贴合用户当前兴趣。这适合用于需要体现“近期偏好”的推荐任务。\n\n3. 可用于结合社交关系信号的推荐建模\n正文明确将用户本人、朋友、粉丝三类内容同时纳入，而且赋予不同权重。因此，该论文支持在推荐中综合使用社交关系相关行为数据，而不是只依赖用户本人历史。\n\n4. 可用于结合情感倾向的类别偏好计算\n论文把正向、中性、负向情感分别赋予不同权重，再汇总到各兴趣类别得分，适合用于“先识别类别兴趣、再分发具体推荐项”的任务。\n\n5. 可用于冷启动用户的趋势型推荐\n正文提到对于活动极少的用户，模型会基于趋势推荐旅行地点，因此可支持低行为数据用户的推荐场景。但“趋势”的具体构造方法，论文片段未明确说明。\n\n6. 对“电商点击率影响因素”的可借鉴含义\n若仅严格依据正文，可借鉴的是：推荐结果可能受“近期行为权重、社交关联信息、文本情感信息”影响，从而提升推荐准确性。正文还指出推荐系统在电商中广泛应用。但论文没有直接研究点击率，也没有报告 CTR、CVR、停留时长等电商指标，因此不能据此直接得出电商点击率结论，论文未明确说明。",
+        "evidence_excerpt": [
+          "“the user’s inclination towards travel destinations is subject to change over time.”",
+          "“our proposed model takes into account a user’s most recent interest by incorporating time-sensitive recency weight into the model.”",
+          "“To emphasize user’s recent interest, we have imparted social media contents into time blocks represented by suffix i, and more weights have been assigned to contemporary activities.”",
+          "“U, F, and L are normalized... and approximated at U=4, F=3.25, and L=2.75. The scores for positive sentiment have a weight of 1.0, for neutral sentiment, 0.65; and for negative sentiment, 0.35.”",
+          "“Our proposed model has outperformed the existing personalized place of interest recommendation model, and the overall accuracy is 75.23%.”"
+        ],
+        "evidence_note": "“详细解读”中关于用户兴趣随时间变化、模型引入近期性权重、按时间块加权、综合用户/朋友/粉丝与情感分数、最终得到类别排序，以及总体准确率 75.23%，均由正文片段1和片段3直接支撑。关于系统兼具协同过滤与内容过滤特征，来自片段2对模型构成的说明。关于冷启动用户基于趋势推荐，来自片段3的评估描述。关于‘趋势如何计算’、‘对电商点击率的直接影响’、‘CTR/CVR等商业指标表现’，正文未明确说明。因此“practical_usage”里凡涉及电商点击率的部分，只能表述为可借鉴的推荐建模含义，而不能声称论文已直接验证。"
+      },
       "score": 53,
       "score_details": "引用150(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3162663167",
-          "final_url": "https://openalex.org/W3162663167",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3162663167.pdf",
-          "final_url": "https://openalex.org/W3162663167.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Improvising personalized travel recommendation system with recency effects"
     },
     {
       "title": "GHRS: Graph-based Hybrid Recommendation System with Application to Movie Recommendation",
@@ -871,51 +786,37 @@
       "relevance_stars": "3星",
       "relevance_reason": "论文研究混合推荐与用户偏好建模，虽非直接分析电商点击率因素，但可为商品曝光与点击提升提供方法参考。",
       "link": "https://openalex.org/W4220818090",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://arxiv.org/pdf/2111.11293",
+      "fulltext_source_type": "pdf",
       "fulltext_attempts": [
-        "https://openalex.org/W4220818090",
-        "https://openalex.org/W4220818090.pdf"
+        "http://arxiv.org/pdf/2111.11293.pdf",
+        "https://arxiv.org/pdf/2111.11293"
       ],
-      "fulltext_error": "https://openalex.org/W4220818090 => landing_page_only; https://openalex.org/W4220818090.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "GHRS Graph-based Hybrid Recommendation System with Application to Movie Recommendation",
+      "paper_markdown_path": "paper_notes/GHRS Graph-based Hybrid Recommendation System with Application to Movie Recommendation.md",
+      "paper_markdown_filename": "GHRS Graph-based Hybrid Recommendation System with Application to Movie Recommendation.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "这篇论文提出了一个混合推荐方法 GHRS（Graph-based Hybrid Recommendation System），核心目标是同时提升推荐准确率，并缓解冷启动问题。就正文可见内容而言，论文的主要思路可以拆解为以下几层。\n\n1. 研究动机\n论文指出，传统推荐系统主要分为协同过滤（CF）、基于内容过滤（CBF）和混合推荐。CF 主要依赖用户历史评分，但存在冷启动问题；CBF 可以利用用户或物品的侧信息，但需要额外处理。论文认为，把两类信息结合起来，有助于弥补仅靠评分数据的不足。与此同时，深度学习能够捕捉非线性关系，因此作者尝试把深度学习与侧信息结合起来。\n\n2. GHRS 的核心输入信息\n根据正文，GHRS 并不是只用评分矩阵，而是把多类信息合并起来：\n- 用户-物品评分矩阵 R，用于刻画用户偏好；\n- 用户之间基于“相似评分行为”构建出的相似图；\n- 从相似图中提取的图特征，如 PageRank、度中心性、接近中心性、最短路径中介中心性、负载中心性、邻域平均度；\n- 用户侧信息，如 demographic information，正文举例提到 gender、age，摘要还提到 demographic and location information。\n\n论文还提到将图特征与侧信息统一处理，并“without loss of generality”将特征类别化为二元形式，从而形成最终的组合特征向量。至于具体二元化规则，论文片段未明确说明。\n\n3. 方法流程\n正文给出了七步框架：\n- 第一步：以用户为节点建图。若两个用户在超过某个比例的物品上给出了相似评分，则连边；\n- 第二步：从用户相似图中提取图结构特征；\n- 第三步：将用户侧信息与图特征合并，形成统一输入矩阵；\n- 第四步：使用 Autoencoder 做特征提取和降维；\n- 第五步：基于编码后的新特征，用 K-means 对用户聚类；\n- 第六步：将新用户分配到某个簇，并基于簇内信息估计物品评分；\n- 第七步：根据簇的平均评分为用户估计各物品评分，并输出推荐列表。\n\n从算法描述看，GHRS 的关键不是直接在原始评分上做邻域推荐，而是先把“偏好相似关系 + 图特征 + 用户侧信息”压缩成低维表示，再在这个表示空间中做聚类与评分估计。\n\n4. 评分估计机制\n算法 1 显示，簇-物品评分矩阵 CI 的估计遵循分层回退逻辑：\n- 若簇内已有用户给某物品打分，则取该簇内该物品平均分；\n- 否则，若簇内用户给相似物品打过分，则取相似物品评分均值；\n- 否则，取该簇内所有用户评分的平均值。\n\n这里说明，论文把用户聚类后的群体统计作为评分预测基础。至于“Similar Items”的定义方法，正文片段未明确说明。\n\n5. Autoencoder 在模型中的作用\n论文强调 Autoencoder 的用途是“extract new features and reduce the dimension”，也就是从组合特征中学习新的低维表示。训练时，作者比较了多个优化器：Adagrad、Adadelta、RMSProp、Adam、AdaMax、Nadam 和 SGD，损失函数为 MSE。实验结果表明 Adam、Adadelta、RMSProp 较优，最终选择 Adam。正文还提到使用 elastic net regularization（L1+L2）以避免过拟合。\n\n论文指出，编码后的特征呈现“diverse distribution with a low correlation between the encoded features”，并将其作为后续聚类输入。这意味着作者认为降维后的特征更适合形成用户群组。\n\n6. 聚类设计\n论文采用 K-means 进行用户聚类，并使用 Elbow method 与 Average Silhouette method 寻找合适的簇数 K。对两套数据：\n- MovieLens 100K：Elbow 给出 K=8，Silhouette 给出 K=7；\n- MovieLens 1M：Elbow 给出 K=9，Silhouette 给出 K=7。\n\n正文说明“best value of K has been founded, as shown in Table 2”，但从片段中无法完全判断最终实验到底固定采用哪一个 K 值作为最终配置，论文片段未明确说明。\n\n7. 实验结果\n论文在 MovieLens 100K 和 MovieLens 1M 上评估 GHRS，给出的指标包括 RMSE、Precision、Recall：\n- 100K：RMSE 0.887，Precision 0.771，Recall 0.799；\n- 1M：RMSE 0.833，Precision 0.792，Recall 0.838。\n\n作者声称该方法“outperformed many existing recommendation algorithms on recommendation accuracy”，并在正文中进一步说：在 MovieLens 1M 上，GHRS 相比一些基线和部分已有方法取得了更好的 RMSE；同时，其表现与 AutoRec 接近，仅次于 Autoencoder COFILS。由于表 4 的完整比较内容未出现在片段中，因此哪些方法被比较、具体数值差异有多大，论文片段未明确说明。\n\n8. 冷启动相关结论\n论文专门构造了 synthetic dataset 来测试冷启动：随机移除评分矩阵中的一定比例记录，以模拟“新用户没有历史评分、只剩侧信息”的情形。结果显示，GHRS 在不同新用户占比下仍保持较好的性能，作者据此认为该方法在冷启动问题上有显著效果。这个结论与其设计逻辑一致：当评分不足时，仍可借助用户侧信息和图特征进行表征与聚类。\n\n9. 对“影响因素”的可提炼理解\n若仅依据正文，本论文并不是直接研究“点击率影响因素”，而是研究“推荐效果的影响因素/构成信息”。从 GHRS 设计可归纳出，论文重点关注的有效信息来源包括：\n- 用户历史偏好/评分；\n- 用户之间的偏好相似性；\n- 由相似性图提取出的结构特征；\n- 用户人口统计信息；\n- 用户位置信息（摘要提到）；\n- 通过 Autoencoder 学到的低维编码特征；\n- 用户所属聚类及簇内平均评分。\n\n这些因素在论文中被用于提高推荐准确率和缓解冷启动，而不是被直接验证为电商点击率的因果因素。因此，如果把它们迁移到“电商点击率影响因素”议题中，只能说该论文为“影响推荐排序/推荐质量的信息因素”提供了参考，不能直接推出“影响点击率”的结论。",
+        "practical_usage": "仅依据正文，这篇论文对“电商点击率影响因素”主题的可支持价值是间接的，主要体现在推荐建模层面，而不是直接给出点击率因子结论。\n\n1. 可支持的业务应用\n- 可用于构建混合推荐系统：正文明确指出推荐系统被应用于 movies、music、news、books、e-commerce、tourism 等领域，因此该方法可被视为适用于具备用户侧信息的推荐场景。\n- 可用于新用户冷启动场景：论文强调当用户缺少历史评分时，可利用用户侧信息与图特征进行推荐，这对新客推荐、首登推荐等场景有直接参考价值。\n- 可用于用户分群推荐：GHRS 通过 Autoencoder 编码后再用 K-means 聚类，把用户归入 peer groups，再使用簇内平均评分做预测，适合需要先做用户分群再做推荐的系统。\n- 可用于融合多种用户信息的推荐排序：正文支持融合用户偏好相似性、人口统计信息、位置信息（摘要提及）和图结构特征来提升推荐准确率。\n\n2. 若结合“电商点击率影响因素”主题，论文能提供的启发\n- 论文可支持把“用户行为相似性”“用户侧信息”“图结构关系”“低维表示特征”视为推荐模型可利用的重要输入因素。\n- 论文可支持在用户历史行为较少时，不仅依赖行为本身，还结合 demographic/location 等侧信息进行建模。\n- 论文可支持通过用户聚类形成小规模 peer groups，再利用群体偏好进行推荐估计。\n\n3. 不能直接支持的部分\n- 论文没有直接研究点击率（CTR），也没有报告点击、曝光、转化等电商指标，因此不能直接得出“哪些因素影响电商点击率”的结论。\n- 论文实验数据是 MovieLens 评分数据，不是电商点击数据，因此不能直接把实验结果解释为电商点击表现提升。\n- 论文虽提到 recommendation systems 可用于 e-commerce，但未展示具体电商业务实验，论文未明确说明。",
+        "evidence_excerpt": [
+          "This paper proposes a recommender system method using a graph-based model associated with the similarity of users’ ratings in combination with users’ demographic and location information.",
+          "By utilizing the advantages of Autoencoder feature extraction, we extract new features based on all combined attributes.",
+          "The Graph-based Hybrid Recommender System comprises the following seven steps... we build a graph with the number of users as nodes... compute PageRank of the nodes, degree centrality, closeness centrality, the shortest-path betweenness centrality, load centrality, and the average degree of each node’s neighborhood in the graph.",
+          "In the fifth step, we utilize the new features encoded by Autoencoder for user clustering, using the K-means algorithm to create a small number of peer groups.",
+          "We can see that GHRS delivers a good performance in cold-start issues, even in a high percentage of new users."
+        ],
+        "evidence_note": "“详细解读”中关于研究动机、CF/CBF/混合推荐、冷启动、深度学习作用，主要由正文片段1支撑；关于 GHRS 七步流程、图特征种类、特征合并、Autoencoder 编码、K-means 聚类、评分估计逻辑，主要由正文片段2支撑；关于优化器比较、Adam 选择、elastic net、K 值搜索、性能指标、冷启动实验结论，主要由正文片段3支撑。关于‘位置信息’仅摘要明确提及；关于具体二元化规则、相似物品定义、最终采用哪个 K 值、与所有对比方法的完整差异、对点击率的直接影响，论文未明确说明。‘practical_usage’中“可用于 e-commerce”仅由正文片段1中推荐系统应用领域包含 e-commerce 提供有限支撑；但其对电商点击率的直接作用、对点击/转化指标的提升，论文未明确说明。"
+      },
       "score": 53,
       "score_details": "引用145(中); 非顶会; 5年前; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W4220818090",
-          "final_url": "https://openalex.org/W4220818090",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W4220818090.pdf",
-          "final_url": "https://openalex.org/W4220818090.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "GHRS Graph-based Hybrid Recommendation System with Application to Movie Recommendation"
     },
     {
       "title": "A Role of Machine Learning Algorithms for Demand Based Netflix Recommendation System",
@@ -939,10 +840,9 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
-        "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf"
+        "https://semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7"
       ],
-      "fulltext_error": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7 => landing_page_only; https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf => non_text_pdf",
+      "fulltext_error": "https://semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7 => access_barrier: semanticscholar_waf",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -952,30 +852,19 @@
       "score_details": "引用17(较少); 非顶会; 1年内; 完整度15/15; 高度相关",
       "level": "C",
       "level_desc": "一般",
-      "fulltext_failure_reason": "landing_page_only",
+      "fulltext_failure_reason": "access_barrier: semanticscholar_waf",
       "fulltext_failure_details": [
         {
-          "candidate_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
-          "final_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
-          "reason": "landing_page_only",
+          "candidate_url": "https://semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
+          "final_url": "https://semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7",
+          "reason": "access_barrier: semanticscholar_waf",
           "content_type": "html",
           "error": "",
           "details": {
             "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf",
-          "final_url": "https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
+            "content_type_header": "text/html; charset=utf-8",
+            "second_hop_candidates": [],
+            "hop_depth": 0
           }
         }
       ],
@@ -999,51 +888,36 @@
       "relevance_stars": "4星",
       "relevance_reason": "论文聚焦个性化推荐与历史行为建模，能间接解释电商点击率的关键驱动因素。",
       "link": "https://openalex.org/W3163731277",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://link.springer.com/article/10.1007/s10489-021-02363-w",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://openalex.org/W3163731277",
-        "https://openalex.org/W3163731277.pdf"
+        "https://doi.org/10.1007/s10489-021-02363-w"
       ],
-      "fulltext_error": "https://openalex.org/W3163731277 => landing_page_only; https://openalex.org/W3163731277.pdf => non_text_pdf",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Personalized recommendation system based on knowledge embedding and historical behavior",
+      "paper_markdown_path": "paper_notes/Personalized recommendation system based on knowledge embedding and historical behavior.md",
+      "paper_markdown_filename": "Personalized recommendation system based on knowledge embedding and historical behavior.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "该论文聚焦于个性化推荐系统，核心问题是传统协同过滤（CF）在推荐场景中会因为用户-物品交互稀疏和冷启动问题而性能受限。论文指出，为了缓解这些问题，通常会引入知识图谱中的辅助信息，例如社交网络和物品属性。\n\n在方法思路上，论文认为现有基于知识图谱的推荐算法“未能利用丰富的语义关联”，因此提出把知识图谱视为异构网络来加入辅助信息，并构建一种“行为特征与知识特征统一嵌入”的推荐系统。也就是说，论文的方法不是只看用户和物品的直接交互，而是同时结合用户历史行为与知识图谱信息来挖掘用户偏好。\n\n从偏好建模角度看，论文明确强调其方法能够从用户历史行为中学习“短期和长期偏好”，并通过整合知识图谱“更深层识别用户偏好”。因此，这篇论文对于“点击率影响因素”主题的启发主要在于：论文把用户历史行为和知识图谱辅助信息视为影响推荐结果的重要输入因素。但需要注意，正文片段并未直接讨论“点击率”这一指标本身，也未明确说明点击率的定义、建模方式、评估指标或点击行为的因果影响机制，因此如果要把它严格解释为CTR研究，论文未明确说明。\n\n在结果层面，论文称所提出的ReBKC在三个数据集上相比最先进方法取得了显著提升，并认为这些结果验证了：结合历史行为学习短期与长期偏好、并融合知识图谱，有助于提供“更准确且更多样”的推荐。至于这三个数据集的名称、实验设置、提升幅度、显著性检验细节，正文片段未明确说明。\n\n综合来看，基于现有正文片段，可以确认的影响推荐效果的因素包括：1）用户-物品交互稀疏程度；2）冷启动问题；3）知识图谱中的辅助信息，如社交网络和物品属性；4）用户历史行为；5）用户短期偏好与长期偏好；6）知识图谱中的语义关联利用程度。若进一步追问模型结构细节、特征工程细节、训练方式、损失函数、与点击率的直接关系，论文未明确说明。",
+        "practical_usage": "结合“电商点击率影响因素”这一用户研究主题，这篇论文正文片段可支持的实际运用主要是：\n\n1. 可用于分析推荐结果受哪些信息来源影响。正文明确支持把“用户历史行为”和“知识图谱辅助信息（如社交网络、物品属性）”作为影响推荐效果的重要因素纳入分析框架。\n\n2. 可用于构建更个性化的推荐系统。论文明确提出统一嵌入行为特征和知识特征，以挖掘用户偏好，从而提供“更准确和更多样”的推荐。这意味着在业务上可用于优化推荐排序或推荐生成任务。\n\n3. 可用于应对交互稀疏和冷启动问题。正文明确指出该类问题是传统协同过滤的局限，而引入知识图谱辅助信息是应对方向之一，因此对新用户、新物品或低交互场景的推荐优化具有业务含义。\n\n4. 可用于结合短期与长期偏好进行推荐。正文明确说明其结果验证了学习用户短期和长期偏好的有效性，因此业务上可以把近期行为与长期历史共同用于用户偏好建模。\n\n5. 若从电商点击率角度理解，本论文可以作为“可能影响用户点击相关推荐表现”的因素参考，即历史行为、物品属性、社交网络、知识图谱语义关联等因素可能与推荐质量有关。但论文正文没有直接说明其应用于电商点击率预测、CTR建模、广告点击、商品曝光点击转化等具体场景，因此这些更具体的业务场景论文未明确说明。\n\n6. 论文可支持的任务是“推荐系统/个性化推荐”，这是正文和关键词直接给出的；至于是否已在电商平台、新闻、音乐、广告等特定行业中验证，正文片段未明确说明。",
+        "evidence_excerpt": [
+          "“Collaborative filtering (CF) usually suffers from limited performance in recommendation systems due to the sparsity of user–item interactions and cold start problems.”",
+          "“To address these issues, auxiliary information from knowledge graphs, such as social networks and item properties, is typically used to boost performance.”",
+          "“The current recommended algorithms based on knowledge graphs fail to utilize rich semantic associations.”",
+          "“we regard knowledge graphs as heterogeneous networks to add auxiliary information, propose a recommendation system with unified embeddings of behavior and knowledge features, and mine user preferences from their historical behavior and knowledge graphs”",
+          "“These results verify the effectiveness of learning short-term and long-term user preferences from their historical behavior and by integrating knowledge graphs to deeply identify user preferences.”"
+        ],
+        "evidence_note": "“详细解读”中关于传统CF受稀疏性和冷启动限制、知识图谱可作为辅助信息、现有方法未充分利用语义关联、论文提出统一嵌入行为与知识特征、以及学习短期和长期偏好等内容，均直接由摘要中的上述引文支撑。关于‘提供更准确和更多样的推荐’由摘要中“provide more accurate and diverse recommendations”和“shows a significant improvement on three datasets”支撑。关于‘影响推荐效果的因素包括历史行为、社交网络、物品属性、语义关联、短期和长期偏好’是对摘要明示内容的归纳。\n\n“practical_usage”中关于可用于个性化推荐、缓解稀疏与冷启动、结合历史行为与知识图谱做偏好建模，均由摘要与关键词“Collaborative filtering / Recommendation system / Knowledge graph / Historical behavior”直接支撑。关于与‘电商点击率影响因素’的关系，只能谨慎表述为对推荐表现相关因素的参考，因为正文片段并未直接出现CTR、click-through rate、点击预测、排序曝光机制等表述；这些更具体内容论文未明确说明。关于具体业务行业、数据集名称、实验指标、模型结构细节，也均为论文未明确说明。"
+      },
       "score": 49,
       "score_details": "引用148(中); 非顶会; 5年前; 完整度11/15; 高度相关",
       "level": "D",
       "level_desc": "参考",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://openalex.org/W3163731277",
-          "final_url": "https://openalex.org/W3163731277",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://openalex.org/W3163731277.pdf",
-          "final_url": "https://openalex.org/W3163731277.pdf",
-          "reason": "non_text_pdf",
-          "content_type": "pdf",
-          "error": "",
-          "details": {
-            "page_count": 0,
-            "non_empty_pages": 0,
-            "text_length": 0,
-            "error": "EOF marker not found"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Personalized recommendation system based on knowledge embedding and historical behavior"
     },
     {
       "title": "Smart Travel Recommendation System",
@@ -1067,12 +941,9 @@
       "fulltext_url": "",
       "fulltext_source_type": "",
       "fulltext_attempts": [
-        "https://doi.org/10.55248/gengpi.6.0825.32103",
-        "https://doi.org/10.55248/gengpi.6.0825.32103/pdf",
-        "https://doi.org/10.55248/gengpi.6.0825.32103/full",
-        "https://doi.org/10.55248/gengpi.6.0825.32103?download=1"
+        "https://doi.org/10.55248/gengpi.6.0825.32103"
       ],
-      "fulltext_error": "https://doi.org/10.55248/gengpi.6.0825.32103 => network_error; https://doi.org/10.55248/gengpi.6.0825.32103/pdf => network_error; https://doi.org/10.55248/gengpi.6.0825.32103/full => network_error; https://doi.org/10.55248/gengpi.6.0825.32103?download=1 => network_error",
+      "fulltext_error": "https://doi.org/10.55248/gengpi.6.0825.32103 => access_barrier: cloudflare_challenge",
       "has_fulltext_markdown": false,
       "paper_markdown_slug": "",
       "paper_markdown_path": "",
@@ -1082,46 +953,18 @@
       "score_details": "引用0(新/少); 非顶会; 1年内; 完整度11/15; 高度相关",
       "level": "D",
       "level_desc": "参考",
-      "fulltext_failure_reason": "network_error",
+      "fulltext_failure_reason": "access_barrier: cloudflare_challenge",
       "fulltext_failure_details": [
         {
           "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103",
           "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103",
-          "reason": "network_error",
+          "reason": "access_barrier: cloudflare_challenge",
           "content_type": "",
-          "error": "network_error: http_403",
+          "error": "access_barrier: cloudflare_challenge",
           "details": {
-            "error": "403 Client Error: Forbidden for url: https://ijrpr.com/uploads/V6ISSUE8/IJRPR52165.pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103/pdf",
-          "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103/pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.55248/gengpi.6.0825.32103/pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103/full",
-          "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103/full",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.55248/gengpi.6.0825.32103/full"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.55248/gengpi.6.0825.32103?download=1",
-          "final_url": "https://doi.org/10.55248/gengpi.6.0825.32103?download=1",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_403",
-          "details": {
-            "error": "403 Client Error: Forbidden for url: https://ijrpr.com/uploads/V6ISSUE8/IJRPR52165.pdf"
+            "error": "403 Client Error: Forbidden for url: https://ijrpr.com/uploads/V6ISSUE8/IJRPR52165.pdf",
+            "hop_depth": 0,
+            "second_hop_candidates": []
           }
         }
       ],
@@ -1145,82 +988,36 @@
       "relevance_stars": "2星",
       "relevance_reason": "论文聚焦推荐系统构建，与电商点击率机制仅有方法层面的间接关联。",
       "link": "https://doi.org/10.31274/cc-20250502-81",
-      "fulltext_status": "unavailable",
-      "fulltext_url": "",
-      "fulltext_source_type": "",
+      "fulltext_status": "available",
+      "fulltext_url": "https://dr.lib.iastate.edu/handle/20.500.12876/105891",
+      "fulltext_source_type": "html",
       "fulltext_attempts": [
-        "https://doi.org/10.31274/cc-20250502-81",
-        "https://doi.org/10.31274/cc-20250502-81/pdf",
-        "https://doi.org/10.31274/cc-20250502-81/full",
-        "https://doi.org/10.31274/cc-20250502-81?download=1",
-        "https://doi.org/10.31274/cc-20250502-81.pdf"
+        "https://doi.org/10.31274/cc-20250502-81"
       ],
-      "fulltext_error": "https://doi.org/10.31274/cc-20250502-81 => landing_page_only; https://doi.org/10.31274/cc-20250502-81/pdf => network_error; https://doi.org/10.31274/cc-20250502-81/full => network_error; https://doi.org/10.31274/cc-20250502-81?download=1 => landing_page_only; https://doi.org/10.31274/cc-20250502-81.pdf => network_error",
-      "has_fulltext_markdown": false,
-      "paper_markdown_slug": "",
-      "paper_markdown_path": "",
-      "paper_markdown_filename": "",
-      "fulltext_analysis": {},
+      "fulltext_error": "",
+      "has_fulltext_markdown": true,
+      "paper_markdown_slug": "Developing A Professor Recommendation System",
+      "paper_markdown_path": "paper_notes/Developing A Professor Recommendation System.md",
+      "paper_markdown_filename": "Developing A Professor Recommendation System.md",
+      "fulltext_analysis": {
+        "detailed_interpretation": "该论文片段描述的是一个“教授推荐系统”的开发过程，其核心目标是根据学生的兴趣，将学生与研究方向相匹配的教授连接起来，以促进学术合作与指导关系建立。就正文所示内容来看，论文主要覆盖了数据采集、文本处理、表征建模、聚类、相似度匹配、系统实现与用户反馈评估几个环节。\n\n首先，在数据层面，系统通过两类来源构建教授画像：一类是从大学网站抓取教授信息，所用方式是Scrapy结合Selenium；另一类是通过SERPAPI从Google Scholar提取研究发表数据。正文明确指出，这些数据构成了基于“研究兴趣”和“论文发表”的教授画像基础。至于具体抓取了哪些字段、数据规模多大、覆盖多少学校或多少教授，论文片段未明确说明。\n\n其次，在文本处理与特征构建方面，作者针对大量文本数据开发了一个自定义机器学习算法，其中使用KEYBERT进行关键词提取，并通过短语向量化和计数向量化做进一步优化。这说明系统并非直接使用原始文本，而是先进行关键词与文本特征抽取，以便更好地表示教授研究方向。正文说明了使用了这些方法，但没有展开说明关键词提取的具体流程、参数设置、特征维度或与其他方法的对比结果，因此这些细节论文未明确说明。\n\n再次，在推荐建模方面，系统使用Sentence-BERT生成词嵌入，然后利用t-SNE进行降维，再使用K-means按照研究相似性对教授进行分组。聚类数的选择通过Elbow method和Silhouette analysis确定。最终推荐阶段采用余弦相似度，将学生查询与教授画像进行匹配。依据正文，这一流程可理解为：先将教授研究信息编码成语义表示，再通过聚类组织相近教授群体，最后把学生输入的兴趣与教授画像做相似度计算，输出定制化推荐结果。至于推荐是在聚类前后如何衔接、是否先筛簇后排序、排序规则是否只基于余弦相似度，论文片段未明确说明。\n\n在系统实现上，作者开发了一个基于Flask、HTML和CSS的用户界面，使学生能够输入个人兴趣并获得推荐教授。这表明论文不仅停留在算法层面，还实现了可交互的应用原型。至于界面交互流程、返回结果展示形式、是否支持多轮查询或过滤条件，论文未明确说明。\n\n在效果评估方面，论文提到通过50名用户的反馈来评估系统有效性，评价标签包括“正确”“部分正确”“错误”。这说明评估是以用户主观判断匹配准确性为主，而不是正文中给出精确率、召回率、NDCG、CTR等量化推荐指标。具体每类反馈占比、总体满意度、统计显著性分析等，论文片段未明确说明。\n\n正文还提到项目中遇到的挑战包括：数据不一致、关键词提取优化、聚类准确性保障。作者称通过改进数据处理技术与算法优化策略对这些问题进行了处理。这表明系统开发过程包含一定的迭代优化，但并未在片段中给出每项挑战对应的具体解决方案与改进幅度，因此论文未明确说明。\n\n从未来工作看，论文提出可进一步引入协同过滤、集成更高级的自然语言理解模型，并关注推荐准确性与偏差缓解中的伦理问题。这说明当前系统主要还是内容/文本语义驱动的推荐框架，协同过滤尚未真正纳入已完成系统，而只是未来扩展方向。\n\n如果结合“recommendation system”这一搜索主题来看，这篇论文能够说明一个推荐系统的完整实现思路：从异构数据采集，到文本语义建模，再到聚类与相似度匹配，以及最终面向用户的推荐输出和简单用户反馈验证。但如果进一步对应到“电商点击率影响因素”，正文并没有讨论点击行为、曝光位置、商品价格、视觉素材、用户历史点击、转化漏斗等内容，因此这些方面论文未明确说明，也不能从该片段中直接推出点击率影响结论。",
+        "practical_usage": "基于正文，该论文可支持的实际运用或业务含义主要包括：\n\n1. 可用于构建“基于兴趣文本匹配”的推荐场景：正文展示了如何把用户输入的兴趣与候选对象画像进行语义匹配，并通过余弦相似度生成个性化推荐。这对任何“用户输入需求—系统返回匹配对象”的推荐任务具有方法参考价值。\n\n2. 可用于需要从公开网页和学术资料中自动构建对象画像的场景：论文说明了通过网页抓取和外部学术数据抽取来建立教授画像，可支持“对象信息采集—画像生成—推荐”的流程化应用。至于在电商中是否可迁移到商品画像或商家画像，论文未明确说明。\n\n3. 可用于文本密集型推荐任务中的特征工程参考：正文给出了KEYBERT、短语向量化、计数向量化、Sentence-BERT、t-SNE、K-means、余弦相似度等组合流程，适合为“基于文本描述和语义相似性”的推荐系统提供实现思路。该价值是方法层面的，不等于论文验证了电商场景效果。\n\n4. 可用于带有前端交互的推荐原型系统开发：论文明确实现了Flask+HTML+CSS界面，说明该工作支持从算法到可用系统的落地原型。\n\n5. 对“电商点击率影响因素”这一用户研究主题的直接支持较弱：正文没有涉及点击率、点击行为、排序曝光、推荐位设计、用户停留、CTR评估指标等内容，因此不能直接用于分析电商点击率影响因素。若仅从推荐系统角度借鉴，可参考其“文本兴趣匹配影响推荐相关性”的思路，但其与CTR之间的关系，论文未明确说明。",
+        "evidence_excerpt": [
+          "The Professor Recommendation System is designed to connect students with professors based on the students' interests.",
+          "Data collection involved scraping professor information from university websites using a Scrapy spider integrated with Selenium, as well as extracting research publication data from Google Scholar via SERPAPI.",
+          "a custom machine learning algorithm was developed, incorporating KEYBERT for keyword extraction, and further refined through phrase vectorization and count vectorization.",
+          "Sentence-BERT was employed to generate word embeddings, which were subsequently reduced in dimensionality using t-SNE. Clustering techniques, specifically K-means, were applied to group professors based on research similarities.",
+          "Recommendations were then generated using cosine similarity to match student queries with professor profiles... evaluated through feedback from 50 users, who rated the accuracy of matches as correct, partially correct, or incorrect."
+        ],
+        "evidence_note": "“详细解读”中关于系统目标、数据来源、关键词提取、语义表示、降维、聚类、余弦相似度推荐、前端实现和50人反馈评估，分别由摘录1至5以及正文中关于Flask/HTML/CSS和挑战描述的内容支撑。关于数据字段规模、参数设置、排序细节、评估结果分布、统计指标、系统性能提升幅度等，正文未明确说明，因此解读中已明确标注“论文未明确说明”。\n\n“实际运用”中关于可用于兴趣文本匹配推荐、对象画像构建、文本密集型推荐原型开发，分别由正文中“based on the students' interests”“scraping... extracting research publication data... profiling professors”“KEYBERT/Sentence-BERT/t-SNE/K-means/cosine similarity”“Flask, HTML, and CSS”支撑。关于电商点击率影响因素、CTR指标、点击行为机制、是否适用于电商排序优化等内容，正文未明确说明，因此相关部分明确写为“论文未明确说明”或指出不能直接支持。"
+      },
       "score": 38,
       "score_details": "引用0(新/少); 非顶会; 2年内; 完整度8/15; 高度相关",
       "level": "D",
       "level_desc": "参考",
-      "fulltext_failure_reason": "landing_page_only",
-      "fulltext_failure_details": [
-        {
-          "candidate_url": "https://doi.org/10.31274/cc-20250502-81",
-          "final_url": "https://dr.lib.iastate.edu/handle/20.500.12876/105891",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.31274/cc-20250502-81/pdf",
-          "final_url": "https://doi.org/10.31274/cc-20250502-81/pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.31274/cc-20250502-81/pdf"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.31274/cc-20250502-81/full",
-          "final_url": "https://doi.org/10.31274/cc-20250502-81/full",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.31274/cc-20250502-81/full"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.31274/cc-20250502-81?download=1",
-          "final_url": "https://dr.lib.iastate.edu/handle/20.500.12876/105891",
-          "reason": "landing_page_only",
-          "content_type": "html",
-          "error": "",
-          "details": {
-            "text_length": 0,
-            "content_type_header": "text/html; charset=utf-8"
-          }
-        },
-        {
-          "candidate_url": "https://doi.org/10.31274/cc-20250502-81.pdf",
-          "final_url": "https://doi.org/10.31274/cc-20250502-81.pdf",
-          "reason": "network_error",
-          "content_type": "",
-          "error": "network_error: http_404",
-          "details": {
-            "error": "404 Client Error: Not Found for url: https://doi.org/10.31274/cc-20250502-81.pdf"
-          }
-        }
-      ],
-      "paper_markdown_title": ""
+      "fulltext_failure_reason": "",
+      "fulltext_failure_details": [],
+      "paper_markdown_title": "Developing A Professor Recommendation System"
     }
   ]
 }

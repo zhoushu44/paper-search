@@ -37,6 +37,7 @@ DEFAULT_API_KEY = os.environ.get('PAPER_SEARCH_API_KEY', '')
 DEFAULT_API_BASE = os.environ.get('PAPER_SEARCH_API_BASE', '')
 DEFAULT_MODEL = os.environ.get('PAPER_SEARCH_MODEL', 'gpt-5.4')
 DEFAULT_SEARCH_COUNT = 15
+SEARCH_SUBPROCESS_TIMEOUT = int(os.environ.get('PAPER_SEARCH_SUBPROCESS_TIMEOUT', '1200'))
 
 OPENAI_API_KEY = DEFAULT_API_KEY
 OPENAI_API_BASE = DEFAULT_API_BASE
@@ -389,12 +390,79 @@ def is_top_venue(venue):
     return False, ""
 
 
+def infer_project_name_from_id(project_id):
+    """根据项目目录名推断更可读的项目名称"""
+    raw = str(project_id or '').strip()
+    if raw.startswith('proj_'):
+        raw = raw[5:]
+
+    parts = [part for part in raw.split('_') if part]
+    while parts and (parts[-1] == 'tmp' or re.fullmatch(r'\d{8}', parts[-1]) or re.fullmatch(r'\d{6}', parts[-1])):
+        parts.pop()
+
+    if len(parts) >= 2 and re.fullmatch(r'\d{8}', parts[-2]) and re.fullmatch(r'\d{6}', parts[-1]):
+        parts = parts[:-2]
+
+    return ' '.join(parts).strip() or project_id
+
+
+def choose_project_display_name(project_id, meta, existing):
+    """优先使用元数据名称，必要时用项目目录名修正过短的占位名称"""
+    inferred_name = infer_project_name_from_id(project_id)
+    candidate_name = str(meta.get('name') or existing.get('name') or '').strip()
+
+    if not candidate_name:
+        return inferred_name
+
+    normalized_candidate = candidate_name.lower().replace(' ', '_')
+    normalized_inferred = inferred_name.lower().replace(' ', '_')
+    if len(candidate_name) <= 8 and normalized_candidate in normalized_inferred and normalized_candidate != normalized_inferred:
+        return inferred_name
+
+    return candidate_name
+
+
 def load_projects():
-    """加载项目列表"""
+    """加载项目列表，并从项目目录自动发现缺失项目"""
+    projects = {}
     if PROJECTS_FILE.exists():
-        with open(PROJECTS_FILE, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    return {}
+        try:
+            with open(PROJECTS_FILE, 'r', encoding='utf-8') as f:
+                projects = json.load(f)
+        except Exception:
+            projects = {}
+
+    if PROJECTS_DIR.exists():
+        for project_dir in PROJECTS_DIR.iterdir():
+            if not project_dir.is_dir() or not project_dir.name.startswith('proj_'):
+                continue
+
+            project_id = project_dir.name
+            meta_path = project_dir / 'meta.json'
+            meta = {}
+            if meta_path.exists():
+                try:
+                    with open(meta_path, 'r', encoding='utf-8') as f:
+                        meta = json.load(f)
+                except Exception:
+                    meta = {}
+
+            existing = projects.get(project_id, {})
+            name = choose_project_display_name(project_id, meta, existing)
+            created = meta.get('created') or existing.get('created') or datetime.fromtimestamp(project_dir.stat().st_mtime).strftime('%Y-%m-%d %H:%M')
+            search_keywords = meta.get('search_keywords') or existing.get('search_keywords') or []
+            status = meta.get('status') or existing.get('status') or 'completed'
+
+            projects[project_id] = {
+                'name': name,
+                'created': created,
+                'search_keywords': search_keywords,
+                'total_papers': existing.get('total_papers', meta.get('total_papers', 0)),
+                'top_papers': existing.get('top_papers', meta.get('top_papers', 0)),
+                'status': status
+            }
+
+    return projects
 
 
 def save_projects(projects):
@@ -467,6 +535,42 @@ def create_project(keyword):
     save_project_meta(project_id, projects[project_id])
 
     return project_id, translation['expanded'][:5]
+
+
+def finalize_project_search(project_id, success_count, failure_messages, completed_message, partial_message, failed_message):
+    """根据实际搜索结果统一收尾项目状态"""
+    final_project = update_project_registry(project_id)
+    total_papers = (final_project or {}).get('total_papers', 0)
+    total_top = (final_project or {}).get('top_papers', 0)
+
+    if success_count <= 0 and total_papers <= 0:
+        final_status = 'failed'
+        status_text = failed_message
+    elif failure_messages:
+        final_status = 'completed'
+        status_text = partial_message
+    else:
+        final_status = 'completed'
+        status_text = completed_message
+
+    final_project = update_project_registry(project_id, status=final_status)
+    total_papers = (final_project or {}).get('total_papers', total_papers)
+    total_top = (final_project or {}).get('top_papers', total_top)
+
+    summary = f'共写入 {total_papers} 篇论文，顶会/顶刊 {total_top} 篇。'
+    if failure_messages:
+        summary += f' 失败 {len(failure_messages)} 个关键词：' + '；'.join(failure_messages[:3])
+        if len(failure_messages) > 3:
+            summary += '；...'
+
+    update_search_status(
+        searching=False,
+        progress=100,
+        status=status_text,
+        log_message=summary,
+        project_id=project_id,
+        last_error='；'.join(failure_messages[-2:]) if failure_messages else ''
+    )
 
 
 def get_project_papers(project_id):
@@ -794,21 +898,21 @@ def api_create_project():
     )
 
     # 后台搜索
-    import subprocess
-    import sys
-    import threading
 
     def run_search():
         global search_status_store
         project_dir = PROJECTS_DIR / project_id
         total = len(search_keywords)
+        success_count = 0
+        failure_messages = []
 
         for idx, kw in enumerate(search_keywords):
             try:
                 update_search_status(
                     status=f'正在搜索 ({idx+1}/{total}): {kw[:20]}...',
                     progress=5 + int((idx / total) * 90),
-                    log_message=f'第 {idx+1}/{total} 步：搜索关键词 {kw}'
+                    log_message=f'第 {idx+1}/{total} 步：搜索关键词 {kw}',
+                    project_id=project_id
                 )
 
                 # 切换到DATA_DIR执行搜索，确保文件生成在正确位置
@@ -827,25 +931,60 @@ def api_create_project():
                     ]
                     result = subprocess.run(
                         cmd,
-                        capture_output=True, text=True, timeout=300
+                        capture_output=True,
+                        text=True,
+                        timeout=SEARCH_SUBPROCESS_TIMEOUT
                     )
-                    if result.stderr:
-                        print(f"搜索错误 [{kw}]: {result.stderr[:200]}")
                 finally:
                     os.chdir(original_cwd)
 
-                # 文件现在直接生成到项目目录，无需再从根目录搬运
+                output = '\n'.join(
+                    part for part in [result.stdout.strip(), result.stderr.strip()] if part
+                ).strip()
 
+                if result.returncode == 0:
+                    success_count += 1
+                    if output:
+                        append_search_log(output[:200])
+                else:
+                    failure_message = f'{kw}: 退出码 {result.returncode}'
+                    failure_messages.append(failure_message)
+                    update_search_status(
+                        status=f'搜索异常 ({idx+1}/{total}): {kw[:20]}',
+                        progress=5 + int(((idx + 1) / total) * 90),
+                        log_message=output[:200] if output else failure_message,
+                        project_id=project_id,
+                        last_error=failure_message
+                    )
+
+            except subprocess.TimeoutExpired:
+                failure_message = f'{kw}: 超时({SEARCH_SUBPROCESS_TIMEOUT}s)'
+                failure_messages.append(failure_message)
+                update_search_status(
+                    status=f'搜索超时 ({idx+1}/{total}): {kw[:20]}',
+                    progress=5 + int(((idx + 1) / total) * 90),
+                    log_message=f'{kw} 搜索超时，已超过 {SEARCH_SUBPROCESS_TIMEOUT} 秒',
+                    project_id=project_id,
+                    last_error=failure_message
+                )
             except Exception as e:
-                print(f"搜索错误 [{kw}]: {e}")
+                failure_message = f'{kw}: {e}'
+                failure_messages.append(failure_message)
+                update_search_status(
+                    status=f'搜索失败 ({idx+1}/{total}): {kw[:20]}',
+                    progress=5 + int(((idx + 1) / total) * 90),
+                    log_message=failure_message,
+                    project_id=project_id,
+                    last_error=failure_message
+                )
 
-        update_project_registry(project_id, status='completed')
-
-        update_search_status(
-            searching=False,
-            progress=100,
-            status='搜索完成',
-            log_message='搜索完成，正在刷新结果'
+        finalize_project_search(
+            project_id,
+            success_count,
+            failure_messages,
+            completed_message='搜索完成',
+            partial_message='搜索部分完成',
+            failed_message='搜索失败'
         )
 
     thread = threading.Thread(target=run_search)
@@ -1028,13 +1167,16 @@ def api_continue_search():
         global search_status_store
         project_dir = PROJECTS_DIR / project_id
         total = len(new_keywords)
+        success_count = 0
+        failure_messages = []
 
         for idx, kw in enumerate(new_keywords):
             try:
                 update_search_status(
                     status=f'搜索 ({idx+1}/{total}): {kw[:25]}...',
                     progress=5 + int((idx / total) * 90),
-                    log_message=f'第 {idx+1}/{total} 步：扩展搜索 {kw}'
+                    log_message=f'第 {idx+1}/{total} 步：扩展搜索 {kw}',
+                    project_id=project_id
                 )
 
                 # 切换到DATA_DIR执行搜索
@@ -1053,26 +1195,60 @@ def api_continue_search():
                     ]
                     result = subprocess.run(
                         cmd,
-                        capture_output=True, text=True, timeout=300
+                        capture_output=True,
+                        text=True,
+                        timeout=SEARCH_SUBPROCESS_TIMEOUT
                     )
-                    if result.stderr:
-                        print(f"搜索错误 [{kw}]: {result.stderr[:200]}")
                 finally:
                     os.chdir(original_cwd)
 
-                # 文件现在直接生成到项目目录，无需再从根目录搬运
+                output = '\n'.join(
+                    part for part in [result.stdout.strip(), result.stderr.strip()] if part
+                ).strip()
 
+                if result.returncode == 0:
+                    success_count += 1
+                    if output:
+                        append_search_log(output[:200])
+                else:
+                    failure_message = f'{kw}: 退出码 {result.returncode}'
+                    failure_messages.append(failure_message)
+                    update_search_status(
+                        status=f'扩展搜索异常 ({idx+1}/{total}): {kw[:25]}',
+                        progress=5 + int(((idx + 1) / total) * 90),
+                        log_message=output[:200] if output else failure_message,
+                        project_id=project_id,
+                        last_error=failure_message
+                    )
+
+            except subprocess.TimeoutExpired:
+                failure_message = f'{kw}: 超时({SEARCH_SUBPROCESS_TIMEOUT}s)'
+                failure_messages.append(failure_message)
+                update_search_status(
+                    status=f'扩展搜索超时 ({idx+1}/{total}): {kw[:25]}',
+                    progress=5 + int(((idx + 1) / total) * 90),
+                    log_message=f'{kw} 搜索超时，已超过 {SEARCH_SUBPROCESS_TIMEOUT} 秒',
+                    project_id=project_id,
+                    last_error=failure_message
+                )
             except Exception as e:
-                print(f"搜索错误 [{kw}]: {e}")
+                failure_message = f'{kw}: {e}'
+                failure_messages.append(failure_message)
+                update_search_status(
+                    status=f'扩展搜索失败 ({idx+1}/{total}): {kw[:25]}',
+                    progress=5 + int(((idx + 1) / total) * 90),
+                    log_message=failure_message,
+                    project_id=project_id,
+                    last_error=failure_message
+                )
 
-        # 更新状态和论文计数
-        update_project_registry(project_id, status='completed')
-
-        update_search_status(
-            searching=False,
-            progress=100,
-            status='搜索完成',
-            log_message='扩展搜索完成，正在刷新结果'
+        finalize_project_search(
+            project_id,
+            success_count,
+            failure_messages,
+            completed_message='扩展搜索完成',
+            partial_message='扩展搜索部分完成',
+            failed_message='扩展搜索失败'
         )
 
     thread = threading.Thread(target=run_search)

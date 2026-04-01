@@ -2,7 +2,7 @@
 
 **关键词**: user behavior modeling
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 09:41
+**日期**: 2026-03-31 17:59
 **总数**: 9 篇 (顶会: 0)
 
 ---
@@ -64,8 +64,8 @@ SerpAPI        : ********* (9)
 - **作者**: L Wang, J Zhang, H Yang, ZY Chen, J Tang
 - **引用**: 217
 - **链接**: [https://dl.acm.org/doi/abs/10.1145/3708985](https://dl.acm.org/doi/abs/10.1145/3708985)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://dl.acm.org/doi/abs/10.1145/3708985
 
 **评分详情**: 引用217(中); 非顶会; 1年内; 完整度15/15; 高度相关
@@ -91,8 +91,8 @@ SerpAPI        : ********* (9)
 - **作者**: J Chang, C Zhang, Z Fu, X Zang, L Guan, J Lu
 - **引用**: 155
 - **链接**: [https://dl.acm.org/doi/abs/10.1145/3580305.3599922](https://dl.acm.org/doi/abs/10.1145/3580305.3599922)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://dl.acm.org/doi/abs/10.1145/3580305.3599922
 
 **评分详情**: 引用155(中); 非顶会; 3年内; 完整度15/15; 高度相关
@@ -172,8 +172,8 @@ SerpAPI        : ********* (9)
 - **作者**: S Bian, WX Zhao, K Zhou, J Cai, Y He, C Yin
 - **引用**: 63
 - **链接**: [https://dl.acm.org/doi/abs/10.1145/3459637.3481905](https://dl.acm.org/doi/abs/10.1145/3459637.3481905)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://dl.acm.org/doi/abs/10.1145/3459637.3481905
 
 **评分详情**: 引用63(一般); 非顶会; 5年前; 完整度15/15; 高度相关
@@ -199,8 +199,8 @@ SerpAPI        : ********* (9)
 - **作者**: J Ling
 - **引用**: 1
 - **链接**: [https://ieeexplore.ieee.org/abstract/document/10898571/](https://ieeexplore.ieee.org/abstract/document/10898571/)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/abstract/document/10898571/
 
 **评分详情**: 引用1(新/少); 非顶会; 2年内; 完整度15/15; 高度相关
@@ -226,8 +226,8 @@ SerpAPI        : ********* (9)
 - **作者**: H Wang, L Wang, F Zhu
 - **引用**: 3
 - **链接**: [https://ieeexplore.ieee.org/abstract/document/10733243/](https://ieeexplore.ieee.org/abstract/document/10733243/)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/abstract/document/10733243/
 
 **评分详情**: 引用3(新/少); 非顶会; 2年内; 完整度15/15; 高度相关
@@ -253,8 +253,8 @@ SerpAPI        : ********* (9)
 - **作者**: Z Lv, C Cheng, A Guerrieri
 - **引用**: 10
 - **链接**: [https://ieeexplore.ieee.org/abstract/document/9999214/](https://ieeexplore.ieee.org/abstract/document/9999214/)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/abstract/document/9999214/
 
 **评分详情**: 引用10(较少); 非顶会; 4年前; 完整度15/15; 高度相关

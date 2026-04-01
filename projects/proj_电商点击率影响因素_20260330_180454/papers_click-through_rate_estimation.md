@@ -2,7 +2,7 @@
 
 **关键词**: click-through rate estimation
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 09:39
+**日期**: 2026-03-31 17:58
 **总数**: 16 篇 (顶会: 2)
 
 ---
@@ -12,18 +12,18 @@
 | 排名 | 评分 | 论文 | 作者 | 年份 | 会议 | 顶会 | 相关性 | 全文解读 | 核心观点 |
 |------|------|------|------|------|------|------|--------|----------|----------|
 | 1 | B(63) | [[Implementation of Short Video Click]] | Ying Feng, Guis | 2022 | Computationa | [Science] | 4星 | 缺全文 | 论文研究短视频CTR预测，引入图像、音频与行为特征建模，可为电商内容点击率影响因素识别与特征设计提供 |
-| 2 | C(59) | [[Fast Click-Through Rate Estimation ]] | R. Wiatr, Renat | 2021 | Lecture note | [Science] | 4星 | 缺全文 | 论文讨论利用数据聚合实现快速点击率估计，可帮助电商研究更高效评估商品、广告、位置等因素对点击率的影响 |
+| 2 | C(59) | [[Fast Click-Through Rate Estimation Using Data Aggregates]] | R. Wiatr, Renat | 2021 | Lecture note | [Science] | 4星 | 已生成 | 论文讨论利用数据聚合实现快速点击率估计，可帮助电商研究更高效评估商品、广告、位置等因素对点击率的影响 |
 | 3 | C(53) | [[A comprehensive survey on advertising click-through rate prediction algorithm]] | J Bai, X Geng,  | 2025 | cambridge.or | -- | 5星 | 已生成 | 该文梳理CTR预测任务、特征建模与主流算法，可帮助识别电商场景中用户、商品、广告位等点击影响因素及其 |
 | 4 | C(50) | [[Predicting ad click-through rates in digital marketing with support vector machines]] | T Sangsawang | 2024 | jdmdc.com | -- | 4星 | 已生成 | 论文研究数字营销中CTR预测，采用支持向量机建模，可为电商点击率影响因素识别、特征筛选与预测效果评估 |
-| 5 | D(48) | [[Deep Learning for Click-Through Rat]] | Weinan Zhang, J | 2021 | Proceedings  | -- | 5星 | 缺全文 | 该文系统综述深度CTR模型，可帮助识别商品、用户、场景与交互特征对电商点击率的影响，并为特征建模与预 |
+| 5 | D(48) | [[Deep Learning for Click-Through Rate Estimation]] | Weinan Zhang, J | 2021 | Proceedings  | -- | 5星 | 已生成 | 该文系统综述深度CTR模型，可帮助识别商品、用户、场景与交互特征对电商点击率的影响，并为特征建模与预 |
 | 6 | D(48) | [[Device-dependent click-through rate]] | Artur Strzeleck | 2025 | Aslib Journa | -- | 3星 | 缺全文 | 论文聚焦Google自然搜索在不同设备上的CTR估计，虽非电商场景，但可为研究设备类型、曝光位次等对 |
-| 7 | D(48) | [[A Review of Click-Through Rate Pred]] | A Shuaa, A Band | 2025 | search.proqu | -- | 5星 | 缺全文 | 该文综述深度学习CTR预测方法，可帮助梳理用户行为、广告内容与实时预测机制对电商点击率的影响。 |
+| 7 | D(48) | [[A Review of Click-Through Rate Prediction Using Deep Learning]] | A Shuaa, A Band | 2025 | search.proqu | -- | 5星 | 已生成 | 该文综述深度学习CTR预测方法，可帮助梳理用户行为、广告内容与实时预测机制对电商点击率的影响。 |
 | 8 | D(48) | [[Research on Mobile Advertising Click-Through Rate Prediction Algorithm Based on Differential Privacy]] | X Lu | 2025 | sagespress.c | -- | ★★★★☆ | 已生成 | 论文研究移动广告CTR预测，在保护用户隐私前提下提升预测效果，可为电商识别影响点击率的用户、广告与行 |
 | 9 | D(47) | [[Learning to Retrieve User Behaviors]] | Jiarui Qin, Wei | 2023 | ACM Transact | -- | 5星 | 缺全文 | 论文聚焦CTR预测中的用户行为影响，提出从长历史中检索关键行为，帮助识别短期、周期性和长期兴趣对电商 |
 | 10 | D(45) | [[Fusion of GBDT and neural network f]] | Bin Zhao, Wei C | 2024 | Journal of I | -- | ★★★★☆ | 缺全文 | 论文提出融合GBDT与IFM的点击率预测方法，可挖掘特征重要性与交互作用，帮助分析电商点击率受用户、 |
-| 11 | D(42) | [[Towards click-through rate predicti]] | OS Bratus, PI B | 2023 | pm-mm.dp.ua | -- | ★★★★★ | 缺全文 | 论文聚焦在线广告点击率预测，引入类别特征CTR统计值等方法，可为识别电商场景中商品、用户与展示因素对 |
+| 11 | D(42) | [[Towards click-through rate prediction in online advertising]] | OS Bratus, PI B | 2023 | pm-mm.dp.ua | -- | ★★★★★ | 已生成 | 论文聚焦在线广告点击率预测，引入类别特征CTR统计值等方法，可为识别电商场景中商品、用户与展示因素对 |
 | 12 | D(41) | [[An Advertising Click through Rate E]] | Shuwei Wang | 2024 | 2024 4th Int | -- | 5星 | 缺全文 | 该文聚焦点击率预测，结合时间信息与注意力机制改进AGCN模型，可帮助识别影响电商广告/商品点击率的关 |
-| 13 | D(40) | [[Merlin HugeCTR: GPU-accelerated Rec]] | Zehuan Wang, Yi | 2022 |  | -- | 3星 | 缺全文 | 论文介绍GPU加速CTR训练与推理框架，可支撑大规模电商点击率建模，但对具体影响因素挖掘帮助有限。 |
+| 13 | D(40) | [[Merlin HugeCTR GPU-accelerated Recommender System Training and Inference]] | Zehuan Wang, Yi | 2022 |  | -- | 3星 | 已生成 | 论文介绍GPU加速CTR训练与推理框架，可支撑大规模电商点击率建模，但对具体影响因素挖掘帮助有限。 |
 | 14 | D(38) | [[An Investigation of the Effects of ]] | Ekin Can Erkuş, | 2023 | 2023 11th In | -- | 4星 | 缺全文 | 论文研究数值型缺失值填补方法对CTR估计性能的影响，可帮助电商研究提升点击率影响因素分析中的数据质量 |
 | 15 | D(38) | [[The FFCP Model for Predicting Click]] | Ergun Biçici | 2023 | 2023 4th Int | -- | ★★★★☆ | 缺全文 | 该文围绕点击率预测提出FFCP模型，可为电商场景识别影响点击的特征组合、优化排序与投放策略提供方法参 |
 | 16 | D(34) | [[Time-aware Attentive Click Sequence]] | Shoujian Yu, Ch | 2022 | 2022 4th Int | -- | ★★★★★ | 缺全文 | 论文聚焦CTR预测，利用带时间感知的注意力机制建模用户点击序列，可帮助识别影响电商点击率的行为与时序 |
@@ -73,9 +73,9 @@ OpenAlex       : **** (4)
 - **作者**: Ying Feng, Guisheng Zhao
 - **引用**: 1
 - **链接**: [https://openalex.org/W4281657079](https://openalex.org/W4281657079)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4281657079
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
+- **最后尝试来源**: https://doi.org/10.1155/2022/4951912
 
 **评分详情**: 引用1(新/少); 顶会:Science; 4年前; 完整度15/15; 高度相关
 
@@ -100,9 +100,9 @@ OpenAlex       : **** (4)
 - **作者**: R. Wiatr, Renata Słota, Jacek Kitowski
 - **引用**: 2
 - **链接**: [https://openalex.org/W3172503718](https://openalex.org/W3172503718)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3172503718
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用2(新/少); 顶会:Science; 5年前; 完整度11/15; 高度相关
 
@@ -181,9 +181,9 @@ OpenAlex       : **** (4)
 - **作者**: Weinan Zhang, Jiarui Qin, Wei Guo, Ruiming Tang, Xiuqiang He
 - **引用**: 64
 - **链接**: [https://doi.org/10.24963/ijcai.2021/636](https://doi.org/10.24963/ijcai.2021/636)
-- **单篇全文解读**: 未生成（too_short_html）
-- **全文失败原因**: too_short_html
-- **最后尝试来源**: https://www.ijcai.org/proceedings/2021/636
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用64(一般); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -208,8 +208,8 @@ OpenAlex       : **** (4)
 - **作者**: Artur Strzelecki, Andrej Miklosik
 - **引用**: 6
 - **链接**: [https://doi.org/10.1108/ajim-04-2023-0107](https://doi.org/10.1108/ajim-04-2023-0107)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://doi.org/10.1108/ajim-04-2023-0107
 
 **评分详情**: 引用6(新/少); 非顶会; 1年内; 完整度15/15; 高度相关
@@ -235,9 +235,9 @@ OpenAlex       : **** (4)
 - **作者**: A Shuaa, A Bandar
 - **引用**: 3
 - **链接**: [https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404](https://search.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://www.proquest.com/openview/b3ed9e21797d928bc5ccce53f8155dae/1?pq-origsite=gscholar&cbl=2032404
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用3(新/少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -289,9 +289,9 @@ OpenAlex       : **** (4)
 - **作者**: Jiarui Qin, Weinan Zhang, Rong Su, Zhirong Liu, Weiwen Liu
 - **引用**: 18
 - **链接**: [https://openalex.org/W4313828922](https://openalex.org/W4313828922)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4313828922
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
+- **最后尝试来源**: https://doi.org/10.1145/3579354
 
 **评分详情**: 引用18(较少); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -316,8 +316,8 @@ OpenAlex       : **** (4)
 - **作者**: Bin Zhao, Wei Cao, Jiqun Zhang, Yilong Gao, Bin Li
 - **引用**: 0
 - **链接**: [https://doi.org/10.3233/jifs-234713](https://doi.org/10.3233/jifs-234713)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://doi.org/10.3233/jifs-234713
 
 **评分详情**: 引用0(新/少); 非顶会; 2年内; 完整度15/15; 高度相关
@@ -343,9 +343,9 @@ OpenAlex       : **** (4)
 - **作者**: OS Bratus, PI Bidyuk
 - **引用**: 3
 - **链接**: [https://pm-mm.dp.ua/index.php/pmmm/article/view/369](https://pm-mm.dp.ua/index.php/pmmm/article/view/369)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://pm-mm.dp.ua/index.php/pmmm/article/view/369
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用3(新/少); 非顶会; 3年内; 完整度15/15; 高度相关
 
@@ -370,8 +370,8 @@ OpenAlex       : **** (4)
 - **作者**: Shuwei Wang
 - **引用**: 1
 - **链接**: [https://doi.org/10.1109/eiect64462.2024.10867104](https://doi.org/10.1109/eiect64462.2024.10867104)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/document/10867104/
 
 **评分详情**: 引用1(新/少); 非顶会; 2年内; 完整度11/15; 高度相关
@@ -386,7 +386,7 @@ OpenAlex       : **** (4)
 
 ---
 
-### 13. [[Merlin HugeCTR: GPU-accelerated Recommender System Training and Inference]]
+### 13. [[Merlin HugeCTR GPU-accelerated Recommender System Training and Inference]]
 
 **评分**: D级 (40分) - 参考
 
@@ -397,9 +397,9 @@ OpenAlex       : **** (4)
 - **作者**: Zehuan Wang, Yingcan Wei, Minseok Lee, Matthias Langer, Fan Yu
 - **引用**: 27
 - **链接**: [https://openalex.org/W4296591840](https://openalex.org/W4296591840)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4296591840
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用27(较少); 非顶会; 4年前; 完整度12/15; 高度相关
 
@@ -424,8 +424,8 @@ OpenAlex       : **** (4)
 - **作者**: Ekin Can Erkuş, Müslüm Ersel Er, Alper Yıldız, Mustafa Gencer
 - **引用**: 1
 - **链接**: [https://doi.org/10.1109/isdfs58141.2023.10131678](https://doi.org/10.1109/isdfs58141.2023.10131678)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/document/10131678/
 
 **评分详情**: 引用1(新/少); 非顶会; 3年内; 完整度11/15; 高度相关
@@ -451,8 +451,8 @@ OpenAlex       : **** (4)
 - **作者**: Ergun Biçici
 - **引用**: 3
 - **链接**: [https://doi.org/10.1109/iisec59749.2023.10391022](https://doi.org/10.1109/iisec59749.2023.10391022)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/document/10391022/
 
 **评分详情**: 引用3(新/少); 非顶会; 3年内; 完整度11/15; 高度相关
@@ -478,8 +478,8 @@ OpenAlex       : **** (4)
 - **作者**: Shoujian Yu, Changhui Yang, Zhenchi Jie, Xiujin Shi
 - **引用**: 2
 - **链接**: [https://doi.org/10.1145/3538950.3538968](https://doi.org/10.1145/3538950.3538968)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://doi.org/10.1145/3538950.3538968
 
 **评分详情**: 引用2(新/少); 非顶会; 4年前; 完整度11/15; 高度相关

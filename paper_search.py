@@ -14,7 +14,7 @@ import json
 import time
 import re
 import html
-from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
@@ -46,6 +46,8 @@ YEAR_START = 2021
 YEAR_END = 2026
 MAX_RESULTS = settings.get('search_count') or 50
 DUPLICATE_THRESHOLD = 0.8
+PAPER_PROCESS_WORKERS = max(1, int(os.environ.get('PAPER_PROCESS_WORKERS', settings.get('paper_process_workers') or 4)))
+FULLTEXT_ANALYSIS_WORKERS = max(1, int(os.environ.get('FULLTEXT_ANALYSIS_WORKERS', settings.get('fulltext_analysis_workers') or 2)))
 
 # API状态
 api_status = {
@@ -54,6 +56,9 @@ api_status = {
     "CrossRef": {"available": True, "last_error": None},
     "Semantic Scholar": {"available": True, "last_error": None},
 }
+
+oa_enrichment_cache = {}
+ieee_doi_resolution_cache = {}
 
 # 进度条锁
 progress_lock = threading.Lock()
@@ -802,6 +807,55 @@ def process_paper_content(paper, keyword, original_keyword):
     }
 
 
+def process_paper_task(index, paper, keyword, original_keyword):
+    title = paper.get("title", "")
+    year = paper.get("year")
+    has_valid_year = year and YEAR_START <= year <= YEAR_END
+
+    if not title or len(title) < 10 or not has_valid_year:
+        return {
+            'index': index,
+            'status': 'invalid',
+            'paper': paper,
+            'message': '信息不完整'
+        }
+
+    processed = process_paper_content(paper, keyword, original_keyword)
+    paper_with_score = dict(paper)
+    paper_with_score["relevance_score"] = processed.get("relevance_score", 0)
+
+    if processed.get('status') == 'irrelevant':
+        return {
+            'index': index,
+            'status': 'irrelevant',
+            'paper': paper_with_score,
+            'message': processed.get('relevance_reason_raw', '')
+        }
+
+    processed_paper = processed['paper']
+    fulltext_result = processed.get('fulltext_result', {})
+    if processed_paper.get('fulltext_status') == 'available':
+        return {
+            'index': index,
+            'status': 'ok',
+            'paper': processed_paper,
+            'fulltext_text': fulltext_result.get('fulltext_text', '')
+        }
+
+    processed_paper['has_fulltext_markdown'] = False
+    processed_paper['paper_markdown_title'] = ''
+    processed_paper['paper_markdown_slug'] = ''
+    processed_paper['paper_markdown_path'] = ''
+    processed_paper['paper_markdown_filename'] = ''
+    processed_paper['fulltext_analysis'] = {}
+    return {
+        'index': index,
+        'status': 'ok',
+        'paper': processed_paper,
+        'fulltext_text': ''
+    }
+
+
 def strip_html_tags(text):
     text = re.sub(r'<script[\s\S]*?</script>', ' ', text, flags=re.I)
     text = re.sub(r'<style[\s\S]*?</style>', ' ', text, flags=re.I)
@@ -864,12 +918,27 @@ def safe_extract_urls(value):
     if not value:
         return urls
     if isinstance(value, str):
-        return [value]
+        normalized = normalize_candidate_url(value)
+        return [normalized] if normalized else []
     if isinstance(value, dict):
-        for key in ['url', 'landing_page_url', 'pdf_url', 'doi_url', 'oa_url', 'pdf', 'href']:
+        for key in [
+            'url', 'landing_page_url', 'pdf_url', 'doi_url', 'oa_url', 'pdf', 'href',
+            'pdf_uri', 'pdfLink', 'full_text_url', 'fulltext_url', 'download_url', 'canonical_url',
+            'accepted_oa_url', 'accepted_oa_pdf_url', 'best_oa_url', 'pdf_download_url'
+        ]:
             nested = value.get(key)
             if isinstance(nested, str) and nested.strip():
-                urls.append(nested)
+                normalized = normalize_candidate_url(nested)
+                if normalized:
+                    urls.append(normalized)
+            elif isinstance(nested, (dict, list)):
+                urls.extend(safe_extract_urls(nested))
+        for key in [
+            'primary_location', 'best_oa_location', 'open_access', 'locations', 'location', 'oa_locations'
+        ]:
+            nested = value.get(key)
+            if isinstance(nested, (dict, list)):
+                urls.extend(safe_extract_urls(nested))
         return urls
     if isinstance(value, list):
         for item in value:
@@ -877,10 +946,126 @@ def safe_extract_urls(value):
     return urls
 
 
+def extract_doi_from_value(value):
+    if not value:
+        return ''
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return ''
+        doi_match = re.search(r'(?i)10\.\d{4,9}/[-._;()/:A-Z0-9]+', text)
+        return doi_match.group(0).rstrip(').,;]') if doi_match else ''
+    if isinstance(value, dict):
+        for key in ['doi', 'DOI', 'externalIds', 'external_ids', 'ids', 'identifiers']:
+            nested = value.get(key)
+            doi = extract_doi_from_value(nested)
+            if doi:
+                return doi
+        return ''
+    if isinstance(value, list):
+        for item in value:
+            doi = extract_doi_from_value(item)
+            if doi:
+                return doi
+    return ''
+
+
+def extract_paper_doi(paper):
+    if not isinstance(paper, dict):
+        return ''
+    for key in [
+        'doi', 'DOI', 'doi_url', 'url', 'link', 'id', 'externalIds', 'external_ids',
+        'ids', 'identifiers', 'open_access', 'primary_location', 'best_oa_location'
+    ]:
+        doi = extract_doi_from_value(paper.get(key))
+        if doi:
+            return doi
+    return ''
+
+
+def fetch_openalex_oa_urls(doi='', title='', year=None):
+    normalized_doi = extract_doi_from_value(doi)
+    cache_key = (normalized_doi or normalize_title(title or '')).lower()
+    if not cache_key:
+        return []
+    cached = oa_enrichment_cache.get(cache_key)
+    if cached is not None:
+        return list(cached)
+
+    headers = {
+        'User-Agent': USER_AGENT,
+        'Accept': 'application/json'
+    }
+
+    data = {}
+    try:
+        if normalized_doi:
+            response = requests.get(
+                f'https://api.openalex.org/works/https://doi.org/{normalized_doi}',
+                headers=headers,
+                timeout=20
+            )
+            response.raise_for_status()
+            data = response.json() if response.content else {}
+        elif title:
+            response = requests.get(
+                'https://api.openalex.org/works',
+                headers=headers,
+                params={'search': title, 'per_page': 5, 'mailto': 'research@example.com'},
+                timeout=20
+            )
+            response.raise_for_status()
+            results = response.json().get('results', []) if response.content else []
+            target_title = title or ''
+            target_year = int(year) if str(year or '').isdigit() else None
+            best_item = None
+            best_score = 0
+            for item in results:
+                item_title = item.get('title', '')
+                similarity = calc_similarity(target_title, item_title)
+                item_year = item.get('publication_year')
+                year_penalty = 0 if not target_year or not item_year or abs(int(item_year) - target_year) <= 1 else 0.15
+                score = similarity - year_penalty
+                if score > best_score:
+                    best_item = item
+                    best_score = score
+            if best_item and best_score >= 0.72:
+                data = best_item
+    except Exception:
+        oa_enrichment_cache[cache_key] = []
+        return []
+
+    candidates = []
+    for field in [
+        data.get('primary_location'),
+        data.get('best_oa_location'),
+        data.get('open_access'),
+        data.get('locations'),
+        data.get('oa_locations')
+    ]:
+        for raw_url in safe_extract_urls(field):
+            normalized = normalize_candidate_url(raw_url)
+            if normalized and normalized not in candidates:
+                candidates.append(normalized)
+
+    oa_enrichment_cache[cache_key] = list(candidates)
+    return candidates
+
+
+def is_openalex_work_url(url):
+    normalized = str(url or '').strip()
+    if not normalized:
+        return False
+    parsed = urlparse(normalized)
+    host_lower = parsed.netloc.lower()
+    path = parsed.path or ''
+    return host_lower.endswith('openalex.org') and bool(re.fullmatch(r'/W\d+', path, flags=re.I))
+
+
 def normalize_candidate_url(url):
     if not url:
         return ""
-    url = str(url).strip()
+    url = html.unescape(str(url).strip())
     if not url or url.startswith('https://api.openalex.org/'):
         return ""
     if url.startswith('//'):
@@ -890,7 +1075,83 @@ def normalize_candidate_url(url):
     parsed = urlparse(url)
     if parsed.scheme not in ('http', 'https') or not parsed.netloc:
         return ""
-    return urlunparse((parsed.scheme, parsed.netloc, parsed.path or '/', parsed.params, parsed.query, ''))
+
+    host_lower = parsed.netloc.lower()
+    path = parsed.path or '/'
+    if host_lower.startswith('www.'):
+        host_lower = host_lower[4:]
+
+    normalized = urlunparse((parsed.scheme, host_lower, path, parsed.params, parsed.query, ''))
+    if is_openalex_work_url(normalized):
+        return ""
+    if host_lower == 'doi.org' and re.search(r'(?i)\.(?:pdf|epub)$', path):
+        return ""
+    return normalized
+
+
+def resolve_ieee_document_url(url):
+    normalized = normalize_candidate_url(url)
+    if not normalized:
+        return ''
+
+    cached = ieee_doi_resolution_cache.get(normalized)
+    if cached is not None:
+        return cached
+
+    parsed = urlparse(normalized)
+    host_lower = parsed.netloc.lower()
+    path_lower = parsed.path.lower()
+    resolved = ''
+
+    if 'doi.org' in host_lower and '/10.1109/' in path_lower:
+        try:
+            response = requests.get(
+                normalized,
+                headers={'User-Agent': USER_AGENT, 'Accept': 'text/html,application/pdf;q=0.9,*/*;q=0.8'},
+                timeout=20,
+                allow_redirects=True
+            )
+            final_url = normalize_candidate_url(response.url)
+            if final_url and 'ieeexplore.ieee.org' in urlparse(final_url).netloc.lower():
+                resolved = final_url
+        except Exception:
+            resolved = ''
+
+    ieee_doi_resolution_cache[normalized] = resolved
+    return resolved
+
+
+def extract_ieee_arnumber(url):
+    normalized = str(url or '').strip()
+    if not normalized:
+        return ''
+
+    parsed = urlparse(normalized)
+    host_lower = parsed.netloc.lower()
+    path = parsed.path or ''
+
+    if 'ieeexplore.ieee.org' in host_lower:
+        match = re.search(r'(?i)/(?:document|abstract/document)/(\d+)', path)
+        return match.group(1) if match else ''
+
+    if 'doi.org' in host_lower and '/10.1109/' in path.lower():
+        resolved_url = resolve_ieee_document_url(normalized)
+        if resolved_url:
+            return extract_ieee_arnumber(resolved_url)
+    return ''
+
+
+def looks_like_semanticscholar_challenge(html_text, final_url=''):
+    html_text = html_text or ''
+    if 'semanticscholar.org' not in str(final_url or '').lower():
+        return False
+    lower_html = html_text.lower()
+    return all(token in lower_html for token in [
+        'awswafintegration',
+        'challenge.js',
+        'gokuprops',
+        'pdfs.semanticscholar.org'
+    ])
 
 
 def derive_candidate_variants(url):
@@ -903,11 +1164,34 @@ def derive_candidate_variants(url):
     base_without_query = urlunparse((parsed.scheme, parsed.netloc, parsed.path, parsed.params, '', ''))
     path_lower = parsed.path.lower()
     host_lower = parsed.netloc.lower()
+    path_name = Path(parsed.path).name.lower()
+    is_doi_url = host_lower == 'doi.org'
+    ieee_arnumber = extract_ieee_arnumber(normalized)
+    allow_pdf_derivation = (
+        path_lower.endswith('/abstract')
+        or '/article/' in path_lower
+        or '/content/' in path_lower
+        or '/full/' in path_lower
+        or any(token in path_name for token in ['article', 'paper', 'fulltext', 'full', 'download'])
+    )
+    allow_suffix_derivation = not is_doi_url and (
+        allow_pdf_derivation
+        or '/doi/' in path_lower
+    )
 
     if parsed.query and base_without_query not in variants:
         variants.append(base_without_query)
 
-    if 'doi.org' in host_lower or path_lower.endswith('/abstract') or '/article/' in path_lower:
+    if ieee_arnumber:
+        for candidate in [
+            f'https://ieeexplore.ieee.org/document/{ieee_arnumber}/',
+            f'https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber={ieee_arnumber}'
+        ]:
+            normalized_candidate = normalize_candidate_url(candidate)
+            if normalized_candidate and normalized_candidate not in variants:
+                variants.append(normalized_candidate)
+
+    if allow_suffix_derivation:
         for suffix in ['/pdf', '/full']:
             candidate = normalize_candidate_url(base_without_query.rstrip('/') + suffix)
             if candidate and candidate not in variants:
@@ -924,7 +1208,7 @@ def derive_candidate_variants(url):
             if candidate and candidate not in variants:
                 variants.append(candidate)
 
-    if not path_lower.endswith('.pdf') and not path_lower.endswith('/') and '.' not in Path(parsed.path).name:
+    if allow_pdf_derivation and not path_lower.endswith('.pdf') and not path_lower.endswith('/') and '.' not in Path(parsed.path).name:
         pdf_candidate = normalize_candidate_url(base_without_query + '.pdf')
         if pdf_candidate and pdf_candidate not in variants:
             variants.append(pdf_candidate)
@@ -945,24 +1229,40 @@ def collect_fulltext_metadata_urls(paper):
     ]
     for field in extra_fields:
         urls.extend(safe_extract_urls(field))
-    return urls
+
+    if str(paper.get('source', '')).lower() in {'semantic scholar', 'openalex'}:
+        doi = extract_paper_doi(paper)
+        urls.extend(fetch_openalex_oa_urls(doi=doi, title=paper.get('title', ''), year=paper.get('year')))
+
+    normalized_urls = []
+    for value in urls:
+        normalized = normalize_candidate_url(value)
+        if normalized and normalized not in normalized_urls:
+            normalized_urls.append(normalized)
+    return normalized_urls
 
 
 def build_fulltext_candidate_urls(paper):
     candidates = []
+    source_lower = str(paper.get('source', '')).lower()
 
     def add_candidate(value):
         for variant in derive_candidate_variants(value):
             if variant and variant not in candidates:
                 candidates.append(variant)
 
-    for key in ['pdf_url', 'link', 'landing_page_url', 'url', 'doi_url']:
+    metadata_urls = collect_fulltext_metadata_urls(paper)
+    for value in metadata_urls:
+        add_candidate(value)
+
+    direct_keys = ['pdf_url', 'link', 'landing_page_url', 'url', 'doi_url']
+    if source_lower == 'semantic scholar':
+        direct_keys = ['pdf_url', 'doi_url', 'link', 'landing_page_url', 'url']
+
+    for key in direct_keys:
         add_candidate(paper.get(key, ''))
 
     for value in paper.get('candidate_urls', []) or []:
-        add_candidate(value)
-
-    for value in collect_fulltext_metadata_urls(paper):
         add_candidate(value)
 
     return candidates
@@ -995,6 +1295,150 @@ def extract_html_main_content(html_text):
     return clean_fulltext(body_match.group(1) if body_match else cleaned_html)
 
 
+def extract_host_aware_second_hop_candidates(html_text, base_url):
+    decoded_html = html.unescape(html_text or '').replace('\\/', '/')
+    parsed_base = urlparse(base_url or '')
+    host_lower = parsed_base.netloc.lower()
+    candidates = []
+
+    def add_candidate(raw_url):
+        absolute = normalize_candidate_url(urljoin(base_url, raw_url))
+        if absolute and absolute not in candidates:
+            candidates.append(absolute)
+
+    if 'ieeexplore.ieee.org' in host_lower:
+        for pattern in [
+            r'(?i)(/iel\d+/[^"\'\s<>]+\.pdf(?:[?#][^"\'\s<>]*)?)',
+            r'(?i)(/stamp/stamp\.jsp\?[^"\'\s<>]+)',
+            r'(?i)(?:"|\')(?:pdfPath|pdfUrl|xplore-pdf-url|documentLink|ephemeraLink)(?:"|\')\s*[:=]\s*(?:"|\')([^"\']+)(?:"|\')'
+        ]:
+            for match in re.findall(pattern, decoded_html):
+                add_candidate(match)
+        arnumber = extract_ieee_arnumber(base_url)
+        if not arnumber:
+            arnumber_match = re.search(r'(?i)(?:arnumber|articleNumber)(?:"|\')?\s*[:=]\s*(?:"|\')?(\d+)', decoded_html)
+            arnumber = arnumber_match.group(1) if arnumber_match else ''
+        if arnumber:
+            add_candidate(f'/stamp/stamp.jsp?tp=&arnumber={arnumber}')
+            add_candidate(f'/document/{arnumber}/')
+
+    if any(token in host_lower for token in ['semanticscholar.org', 'api.semanticscholar.org']):
+        for pattern in [
+            r'(?i)(https?://pdfs\.semanticscholar\.org/[^"\'\s<>]+)',
+            r'(?i)(?:"|\')(?:openAccessPdf|pdfUrl|pdfPath)(?:"|\')\s*[:=]\s*(?:"|\')([^"\']+)(?:"|\')',
+            r'(?i)(?:"|\')url(?:"|\')\s*:\s*(?:"|\')(https?://pdfs\.semanticscholar\.org/[^"\']+)(?:"|\')',
+            r'(?i)https?:\\/\\/pdfs\.semanticscholar\.org\\/[^"\'\s<>]+'
+        ]:
+            matches = re.findall(pattern, decoded_html)
+            for match in matches:
+                if isinstance(match, tuple):
+                    for item in match:
+                        if item:
+                            add_candidate(item.replace('\\/', '/'))
+                elif match:
+                    add_candidate(str(match).replace('\\/', '/'))
+
+    if any(token in host_lower for token in ['dspace', 'dr.lib.iastate.edu']):
+        meta_match = re.search(r'(?is)<meta[^>]+name=["\']citation_pdf_url["\'][^>]+content=["\']([^"\']+)["\']', decoded_html)
+        if meta_match:
+            add_candidate(meta_match.group(1))
+        for match in re.findall(r'(?i)(/bitstreams?/[^"\'\s<>]+/download(?:[?#][^"\'\s<>]*)?)', decoded_html):
+            add_candidate(match)
+
+    return candidates[:5]
+
+
+def extract_second_hop_candidates(html_text, base_url):
+    if not html_text or not base_url:
+        return []
+
+    keyword_pattern = re.compile(r'(?i)(download|pdf|full\s*text|fulltext|view\s*pdf|read\s*full|article\s*pdf)')
+    href_pattern = re.compile(r'(?i)(\.pdf(?:$|[?#])|/pdf(?:$|[/?#])|download|fulltext|viewarticle|article/download|epdf|pdfviewer|stamp/stamp\.jsp|/bitstreams?/|pdfs\.semanticscholar\.org/)')
+    blocked_pattern = re.compile(r'(?i)(/search[/?]|[?&](?:query|q|search|option1)=|/search-results|/advanced-search|/lookup)')
+    blocked_extension_pattern = re.compile(r'(?i)(\.(?:css|js|png|jpe?g|gif|svg|ico|woff2?|ttf|eot|json|xml|txt)(?:$|[?#])|/cover\.(?:jpg|jpeg|png)(?:$|[?#]))')
+    candidates = []
+
+    def add_candidate(raw_url):
+        absolute = normalize_candidate_url(urljoin(base_url, raw_url))
+        if not absolute:
+            return
+        parsed_absolute = urlparse(absolute)
+        path_lower = parsed_absolute.path.lower()
+        if blocked_pattern.search(absolute) or blocked_extension_pattern.search(absolute):
+            return
+        if path_lower.startswith(('/css/', '/common/', '/static/', '/assets/')):
+            return
+        if path_lower.endswith('/full') and not any(token in path_lower for token in ['/fulltext', '/article/full', '/content/pdf']):
+            return
+        if absolute not in candidates:
+            candidates.append(absolute)
+
+    for href in extract_host_aware_second_hop_candidates(html_text, base_url):
+        add_candidate(href)
+
+    decoded_html = html.unescape(html_text).replace('\\/', '/')
+    meta_refresh_match = re.search(r'(?is)<meta[^>]+http-equiv\s*=\s*["\']?refresh["\']?[^>]+content\s*=\s*["\']([^"\']+)["\']', decoded_html)
+    if meta_refresh_match:
+        refresh_content = html.unescape(meta_refresh_match.group(1))
+        refresh_url_match = re.search(r'(?i)url\s*=\s*[\'\"]?([^\'\";]+)', refresh_content)
+        if refresh_url_match:
+            add_candidate(refresh_url_match.group(1))
+    redirect_input_match = re.search(r'(?is)name=["\']redirectURL["\']\s+value=["\']([^"\']+)["\']', decoded_html)
+    key_input_match = re.search(r'(?is)name=["\']key["\']\s+value=["\']([^"\']+)["\']', decoded_html)
+    result_input_match = re.search(r'(?is)name=["\']resultName["\']\s+value=["\']([^"\']+)["\']', decoded_html)
+    if redirect_input_match and key_input_match and result_input_match:
+        redirect_value = html.unescape(redirect_input_match.group(1))
+        key_value = html.unescape(key_input_match.group(1))
+        result_value = html.unescape(result_input_match.group(1))
+        add_candidate(f'/retrieve/{result_value}?Redirect={redirect_value}&key={key_value}')
+
+    link_matches = re.findall(r'(?is)<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', decoded_html)
+    link_tag_matches = re.findall(r'(?is)<link[^>]+href=["\']([^"\']+)["\'][^>]*>', decoded_html)
+    attr_matches = re.findall(r'(?is)(?:data-pdf-url|data-download-url|data-fulltext-url|citation_pdf_url|pdfurl|pdfpath)=["\']([^"\']+)["\']', decoded_html)
+    meta_matches = []
+    for meta_tag in re.findall(r'(?is)<meta[^>]+>', decoded_html):
+        name_match = re.search(r'(?is)(?:name|property)=["\']([^"\']+)["\']', meta_tag)
+        content_match = re.search(r'(?is)content=["\']([^"\']+)["\']', meta_tag)
+        if not name_match or not content_match:
+            continue
+        meta_name = name_match.group(1).lower()
+        if meta_name in {
+            'citation_pdf_url', 'citation_fulltext_html_url', 'citation_abstract_html_url',
+            'eprints.document_url', 'wkhealth_pdf_url', 'dc.identifier.pdf', 'prism.url'
+        }:
+            meta_matches.append(content_match.group(1))
+    script_matches = re.findall(r'(?is)(?:(?:"|\')(?:pdfPath|pdfUrl|citation_pdf_url|downloadUrl|fullTextUrl|fileUrl|exportPdfDownloadUrl)(?:"|\')\s*[:=]\s*(?:"|\')([^"\']+)(?:"|\'))', decoded_html)
+    absolute_url_matches = re.findall(r'(?i)(https?://[^"\'\s<>]+(?:\.pdf(?:[?#][^"\'\s<>]*)?|/download(?:[?#][^"\'\s<>]*)?|/pdf(?:[/?#][^"\'\s<>]*)?|/epdf(?:[/?#][^"\'\s<>]*)?|/fulltext(?:[/?#][^"\'\s<>]*)?|/article/download[^"\'\s<>]*|/bitstreams?/[^"\'\s<>]+|pdfs\.semanticscholar\.org/[^"\'\s<>]+))', decoded_html)
+    generic_matches = re.findall(r'(?i)(/[^"\'\s<>]+(?:\.pdf(?:[?#][^"\'\s<>]*)?|/download(?:[?#][^"\'\s<>]*)?|/pdf(?:[/?#][^"\'\s<>]*)?|/epdf(?:[/?#][^"\'\s<>]*)?|/fulltext(?:[/?#][^"\'\s<>]*)?|/article/download[^"\'\s<>]*|/bitstreams?/[^"\'\s<>]+))', decoded_html)
+
+    for href, anchor_html in link_matches:
+        anchor_text = clean_fulltext(anchor_html)[:200]
+        if not href_pattern.search(href) and not keyword_pattern.search(anchor_text):
+            continue
+        add_candidate(href)
+
+    for href in link_tag_matches:
+        if href_pattern.search(href):
+            add_candidate(href)
+
+    for href in attr_matches:
+        add_candidate(href)
+
+    for href in meta_matches:
+        add_candidate(href)
+
+    for href in script_matches:
+        add_candidate(href)
+
+    for href in absolute_url_matches:
+        add_candidate(href)
+
+    for href in generic_matches:
+        add_candidate(href)
+
+    return candidates[:5]
+
+
 def looks_like_landing_page(text, html_text=''):
     text = clean_fulltext(text)
     if not text:
@@ -1008,7 +1452,7 @@ def looks_like_landing_page(text, html_text=''):
     body_hits = sum(lower_text.count(token) for token in [
         'introduction', 'method', 'methods', 'experiment', 'results', 'discussion', 'conclusion'
     ])
-    has_pdf_link = bool(re.search(r'(?i)href=["\"][^"\"]+\.pdf', html_text or ''))
+    has_pdf_link = bool(re.search(r'(?i)href=["\'][^"\']+\.pdf', html_text or ''))
 
     if len(text) < MIN_FULLTEXT_CHARS and body_hits < 2 and (landing_hits >= 2 or has_pdf_link):
         return True
@@ -1017,22 +1461,91 @@ def looks_like_landing_page(text, html_text=''):
 
 def classify_network_error(exc):
     if isinstance(exc, requests.HTTPError) and getattr(exc, 'response', None) is not None:
-        status_code = exc.response.status_code
+        response = exc.response
+        status_code = response.status_code
+        lower_url = str(getattr(response, 'url', '') or '').lower()
+        content_type = str(response.headers.get('Content-Type', '') or '').lower()
+        html_text = response.text if 'text/html' in content_type else ''
+        lower_html = html_text.lower()
+
+        if status_code in (403, 429):
+            if 'semanticscholar.org' in lower_url and looks_like_semanticscholar_challenge(html_text, response.url):
+                return 'access_barrier: semanticscholar_waf'
+            if 'just a moment' in lower_html or 'cf-browser-verification' in lower_html or 'cloudflare' in lower_html:
+                return 'access_barrier: cloudflare_challenge'
+            if 'captcha' in lower_html or 'verify you are human' in lower_html:
+                return 'access_barrier: anti_bot_challenge'
+
         return f'network_error: http_{status_code}'
     return f'network_error: {exc.__class__.__name__}'
 
 
-def fetch_url_text(url):
+def classify_html_access_barrier(final_url, html_text):
+    final_url = str(final_url or '')
+    html_text = html_text or ''
+    lower_url = final_url.lower()
+    lower_html = html_text.lower()
+
+    if 'semanticscholar.org' in lower_url and looks_like_semanticscholar_challenge(html_text, final_url):
+        return 'access_barrier: semanticscholar_waf'
+
+    if any(token in lower_url for token in ['sciencedirect.com', 'linkinghub.elsevier.com']):
+        if 'captcha' in lower_html or ('robot' in lower_html and 'challenge' in lower_html):
+            return 'access_barrier: anti_bot_challenge'
+
+    if 'ieeexplore.ieee.org' in lower_url:
+        if 'request rejected' in lower_html and 'support id' in lower_html:
+            return 'access_barrier: ieee_request_rejected'
+        if 'captcha' in lower_html or ('bot' in lower_html and 'challenge' in lower_html):
+            return 'access_barrier: anti_bot_challenge'
+        if 'access through your institution' in lower_html or 'purchase pdf' in lower_html or 'institutional sign in' in lower_html:
+            return 'access_barrier: ieee_paywall'
+        if 'stamp/stamp.jsp' in lower_url and ('temporarily unavailable' in lower_html or 'document is not accessible' in lower_html or 'access denied' in lower_html):
+            return 'access_barrier: ieee_stamp_blocked'
+
+    return ''
+
+
+def looks_like_js_app_shell(html_text):
+    lower_html = str(html_text or '').lower()
+    return (
+        '<ds-app' in lower_html
+        and re.search(r'(?i)<script[^>]+src=["\"][^"\"]*runtime(?:[-._][^"\"])?.*\.js', lower_html)
+        and re.search(r'(?i)<script[^>]+src=["\"][^"\"]*main(?:[-._][^"\"])?.*\.js', lower_html)
+    )
+
+
+
+def fetch_url_text(url, visited_urls=None, hop_depth=0):
     headers = {
         'User-Agent': USER_AGENT,
         'Accept': 'text/html,application/pdf;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8'
     }
+    visited_urls = set(visited_urls or [])
+    normalized_request_url = normalize_candidate_url(url) or str(url or '').strip()
+    if normalized_request_url:
+        visited_urls.add(normalized_request_url)
     try:
         response = requests.get(url, headers=headers, timeout=40, allow_redirects=True)
         response.raise_for_status()
         content_type = response.headers.get('Content-Type', '').lower()
         final_url = response.url
+        if 'text/html' in content_type and looks_like_js_app_shell(response.text):
+            retry_headers = {
+                'User-Agent': 'Mozilla/5.0',
+                'Accept': headers['Accept']
+            }
+            retry_response = requests.get(final_url, headers=retry_headers, timeout=40, allow_redirects=True)
+            retry_response.raise_for_status()
+            retry_content_type = retry_response.headers.get('Content-Type', '').lower()
+            if 'text/html' in retry_content_type and len(retry_response.text) > len(response.text):
+                response = retry_response
+                content_type = retry_content_type
+                final_url = response.url
+        normalized_final_url = normalize_candidate_url(final_url) or final_url
+        if normalized_final_url:
+            visited_urls.add(normalized_final_url)
         is_pdf = 'pdf' in content_type or final_url.lower().endswith('.pdf') or response.content[:4] == b'%PDF'
 
         if is_pdf:
@@ -1046,14 +1559,48 @@ def fetch_url_text(url):
                     'page_count': pdf_result.get('page_count', 0),
                     'non_empty_pages': pdf_result.get('non_empty_pages', 0),
                     'text_length': len(pdf_result.get('text', '')),
-                    'error': pdf_result.get('error', '')
+                    'error': pdf_result.get('error', ''),
+                    'hop_depth': hop_depth,
+                    'second_hop_candidates': []
                 }
             }
 
         extracted_text = extract_html_main_content(response.text)
         status = 'ok' if len(extracted_text) >= MIN_FULLTEXT_CHARS else 'too_short_html'
-        if status != 'ok' and looks_like_landing_page(extracted_text, response.text):
+        barrier_reason = classify_html_access_barrier(final_url, response.text)
+        if barrier_reason:
+            status = barrier_reason
+        elif status != 'ok' and looks_like_landing_page(extracted_text, response.text):
             status = 'landing_page_only'
+
+        second_hop_candidates = []
+        if status in ('landing_page_only', 'too_short_html') and hop_depth == 0:
+            for candidate in extract_second_hop_candidates(response.text, final_url):
+                normalized_candidate = normalize_candidate_url(candidate)
+                if not normalized_candidate or normalized_candidate in visited_urls:
+                    continue
+                second_hop_candidates.append(normalized_candidate)
+                child_result = fetch_url_text(normalized_candidate, visited_urls=visited_urls | {normalized_candidate}, hop_depth=hop_depth + 1)
+                child_trace = list(child_result.get('details', {}).get('retry_trace', []))
+                child_trace.insert(0, {
+                    'candidate_url': normalized_candidate,
+                    'final_url': child_result.get('source_url', normalized_candidate),
+                    'reason': child_result.get('status', 'network_error'),
+                    'content_type': child_result.get('content_type', ''),
+                    'error': child_result.get('error', ''),
+                    'details': {
+                        key: value for key, value in child_result.get('details', {}).items() if key != 'retry_trace'
+                    }
+                })
+                if child_result.get('status') == 'ok':
+                    child_details = dict(child_result.get('details', {}))
+                    child_details['retry_trace'] = child_trace
+                    child_details['second_hop_candidates'] = second_hop_candidates
+                    child_details['hop_depth'] = hop_depth + 1
+                    child_result['details'] = child_details
+                    return child_result
+                if len(second_hop_candidates) >= 5:
+                    break
 
         return {
             'status': status,
@@ -1062,23 +1609,39 @@ def fetch_url_text(url):
             'content_type': 'html',
             'details': {
                 'text_length': len(extracted_text),
-                'content_type_header': content_type
+                'content_type_header': content_type,
+                'second_hop_candidates': second_hop_candidates,
+                'hop_depth': hop_depth
             }
         }
     except Exception as e:
+        error_reason = classify_network_error(e)
+        status = error_reason if str(error_reason).startswith('access_barrier:') else 'network_error'
         return {
-            'status': 'network_error',
-            'error': classify_network_error(e),
+            'status': status,
+            'error': error_reason,
             'source_url': url,
             'content_type': '',
-            'details': {'error': str(e)}
+            'details': {'error': str(e), 'hop_depth': hop_depth, 'second_hop_candidates': []}
         }
 
 
 def summarize_failure_reason(details):
     if not details:
         return 'no_candidates'
-    priority = ['landing_page_only', 'non_text_pdf', 'too_short_pdf', 'too_short_html', 'network_error']
+    priority = [
+        'access_barrier: semanticscholar_waf',
+        'access_barrier: ieee_request_rejected',
+        'access_barrier: ieee_paywall',
+        'access_barrier: ieee_stamp_blocked',
+        'access_barrier: cloudflare_challenge',
+        'access_barrier: anti_bot_challenge',
+        'landing_page_only',
+        'non_text_pdf',
+        'too_short_pdf',
+        'too_short_html',
+        'network_error'
+    ]
     reasons = [item.get('reason') for item in details if item.get('reason')]
     for reason in priority:
         if reason in reasons:
@@ -1103,6 +1666,7 @@ def fetch_fulltext_for_paper(paper):
     failure_details = []
     for candidate in candidates:
         result = fetch_url_text(candidate)
+        retry_trace = result.get('details', {}).get('retry_trace', [])
         if result['status'] == 'ok':
             return {
                 'status': 'available',
@@ -1122,6 +1686,8 @@ def fetch_fulltext_for_paper(paper):
             'error': result.get('error', ''),
             'details': result.get('details', {})
         })
+        for retry_item in retry_trace:
+            failure_details.append(retry_item)
 
     failure_reason = summarize_failure_reason(failure_details)
     error_summary = '; '.join([
@@ -1424,6 +1990,92 @@ def write_search_outputs(valid_papers, keyword, original_keyword, output_dir):
     return filename, json_file
 
 
+def apply_fulltext_analysis(processed_results, notes_dir, reserved_titles, keyword, original_keyword, stats):
+    if not processed_results:
+        return {
+            'papers': [],
+            'generated_count': 0,
+            'unavailable_count': 0
+        }
+
+    ordered_results = sorted(processed_results, key=lambda item: item['index'])
+    available_results = [item for item in ordered_results if item['paper'].get('fulltext_status') == 'available']
+
+    if available_results:
+        print(f"\n全文解读并发生成中... (并发={FULLTEXT_ANALYSIS_WORKERS})")
+        with ThreadPoolExecutor(max_workers=FULLTEXT_ANALYSIS_WORKERS) as executor:
+            future_map = {
+                executor.submit(
+                    generate_fulltext_analysis,
+                    item['paper'],
+                    keyword,
+                    original_keyword,
+                    item.get('fulltext_text', '')
+                ): item for item in available_results
+            }
+            for future in as_completed(future_map):
+                item = future_map[future]
+                idx = item['index']
+                try:
+                    item['fulltext_analysis'] = future.result()
+                except Exception as e:
+                    print(f"\n    Fulltext analysis error [{idx + 1}]: {e}")
+                    item['fulltext_analysis'] = {
+                        'detailed_interpretation': '论文未明确说明',
+                        'practical_usage': '论文未明确说明',
+                        'evidence_excerpt': [],
+                        'evidence_note': '论文未明确说明'
+                    }
+
+    valid_papers = []
+    generated_count = 0
+    unavailable_count = 0
+    for item in ordered_results:
+        paper = item['paper']
+        idx = item['index']
+
+        if paper.get('fulltext_status') == 'available':
+            generated_count += 1
+            if stats is not None:
+                stats['fulltext_available'] += 1
+            paper_note_path = assign_note_identity(paper, notes_dir, reserved_titles=reserved_titles, fallback_index=idx + 1)
+            note_markdown = build_paper_note_markdown(
+                paper,
+                keyword,
+                original_keyword,
+                item.get('fulltext_analysis', {
+                    'detailed_interpretation': '论文未明确说明',
+                    'practical_usage': '论文未明确说明',
+                    'evidence_excerpt': [],
+                    'evidence_note': '论文未明确说明'
+                })
+            )
+            with open(paper_note_path, 'w', encoding='utf-8') as f:
+                f.write(note_markdown)
+            paper['has_fulltext_markdown'] = True
+            paper['fulltext_analysis'] = item.get('fulltext_analysis', {})
+            paper['fulltext_failure_reason'] = ''
+            paper['fulltext_failure_details'] = []
+        else:
+            unavailable_count += 1
+            if stats is not None:
+                stats['fulltext_unavailable'] += 1
+            paper['has_fulltext_markdown'] = False
+            paper['paper_markdown_title'] = ''
+            paper['paper_markdown_slug'] = ''
+            paper['paper_markdown_path'] = ''
+            paper['paper_markdown_filename'] = ''
+            paper['fulltext_analysis'] = {}
+
+        valid_papers.append(paper)
+
+    return {
+        'papers': valid_papers,
+        'generated_count': generated_count,
+        'unavailable_count': unavailable_count
+    }
+
+
 def backfill_project_fulltexts(project_dir):
     project_path = Path(project_dir)
     if not project_path.exists():
@@ -1445,56 +2097,79 @@ def backfill_project_fulltexts(project_dir):
         keyword = payload.get('keyword', json_file.stem.replace('papers_', '').replace('_', ' '))
         original_keyword = payload.get('original_keyword') or keyword
         changed = False
+        pending_results = []
 
-        for idx, paper in enumerate(papers):
-            processed += 1
-            existing_note = notes_dir / str(paper.get('paper_markdown_filename', '') or '')
-            if paper.get('has_fulltext_markdown') and existing_note.exists():
-                migrate_existing_note(paper, notes_dir, reserved_titles=reserved_titles, fallback_index=idx + 1)
+        print(f"\n回填文件: {json_file.name}")
+        print(f"并发处理缺失全文中... (并发={PAPER_PROCESS_WORKERS})")
+
+        with ThreadPoolExecutor(max_workers=PAPER_PROCESS_WORKERS) as executor:
+            future_map = {}
+
+            for idx, paper in enumerate(papers):
+                processed += 1
+                existing_note = notes_dir / str(paper.get('paper_markdown_filename', '') or '')
+                if paper.get('has_fulltext_markdown') and existing_note.exists():
+                    migrate_existing_note(paper, notes_dir, reserved_titles=reserved_titles, fallback_index=idx + 1)
+                    changed = True
+                    skipped += 1
+                    continue
+
+                note_path = None
+                if paper.get('paper_markdown_filename'):
+                    note_path = notes_dir / paper['paper_markdown_filename']
+                elif paper.get('paper_markdown_slug'):
+                    note_path = notes_dir / f"{paper['paper_markdown_slug']}.md"
+                if note_path and note_path.exists():
+                    migrate_existing_note(paper, notes_dir, reserved_titles=reserved_titles, fallback_index=idx + 1)
+                    skipped += 1
+                    changed = True
+                    continue
+
+                future = executor.submit(fetch_fulltext_for_paper, paper)
+                future_map[future] = (idx, paper)
+
+            for future in as_completed(future_map):
+                idx, paper = future_map[future]
+                try:
+                    fulltext_result = future.result()
+                except Exception as e:
+                    fulltext_result = {
+                        'status': 'unavailable',
+                        'fulltext_url': '',
+                        'fulltext_source_type': '',
+                        'fulltext_attempts': [],
+                        'fulltext_error': str(e),
+                        'fulltext_failure_reason': 'network_error',
+                        'fulltext_failure_details': []
+                    }
+
+                paper['fulltext_status'] = fulltext_result.get('status', 'unavailable')
+                paper['fulltext_url'] = fulltext_result.get('fulltext_url', '')
+                paper['fulltext_source_type'] = fulltext_result.get('fulltext_source_type', '')
+                paper['fulltext_attempts'] = fulltext_result.get('fulltext_attempts', [])
+                paper['fulltext_error'] = fulltext_result.get('fulltext_error', '')
+                paper['fulltext_failure_reason'] = fulltext_result.get('fulltext_failure_reason', '')
+                paper['fulltext_failure_details'] = fulltext_result.get('fulltext_failure_details', [])
+                pending_results.append({
+                    'index': idx,
+                    'paper': paper,
+                    'fulltext_text': fulltext_result.get('fulltext_text', '')
+                })
                 changed = True
-                skipped += 1
-                continue
 
-            note_path = None
-            if paper.get('paper_markdown_filename'):
-                note_path = notes_dir / paper['paper_markdown_filename']
-            elif paper.get('paper_markdown_slug'):
-                note_path = notes_dir / f"{paper['paper_markdown_slug']}.md"
-            if note_path and note_path.exists():
-                migrate_existing_note(paper, notes_dir, reserved_titles=reserved_titles, fallback_index=idx + 1)
-                skipped += 1
-                changed = True
-                continue
+        analysis_result = apply_fulltext_analysis(
+            pending_results,
+            notes_dir,
+            reserved_titles,
+            keyword,
+            original_keyword,
+            stats=None
+        )
+        generated += analysis_result['generated_count']
 
-            fulltext_result = fetch_fulltext_for_paper(paper)
-            paper['fulltext_status'] = fulltext_result.get('status', 'unavailable')
-            paper['fulltext_url'] = fulltext_result.get('fulltext_url', '')
-            paper['fulltext_source_type'] = fulltext_result.get('fulltext_source_type', '')
-            paper['fulltext_attempts'] = fulltext_result.get('fulltext_attempts', [])
-            paper['fulltext_error'] = fulltext_result.get('fulltext_error', '')
-            paper['fulltext_failure_reason'] = fulltext_result.get('fulltext_failure_reason', '')
-            paper['fulltext_failure_details'] = fulltext_result.get('fulltext_failure_details', [])
-
-            if fulltext_result.get('status') == 'available':
-                note_path = assign_note_identity(paper, notes_dir, reserved_titles=reserved_titles, fallback_index=idx + 1)
-                fulltext_analysis = generate_fulltext_analysis(paper, keyword, original_keyword, fulltext_result['fulltext_text'])
-                note_markdown = build_paper_note_markdown(paper, keyword, original_keyword, fulltext_analysis)
-                with open(note_path, 'w', encoding='utf-8') as nf:
-                    nf.write(note_markdown)
-                paper['has_fulltext_markdown'] = True
-                paper['fulltext_analysis'] = fulltext_analysis
-                paper['fulltext_failure_reason'] = ''
-                paper['fulltext_failure_details'] = []
-                generated += 1
-            else:
-                paper['has_fulltext_markdown'] = False
-                paper['paper_markdown_title'] = ''
-                paper['paper_markdown_slug'] = ''
-                paper['paper_markdown_path'] = ''
-                paper['paper_markdown_filename'] = ''
-                paper['fulltext_analysis'] = {}
-
-            changed = True
+        ordered_pending_indices = sorted(item['index'] for item in pending_results)
+        for idx, updated_paper in zip(ordered_pending_indices, analysis_result['papers']):
+            papers[idx] = updated_paper
 
         if changed:
             payload['papers'] = papers
@@ -1544,9 +2219,9 @@ def main(keyword, max_results=MAX_RESULTS, original_keyword=None, project_dir=No
     print("处理论文...")
     print("="*50)
 
-    valid_papers = []
     stats = {"duplicate": 0, "irrelevant": 0, "invalid": 0, "fulltext_available": 0, "fulltext_unavailable": 0}
-    progress = ProgressBar(min(len(papers), max_results), "处理进度")
+    selected_papers = papers[:max_results]
+    progress = ProgressBar(len(selected_papers), "处理进度")
 
     output_dir = Path(project_dir) if project_dir else Path.cwd()
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1554,67 +2229,62 @@ def main(keyword, max_results=MAX_RESULTS, original_keyword=None, project_dir=No
     notes_dir.mkdir(parents=True, exist_ok=True)
     reserved_titles = set()
 
-    for i, paper in enumerate(papers[:max_results]):
-        title_short = paper["title"][:40] + "..." if len(paper["title"]) > 40 else paper["title"]
-        print(f"\n[{i+1}/{min(len(papers), max_results)}] {title_short}")
+    print(f"并发处理论文中... (并发={PAPER_PROCESS_WORKERS})")
+    processed_results = []
+    with ThreadPoolExecutor(max_workers=PAPER_PROCESS_WORKERS) as executor:
+        future_map = {
+            executor.submit(process_paper_task, i, paper, keyword, original_keyword): (i, paper)
+            for i, paper in enumerate(selected_papers)
+        }
 
-        if is_duplicate(paper, valid_papers):
-            print("  [跳过] 重复")
-            stats["duplicate"] += 1
+        for future in as_completed(future_map):
+            i, paper = future_map[future]
+            title_short = paper["title"][:40] + "..." if len(paper["title"]) > 40 else paper["title"]
+
+            try:
+                result = future.result()
+            except Exception as e:
+                print(f"\n[{i+1}/{len(selected_papers)}] {title_short}")
+                print(f"  [失败] 处理异常: {e}")
+                stats["invalid"] += 1
+                progress.update()
+                continue
+
+            print(f"\n[{i+1}/{len(selected_papers)}] {title_short}")
+            if result['status'] == 'invalid':
+                print("  [跳过] 信息不完整")
+                stats["invalid"] += 1
+                progress.update()
+                continue
+
+            if result['status'] == 'irrelevant':
+                print(f"  [跳过] 不相关: {result.get('message', '')}")
+                stats["irrelevant"] += 1
+                progress.update()
+                continue
+
+            paper_result = result['paper']
+            print("  处理完成")
+            if paper_result.get('fulltext_status') == 'available':
+                print("  全文获取: 成功")
+            else:
+                reason = paper_result.get('fulltext_failure_reason') or '未获取到可解析全文'
+                print(f"  全文获取: 失败 ({reason})")
+
+            processed_results.append(result)
             progress.update()
-            continue
-
-        year = paper.get("year")
-        has_valid_year = year and YEAR_START <= year <= YEAR_END
-        if not paper.get("title") or len(paper["title"]) < 10 or not has_valid_year:
-            print("  [跳过] 信息不完整")
-            stats["invalid"] += 1
-            progress.update()
-            continue
-
-        print("  并发处理相关性与全文获取...", end=" ")
-        processed = process_paper_content(paper, keyword, original_keyword)
-        paper["relevance_score"] = processed.get("relevance_score", 0)
-
-        if processed.get('status') == 'irrelevant':
-            print(f"不相关: {processed.get('relevance_reason_raw', '')}")
-            stats["irrelevant"] += 1
-            progress.update()
-            continue
-
-        paper = processed['paper']
-        print("完成")
-
-        if paper.get('fulltext_status') == 'available':
-            print("  全文获取: 成功")
-            stats['fulltext_available'] += 1
-            paper_note_path = assign_note_identity(paper, notes_dir, reserved_titles=reserved_titles, fallback_index=i + 1)
-            print("  生成单篇全文解读...", end=" ")
-            fulltext_analysis = generate_fulltext_analysis(paper, keyword, original_keyword, processed['fulltext_result']['fulltext_text'])
-            note_markdown = build_paper_note_markdown(paper, keyword, original_keyword, fulltext_analysis)
-            with open(paper_note_path, 'w', encoding='utf-8') as f:
-                f.write(note_markdown)
-            print("完成")
-
-            paper['has_fulltext_markdown'] = True
-            paper['fulltext_analysis'] = fulltext_analysis
-            paper['fulltext_failure_reason'] = ''
-            paper['fulltext_failure_details'] = []
-        else:
-            reason = paper.get('fulltext_failure_reason') or '未获取到可解析全文'
-            print(f"  全文获取: 失败 ({reason})")
-            stats['fulltext_unavailable'] += 1
-            paper['has_fulltext_markdown'] = False
-            paper['paper_markdown_title'] = ''
-            paper['paper_markdown_slug'] = ''
-            paper['paper_markdown_path'] = ''
-            paper['paper_markdown_filename'] = ''
-            paper['fulltext_analysis'] = {}
-
-        valid_papers.append(paper)
-        progress.update()
 
     progress.close()
+
+    analysis_result = apply_fulltext_analysis(
+        processed_results,
+        notes_dir,
+        reserved_titles,
+        keyword,
+        original_keyword,
+        stats
+    )
+    valid_papers = analysis_result['papers']
 
     print("\n" + "="*50)
     print("生成结果...")

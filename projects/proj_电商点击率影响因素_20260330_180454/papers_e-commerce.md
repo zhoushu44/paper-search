@@ -2,7 +2,7 @@
 
 **关键词**: e-commerce
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 09:40
+**日期**: 2026-03-31 17:59
 **总数**: 14 篇 (顶会: 2)
 
 ---
@@ -12,15 +12,15 @@
 | 排名 | 评分 | 论文 | 作者 | 年份 | 会议 | 顶会 | 相关性 | 全文解读 | 核心观点 |
 |------|------|------|------|------|------|------|--------|----------|----------|
 | 1 | S(95) | [[E-Commerce Promotional Products Sel]] | Nabilla Farah R | 2024 | Internationa | [Science] | ★★★☆☆ | 缺全文 | 论文研究电商促销商品的选择方法，借助SWARA与TOPSIS建立决策模型，可为分析哪些商品更易获得用 |
-| 2 | A(78) | [[E-Commerce: Advantages and Limitati]] | Ghada Taher | 2021 | Internationa | [Science] | ★★☆☆☆ | 缺全文 | 文章概述电商的优势、限制及其在疫情与全球化背景下的经济作用，可为研究点击率提供行业背景，但对具体影响 |
+| 2 | A(78) | [[E-Commerce Advantages and Limitations]] | Ghada Taher | 2021 | Internationa | [Science] | ★★☆☆☆ | 已生成 | 文章概述电商的优势、限制及其在疫情与全球化背景下的经济作用，可为研究点击率提供行业背景，但对具体影响 |
 | 3 | C(53) | [[Consumer Marketing Strategy and E-C]] | Albérico Travas | 2021 | Journal of t | -- | ★★★☆☆ | 缺全文 | 论文综述近十年电商消费者营销策略，可为分析商品信息呈现、消费者需求识别和营销触达方式对点击率的影响提 |
-| 4 | C(53) | [[Connecting the Countryside via E-Co]] | Victor Couture, | 2021 | American Eco | -- | ★★☆☆☆ | 缺全文 | 论文分析电商基础设施与物流改善对农村消费的影响，可为研究不同地区用户点击意愿、流量转化差异提供背景变 |
+| 4 | C(53) | [[Connecting the Countryside via E-Commerce Evidence from China]] | Victor Couture, | 2021 | American Eco | -- | ★★☆☆☆ | 已生成 | 论文分析电商基础设施与物流改善对农村消费的影响，可为研究不同地区用户点击意愿、流量转化差异提供背景变 |
 | 5 | C(53) | [[Poverty alleviation through e-comme]] | Chao Peng, Biao | 2021 | Journal of I | -- | 2星 | 缺全文 | 研究农村电商示范政策对减贫的作用，可为分析平台流量、信任与政策环境如何间接影响点击率提供背景参考。 |
-| 6 | D(49) | [[Artificial intelligence in E-Commer]] | Ransome Epie Ba | 2022 | Electronic M | -- | ★★☆☆☆ | 缺全文 | 该文可能梳理电商领域人工智能研究脉络，可帮助识别与推荐、广告、个性化相关方向，为点击率影响因素研究提 |
+| 6 | D(49) | [[Artificial intelligence in E-Commerce a bibliometric study and literature review]] | Ransome Epie Ba | 2022 | Electronic M | -- | ★★☆☆☆ | 已生成 | 该文可能梳理电商领域人工智能研究脉络，可帮助识别与推荐、广告、个性化相关方向，为点击率影响因素研究提 |
 | 7 | D(49) | [[Applications of artificial intellig]] | Harikumar Palla | 2021 | Materials To | -- | 3星 | 缺全文 | 论文可能综述AI在商业管理、电商与金融中的应用，可为电商点击率研究提供推荐、用户行为分析与预测建模的 |
-| 8 | D(49) | [[The adoption and impact of E-commer]] | Min Liu, Shi Mi | 2021 | Journal of R | -- | ★★☆☆☆ | 缺全文 | 论文更关注农村地区电商采用行为及其经济影响，可为点击率研究提供用户采纳、平台使用环境与外部条件等背景 |
-| 9 | D(49) | [[Resources and digital export: An RB]] | Stefano Elia, M | 2021 | Journal of B | -- | ★★☆☆☆ | 缺全文 | 文章从资源基础观讨论数字技术与能力如何提升跨境电商出口表现，可为分析平台流量获取与用户点击前置条件提 |
-| 10 | D(49) | [[E-Commerce and Consumer Protection ]] | Neelam Chawla,  | 2021 | Journal of B | -- | 2星 | 缺全文 | 文章可能讨论印度电商中的消费者保护、平台责任与监管趋势，可为研究信任、安全感等间接影响点击率的因素提 |
+| 8 | D(49) | [[The adoption and impact of E-commerce in rural China Application of an endogenous switching regression model]] | Min Liu, Shi Mi | 2021 | Journal of R | -- | ★★☆☆☆ | 已生成 | 论文更关注农村地区电商采用行为及其经济影响，可为点击率研究提供用户采纳、平台使用环境与外部条件等背景 |
+| 9 | D(49) | [[Resources and digital export An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce]] | Stefano Elia, M | 2021 | Journal of B | -- | ★★☆☆☆ | 已生成 | 文章从资源基础观讨论数字技术与能力如何提升跨境电商出口表现，可为分析平台流量获取与用户点击前置条件提 |
+| 10 | D(49) | [[E-Commerce and Consumer Protection in India The Emerging Trend]] | Neelam Chawla,  | 2021 | Journal of B | -- | 2星 | 已生成 | 文章可能讨论印度电商中的消费者保护、平台责任与监管趋势，可为研究信任、安全感等间接影响点击率的因素提 |
 | 11 | D(48) | [[Methods and Applications of Quick Commerce (Q-Commerce)]] | S. Kavitha, K.  | 2025 | Methods and  | -- | ★★☆☆☆ | 已生成 | 文章讨论Q-commerce在疫情后印度零售中的兴起、需求驱动与可持续性，可为研究配送时效、品类特征 |
 | 12 | D(44) | [[Q-COMMERCE AND E-COMMERCE IN GHANA DIGITAL DEVELOPMENT TRENDS AND PROSPECTS]] | , Ekaterina Evg | 2025 | Q-COMMERCE A | -- | 2星 | 已生成 | 文章可能讨论加纳电商与Q-commerce的发展趋势、数字基础设施和市场前景，可为分析点击率中的地区 |
 | 13 | D(44) | [[Call for Metaverse e-commerce future challenges and opportunities for electronic commerce]] | Gengxin Sun, Da | 2025 | Electronic C | -- | ★★☆☆☆ | 已生成 | 文章可能讨论元宇宙电商的发展机会、用户交互与平台挑战，可为研究沉浸式场景下影响点击率的新因素提供背景 |
@@ -70,9 +70,9 @@ CrossRef       : **** (4)
 - **作者**: Nabilla Farah Raissa Maharani, Novandra Rhezza Pratama, M. Dachyar
 - **引用**: 1547
 - **链接**: [https://openalex.org/W4398182172](https://openalex.org/W4398182172)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4398182172
+- **单篇全文解读**: 未生成（too_short_html）
+- **全文失败原因**: too_short_html
+- **最后尝试来源**: https://www.ijisrt.com/ecommerce-promotional-products-selection-using-swara-and-topsis
 
 **评分详情**: 引用1547(顶级); 顶会:Science; 2年内; 完整度15/15; 高度相关
 
@@ -86,7 +86,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 2. [[E-Commerce: Advantages and Limitations]]
+### 2. [[E-Commerce Advantages and Limitations]]
 
 **评分**: A级 (78分) - 推荐阅读
 
@@ -97,9 +97,9 @@ CrossRef       : **** (4)
 - **作者**: Ghada Taher
 - **引用**: 143
 - **链接**: [https://openalex.org/W3158590217](https://openalex.org/W3158590217)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3158590217
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用143(中); 顶会:Science; 5年前; 完整度15/15; 高度相关
 
@@ -124,9 +124,9 @@ CrossRef       : **** (4)
 - **作者**: Albérico Travassos Rosário, Ricardo Raimundo
 - **引用**: 274
 - **链接**: [https://openalex.org/W3208801535](https://openalex.org/W3208801535)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3208801535
+- **单篇全文解读**: 未生成（too_short_html）
+- **全文失败原因**: too_short_html
+- **最后尝试来源**: https://doi.org/10.3390/jtaer16070164
 
 **评分详情**: 引用274(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -140,7 +140,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 4. [[Connecting the Countryside via E-Commerce: Evidence from China]]
+### 4. [[Connecting the Countryside via E-Commerce Evidence from China]]
 
 **评分**: C级 (53分) - 一般
 
@@ -151,9 +151,9 @@ CrossRef       : **** (4)
 - **作者**: Victor Couture, Benjamin Faber, Yizhen Gu, Lizhi Liu
 - **引用**: 248
 - **链接**: [https://openalex.org/W2970889537](https://openalex.org/W2970889537)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W2970889537
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用248(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -180,7 +180,7 @@ CrossRef       : **** (4)
 - **链接**: [https://openalex.org/W3146911727](https://openalex.org/W3146911727)
 - **单篇全文解读**: 未生成（landing_page_only）
 - **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3146911727
+- **最后尝试来源**: https://linkinghub.elsevier.com/retrieve/pii/S2095311920634220
 
 **评分详情**: 引用253(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -194,7 +194,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 6. [[Artificial intelligence in E-Commerce: a bibliometric study and literature review]]
+### 6. [[Artificial intelligence in E-Commerce a bibliometric study and literature review]]
 
 **评分**: D级 (49分) - 参考
 
@@ -205,9 +205,9 @@ CrossRef       : **** (4)
 - **作者**: Ransome Epie Bawack, Samuel Fosso Wamba, Kévin Carillo, Shahriar Akter
 - **引用**: 314
 - **链接**: [https://openalex.org/W4220923293](https://openalex.org/W4220923293)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4220923293
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用314(中); 非顶会; 4年前; 完整度11/15; 高度相关
 
@@ -234,7 +234,7 @@ CrossRef       : **** (4)
 - **链接**: [https://openalex.org/W3182797139](https://openalex.org/W3182797139)
 - **单篇全文解读**: 未生成（landing_page_only）
 - **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3182797139
+- **最后尝试来源**: https://linkinghub.elsevier.com/retrieve/pii/S2214785321048136
 
 **评分详情**: 引用239(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -248,7 +248,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 8. [[The adoption and impact of E-commerce in rural China: Application of an endogenous switching regression model]]
+### 8. [[The adoption and impact of E-commerce in rural China Application of an endogenous switching regression model]]
 
 **评分**: D级 (49分) - 参考
 
@@ -259,9 +259,9 @@ CrossRef       : **** (4)
 - **作者**: Min Liu, Shi Min, Wanglin Ma, Tianjun Liu
 - **引用**: 262
 - **链接**: [https://openalex.org/W3135109632](https://openalex.org/W3135109632)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3135109632
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用262(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -275,7 +275,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 9. [[Resources and digital export: An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce]]
+### 9. [[Resources and digital export An RBV perspective on the role of digital technologies and capabilities in cross-border e-commerce]]
 
 **评分**: D级 (49分) - 参考
 
@@ -286,9 +286,9 @@ CrossRef       : **** (4)
 - **作者**: Stefano Elia, Maria Grazia Giuffrida, Marcello M. Mariani, Stefano Bresciani
 - **引用**: 366
 - **链接**: [https://openalex.org/W3159274234](https://openalex.org/W3159274234)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3159274234
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用366(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -302,7 +302,7 @@ CrossRef       : **** (4)
 
 ---
 
-### 10. [[E-Commerce and Consumer Protection in India: The Emerging Trend]]
+### 10. [[E-Commerce and Consumer Protection in India The Emerging Trend]]
 
 **评分**: D级 (49分) - 参考
 
@@ -313,9 +313,9 @@ CrossRef       : **** (4)
 - **作者**: Neelam Chawla, Basanta Kumar
 - **引用**: 183
 - **链接**: [https://openalex.org/W3177694727](https://openalex.org/W3177694727)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3177694727
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用183(中); 非顶会; 5年前; 完整度11/15; 高度相关
 

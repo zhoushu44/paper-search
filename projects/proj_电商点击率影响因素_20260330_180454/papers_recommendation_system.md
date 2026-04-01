@@ -2,7 +2,7 @@
 
 **关键词**: recommendation system
 **用户主题**: 电商点击率影响因素
-**日期**: 2026-03-31 09:41
+**日期**: 2026-03-31 17:59
 **总数**: 17 篇 (顶会: 6)
 
 ---
@@ -11,23 +11,23 @@
 
 | 排名 | 评分 | 论文 | 作者 | 年份 | 会议 | 顶会 | 相关性 | 全文解读 | 核心观点 |
 |------|------|------|------|------|------|------|--------|----------|----------|
-| 1 | A(78) | [[A unified drug–target interaction p]] | Qing Ye, Chang‐ | 2021 | Nature Commu | [Nature] | ★★☆☆☆ | 缺全文 | 论文提出知识图谱结合推荐系统的预测框架，可为电商CTR研究提供稀疏数据、冷启动与特征表示建模思路，但 |
+| 1 | A(78) | [[A unified drug–target interaction prediction framework based on knowledge graph and recommendation system]] | Qing Ye, Chang‐ | 2021 | Nature Commu | [Nature] | ★★☆☆☆ | 已生成 | 论文提出知识图谱结合推荐系统的预测框架，可为电商CTR研究提供稀疏数据、冷启动与特征表示建模思路，但 |
 | 2 | B(67) | [[Mobile Tourism Recommendation Syste]] | Pooja Selvaraja | 2023 | Artificial I | [Science] | 2星 | 缺全文 | 论文研究基于用户偏好、画像与限制的旅游推荐与行程规划，可为电商CTR研究提供个性化推荐因素与用户特征 |
 | 3 | B(66) | [[Application Research of Intelligent]] | Jihong Yu, Lin  | 2024 | 2024 IEEE 2n | [ICSE] | 3星 | 缺全文 | 论文聚焦短视频个性化推荐系统中的智能算法优化，可为研究电商场景中推荐曝光、用户兴趣匹配与点击率提升提 |
 | 4 | B(63) | [[DESIGNING A RECOMMENDATION SYSTEM F]] | Dayana Anefiyay | 2022 | Suleyman Dem | [Science] | ★★☆☆☆ | 缺全文 | 论文围绕高校专业课程推荐系统设计展开，可为研究推荐排序、用户偏好建模提供思路，但对电商点击率影响因素 |
 | 5 | C(59) | [[Music Recommendation System]] | Nipun Prakash G | 2021 | Internationa | [Science] | ★★☆☆☆ | 已生成 | 该论文可能讨论推荐系统建模与排序方法，可为分析电商场景中推荐位置、内容匹配度对点击率的影响提供间接参 |
-| 6 | C(59) | [[Analysis of Recommendation System i]] | Pushkar Pramod  | 2022 | Internationa | [Science] | ★★★☆☆ | 缺全文 | 论文可能讨论云平台中的推荐系统架构与实现，可为分析商品曝光、个性化推荐对电商点击率的影响提供方法参考 |
+| 6 | C(59) | [[Analysis of Recommendation System in Cloud Platform]] | Pushkar Pramod  | 2022 | Internationa | [Science] | ★★★☆☆ | 已生成 | 论文可能讨论云平台中的推荐系统架构与实现，可为分析商品曝光、个性化推荐对电商点击率的影响提供方法参考 |
 | 7 | C(58) | [[A Survey of Recommendation Systems:]] | Hyeyoung Ko, Su | 2022 | Electronics | -- | ★★★☆☆ | 缺全文 | 文章系统梳理推荐模型、技术与应用领域，可帮助理解电商推荐机制如何通过排序、个性化与数据挖掘间接影响点 |
-| 8 | C(55) | [[A Digital Recommendation System for]] | DHANANJAYA G M, | 2024 | IEEE Access | -- | ★★☆☆☆ | 缺全文 | 论文综述个性化推荐在在线教育中的方法与挑战，可为电商点击率研究提供推荐算法、特征构建与用户行为分析的 |
+| 8 | C(55) | [[A Digital Recommendation System for Personalized Learning to Enhance Online Education A Review]] | DHANANJAYA G M, | 2024 | IEEE Access | -- | ★★☆☆☆ | 已生成 | 论文综述个性化推荐在在线教育中的方法与挑战，可为电商点击率研究提供推荐算法、特征构建与用户行为分析的 |
 | 9 | C(55) | [[DEEP-CARDIO: Recommendation System ]] | A. Yashudas, Di | 2024 | IEEE Sensors | -- | ★☆☆☆☆ | 缺全文 | 论文研究心血管疾病预测与医疗推荐，虽含recommendation system概念，但不涉及电商用 |
-| 10 | C(53) | [[A Review of Content-Based and Conte]] | Umair Javed, Ka | 2021 | Internationa | -- | ★★★☆☆ | 缺全文 | 论文综述内容推荐与上下文推荐方法，可为分析电商CTR中的用户兴趣、时间地点、历史行为等影响因素提供建 |
-| 11 | C(53) | [[Recommendation Systems for Educatio]] | María Cora Urda | 2021 | Electronics | -- | ★★☆☆☆ | 缺全文 | 论文系统梳理教育推荐系统的方法与发展，可为研究推荐策略如何影响商品曝光与点击提供间接参考。 |
-| 12 | C(53) | [[Improvising personalized travel rec]] | Paromita Nitu,  | 2021 | Big Data Min | -- | ★★★☆☆ | 缺全文 | 研究基于社交媒体与时间新近性进行个性化推荐，可为电商点击率研究提供“用户近期兴趣变化影响点击”的建模 |
-| 13 | C(53) | [[GHRS: Graph-based Hybrid Recommenda]] | Zahra Zamanzade | 2021 | arXiv (Corne | -- | 3星 | 缺全文 | 论文提出图结构混合推荐方法，结合内容与协同信息提升推荐准确性，可为研究商品推荐如何影响用户点击率提供 |
+| 10 | C(53) | [[A Review of Content-Based and Context-Based Recommendation Systems]] | Umair Javed, Ka | 2021 | Internationa | -- | ★★★☆☆ | 已生成 | 论文综述内容推荐与上下文推荐方法，可为分析电商CTR中的用户兴趣、时间地点、历史行为等影响因素提供建 |
+| 11 | C(53) | [[Recommendation Systems for Education Systematic Review]] | María Cora Urda | 2021 | Electronics | -- | ★★☆☆☆ | 已生成 | 论文系统梳理教育推荐系统的方法与发展，可为研究推荐策略如何影响商品曝光与点击提供间接参考。 |
+| 12 | C(53) | [[Improvising personalized travel recommendation system with recency effects]] | Paromita Nitu,  | 2021 | Big Data Min | -- | ★★★☆☆ | 已生成 | 研究基于社交媒体与时间新近性进行个性化推荐，可为电商点击率研究提供“用户近期兴趣变化影响点击”的建模 |
+| 13 | C(53) | [[GHRS Graph-based Hybrid Recommendation System with Application to Movie Recommendation]] | Zahra Zamanzade | 2021 | arXiv (Corne | -- | 3星 | 已生成 | 论文提出图结构混合推荐方法，结合内容与协同信息提升推荐准确性，可为研究商品推荐如何影响用户点击率提供 |
 | 14 | C(53) | [[A Role of Machine Learning Algorith]] | Tejaswini Bhoye | 2025 | Proceedings  | -- | ★★★☆☆ | 缺全文 | 论文聚焦Netflix个性化推荐，利用协同过滤、机器学习和SVD提升推荐准确性，可为研究电商CTR中 |
-| 15 | D(49) | [[Personalized recommendation system ]] | Bei Hui, Lizong | 2021 | Applied Inte | -- | 4星 | 缺全文 | 该文可能通过知识嵌入和用户历史行为优化推荐结果，可为分析商品相关性、用户兴趣匹配度等点击率影响因素提 |
+| 15 | D(49) | [[Personalized recommendation system based on knowledge embedding and historical behavior]] | Bei Hui, Lizong | 2021 | Applied Inte | -- | 4星 | 已生成 | 该文可能通过知识嵌入和用户历史行为优化推荐结果，可为分析商品相关性、用户兴趣匹配度等点击率影响因素提 |
 | 16 | D(44) | [[Smart Travel Recommendation System]] | Allu Uma Mahesw | 2025 | Internationa | -- | ★★☆☆☆ | 缺全文 | 论文可能讨论智能旅游推荐方法，可为研究商品曝光、个性化推荐与用户点击行为关系提供间接参考。 |
-| 17 | D(38) | [[Developing A Professor Recommendati]] | Vishweshwar Red | 2024 |  | -- | 2星 | 缺全文 | 该文或讨论教授推荐系统设计，可为电商CTR研究提供推荐建模、排序特征与用户偏好刻画的间接参考。 |
+| 17 | D(38) | [[Developing A Professor Recommendation System]] | Vishweshwar Red | 2024 |  | -- | 2星 | 已生成 | 该文或讨论教授推荐系统设计，可为电商CTR研究提供推荐建模、排序特征与用户偏好刻画的间接参考。 |
 
 ## 数据可视化
 
@@ -74,9 +74,9 @@ Semantic Schola: *** (3)
 - **作者**: Qing Ye, Chang‐Yu Hsieh, Ziyi Yang, Yu Kang, Jiming Chen
 - **引用**: 242
 - **链接**: [https://openalex.org/W3217681006](https://openalex.org/W3217681006)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3217681006
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用242(中); 顶会:Nature; 5年前; 完整度15/15; 高度相关
 
@@ -101,8 +101,8 @@ Semantic Schola: *** (3)
 - **作者**: Pooja Selvarajan, Poovizhi Selvan, Vidhushavarshini Sureshkumar, Sathiyabhama Balasubramaniam
 - **引用**: 0
 - **链接**: [https://doi.org/10.2174/9789815136746123010013](https://doi.org/10.2174/9789815136746123010013)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://doi.org/10.2174/9789815136746123010013
 
 **评分详情**: 引用0(新/少); 顶会:Science; 3年内; 完整度15/15; 高度相关
@@ -128,8 +128,8 @@ Semantic Schola: *** (3)
 - **作者**: Jihong Yu, Lin Wang
 - **引用**: 0
 - **链接**: [https://doi.org/10.1109/icsece61636.2024.10729508](https://doi.org/10.1109/icsece61636.2024.10729508)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
+- **单篇全文解读**: 未生成（access_barrier: anti_bot_challenge）
+- **全文失败原因**: access_barrier: anti_bot_challenge
 - **最后尝试来源**: https://ieeexplore.ieee.org/document/10729508/
 
 **评分详情**: 引用0(新/少); 顶会:ICSE; 2年内; 完整度11/15; 高度相关
@@ -209,9 +209,9 @@ Semantic Schola: *** (3)
 - **作者**: Pushkar Pramod Wani
 - **引用**: 0
 - **链接**: [https://doi.org/10.21275/sr22130223310](https://doi.org/10.21275/sr22130223310)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://www.ijsr.net/getabstract.php?paperid=SR22130223310
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用0(新/少); 顶会:Science; 4年前; 完整度11/15; 高度相关
 
@@ -236,9 +236,9 @@ Semantic Schola: *** (3)
 - **作者**: Hyeyoung Ko, Suyeon Lee, Yoonseo Park, Anna Choi
 - **引用**: 582
 - **链接**: [https://openalex.org/W4205390421](https://openalex.org/W4205390421)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4205390421
+- **单篇全文解读**: 未生成（network_error）
+- **全文失败原因**: network_error
+- **最后尝试来源**: https://doi.org/10.3390/electronics11010141
 
 **评分详情**: 引用582(高); 非顶会; 4年前; 完整度15/15; 高度相关
 
@@ -252,7 +252,7 @@ Semantic Schola: *** (3)
 
 ---
 
-### 8. [[A Digital Recommendation System for Personalized Learning to Enhance Online Education: A Review]]
+### 8. [[A Digital Recommendation System for Personalized Learning to Enhance Online Education A Review]]
 
 **评分**: C级 (55分) - 一般
 
@@ -263,9 +263,9 @@ Semantic Schola: *** (3)
 - **作者**: DHANANJAYA G M, R. H. Goudar, Anjanabhargavi A. Kulkarni, Vijayalaxmi N. Rathod, Geetabai S. Hukkeri
 - **引用**: 95
 - **链接**: [https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f](https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://www.semanticscholar.org/paper/88e85e760067f7003d5d0f97f5fc3cf90f6c642f
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用95(一般); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -290,9 +290,9 @@ Semantic Schola: *** (3)
 - **作者**: A. Yashudas, Dinesh Gupta, G. Prashant, Amita Dua, Dokhyl Alqahtani, A. Siva, Senior Member Ieee Krishna Reddy
 - **引用**: 64
 - **链接**: [https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03](https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://www.semanticscholar.org/paper/8b23e0b34a420e9fa4e2061dec6817a6d9061b03
+- **单篇全文解读**: 未生成（access_barrier: semanticscholar_waf）
+- **全文失败原因**: access_barrier: semanticscholar_waf
+- **最后尝试来源**: https://ieeexplore.ieee.org/document/10472883/
 
 **评分详情**: 引用64(一般); 非顶会; 2年内; 完整度15/15; 高度相关
 
@@ -317,9 +317,9 @@ Semantic Schola: *** (3)
 - **作者**: Umair Javed, Kamran Shaukat, Ibrahim A. Hameed, Farhat Iqbal, Talha Mahboob Alam
 - **引用**: 336
 - **链接**: [https://openalex.org/W3130481949](https://openalex.org/W3130481949)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3130481949
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用336(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -333,7 +333,7 @@ Semantic Schola: *** (3)
 
 ---
 
-### 11. [[Recommendation Systems for Education: Systematic Review]]
+### 11. [[Recommendation Systems for Education Systematic Review]]
 
 **评分**: C级 (53分) - 一般
 
@@ -344,9 +344,9 @@ Semantic Schola: *** (3)
 - **作者**: María Cora Urdaneta-Ponte, Amaia Méndez Zorrilla, Ibon Ruiz
 - **引用**: 163
 - **链接**: [https://openalex.org/W3179424508](https://openalex.org/W3179424508)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3179424508
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用163(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -371,9 +371,9 @@ Semantic Schola: *** (3)
 - **作者**: Paromita Nitu, Joseph Coelho, Praveen Madiraju
 - **引用**: 150
 - **链接**: [https://openalex.org/W3162663167](https://openalex.org/W3162663167)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3162663167
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用150(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -387,7 +387,7 @@ Semantic Schola: *** (3)
 
 ---
 
-### 13. [[GHRS: Graph-based Hybrid Recommendation System with Application to Movie Recommendation]]
+### 13. [[GHRS Graph-based Hybrid Recommendation System with Application to Movie Recommendation]]
 
 **评分**: C级 (53分) - 一般
 
@@ -398,9 +398,9 @@ Semantic Schola: *** (3)
 - **作者**: Zahra Zamanzadeh Darban, Mohammad Hadi Valipour
 - **引用**: 145
 - **链接**: [https://openalex.org/W4220818090](https://openalex.org/W4220818090)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W4220818090
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用145(中); 非顶会; 5年前; 完整度15/15; 高度相关
 
@@ -425,9 +425,9 @@ Semantic Schola: *** (3)
 - **作者**: Tejaswini Bhoye, A. Mane, Vandana Navale, Sangeeta Mohapatra, Pooja Mohbansi, Vishal Borate
 - **引用**: 17
 - **链接**: [https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7](https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://www.semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7
+- **单篇全文解读**: 未生成（access_barrier: semanticscholar_waf）
+- **全文失败原因**: access_barrier: semanticscholar_waf
+- **最后尝试来源**: https://semanticscholar.org/paper/339abfa7a7bd10d952120703e13d878c5c17a0e7
 
 **评分详情**: 引用17(较少); 非顶会; 1年内; 完整度15/15; 高度相关
 
@@ -452,9 +452,9 @@ Semantic Schola: *** (3)
 - **作者**: Bei Hui, Lizong Zhang, Xue Zhou, Wen Xiao, Yuhui Nian
 - **引用**: 148
 - **链接**: [https://openalex.org/W3163731277](https://openalex.org/W3163731277)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://openalex.org/W3163731277
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用148(中); 非顶会; 5年前; 完整度11/15; 高度相关
 
@@ -479,8 +479,8 @@ Semantic Schola: *** (3)
 - **作者**: Allu Uma Maheswara Rao
 - **引用**: 0
 - **链接**: [https://doi.org/10.55248/gengpi.6.0825.32103](https://doi.org/10.55248/gengpi.6.0825.32103)
-- **单篇全文解读**: 未生成（network_error）
-- **全文失败原因**: network_error
+- **单篇全文解读**: 未生成（access_barrier: cloudflare_challenge）
+- **全文失败原因**: access_barrier: cloudflare_challenge
 - **最后尝试来源**: https://doi.org/10.55248/gengpi.6.0825.32103
 
 **评分详情**: 引用0(新/少); 非顶会; 1年内; 完整度11/15; 高度相关
@@ -506,9 +506,9 @@ Semantic Schola: *** (3)
 - **作者**: Vishweshwar Reddy Veerannagari
 - **引用**: 0
 - **链接**: [https://doi.org/10.31274/cc-20250502-81](https://doi.org/10.31274/cc-20250502-81)
-- **单篇全文解读**: 未生成（landing_page_only）
-- **全文失败原因**: landing_page_only
-- **最后尝试来源**: https://dr.lib.iastate.edu/handle/20.500.12876/105891
+- **单篇全文解读**: 已生成单篇全文解读
+- **全文失败原因**: 无
+- **最后尝试来源**: 无
 
 **评分详情**: 引用0(新/少); 非顶会; 2年内; 完整度8/15; 高度相关
 
